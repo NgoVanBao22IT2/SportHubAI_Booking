@@ -1,0 +1,4018 @@
+[
+  {
+    "id": "sport_cau_long_free_cn1",
+    "venue": "Sân Hoa Thiên Lý",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Sân không có thật",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 3.683203,
+      "longitude": 108.227681
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cau_long_free_cn1/main/avatar-1765111163829-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cau_long_free_cn1/main/cover-1764039281231-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cau_long_free_cn1",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_ballburn_pickleball_club_bistro",
+    "venue": "BallBurn Pickle Club & Bistro",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "614 Lạc Long Quân, Quận Tây Hồ, Hà Nội ( Bên cạnh cổng Công viên nước Hồ Tây )",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.076795316581915,
+      "longitude": 105.81499573266446
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ballburn_pickleball_club_bistro/main/avatar-1753293689866-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ballburn_pickleball_club_bistro/main/cover-1785152596435-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ballburn_pickleball_club_bistro",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_nambe_badminton",
+    "venue": "Sân Cầu lông Nambe",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "57 Hoa Lư, Phường Quy Nhơn, Tỉnh Gia Lai",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 13.785972519612494,
+      "longitude": 109.21780649339019
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nambe_badminton/main/avatar-1753294735404-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nambe_badminton/main/cover-1753294735404-thumb.jpg"
+    ],
+    "opening_hours": "4:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nambe_badminton",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickle_pit_ton_duc_thang",
+    "venue": "Pickle Pit Tôn Đức Thắng",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "160 P.Tôn Đức Thắng, Hàng Bột, Đống Đa, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.025411252938838,
+      "longitude": 105.83207875327608
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickle_pit_ton_duc_thang/main/avatar-1753294968484-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickle_pit_ton_duc_thang/main/cover-1761557178022-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickle_pit_ton_duc_thang",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_dao_sen",
+    "venue": "Pickleball Đảo Sen",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "125D P. Nguyễn Sơn, Gia Thụy, Long Biên, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.047213237494965,
+      "longitude": 105.88759142339447
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_dao_sen/main/avatar-1753288120741-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_dao_sen/main/cover-1753288120744-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_dao_sen",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_cn_151_tran_nao",
+    "venue": "CN 2 _CLB Pickleball & Tennis Hoàng Thành Trung- 141 Trần Não",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball, Tennis)"
+    },
+    "sport_type": [
+      "Pickleball",
+      "Tennis"
+    ],
+    "address": "141/1 Đ. Trần Não, P. An Khánh, Quận 2, Thành phố Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.79135355438167,
+      "longitude": 106.73124977617866
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cn_151_tran_nao/main/avatar-1753294094190-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cn_151_tran_nao/main/cover-1785254620648-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cn_151_tran_nao",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_tennis_hoang_thanh_trung",
+    "venue": "CN 1_CLB Tennis Hoàng Thành Trung- 141 Trần Não",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Tennis)"
+    },
+    "sport_type": [
+      "Tennis"
+    ],
+    "address": "Hẻm 141 Đ. Trần Não, P. Bình An, Quận 2, Thành phố Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.783959300011759,
+      "longitude": 106.72935512879515
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_tennis_hoang_thanh_trung/main/avatar-1753374152153-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_tennis_hoang_thanh_trung/main/cover-1753374152155-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_tennis_hoang_thanh_trung",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_alobo_go_global_free_demo",
+    "venue": "ALOBO FREE DEMO 1",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 12.996829882861102,
+      "longitude": 113.66471078609831
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_alobo_go_global_free_demo/main/avatar-1753262842233-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_alobo_go_global_free_demo/main/cover-1753262842236-thumb.jpg"
+    ],
+    "opening_hours": "7:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_alobo_go_global_free_demo",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_t_sport_pickleball_club",
+    "venue": "T SPORT PICKLEBALL CLUB",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Đường D6, Khu Dân Cư Phú Thuận, Kp6, Phú Lợi, Thủ Dầu Một, Bình Dương",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.999176030836166,
+      "longitude": 106.67153298377453
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_t_sport_pickleball_club/main/avatar-1785855460589-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_t_sport_pickleball_club/main/cover-1753289183679-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_t_sport_pickleball_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_maxping_pickleball",
+    "venue": "Maxping Pickleball 120 Định Công Phương liệt  ( Ngõ Toà T&T )",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "120 Định Công - Phương Liệt - Thanh Xuân - Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.98647302754012,
+      "longitude": 105.83727690806545
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_maxping_pickleball/main/avatar-1753263553956-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_maxping_pickleball/main/cover-1758954804958-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_maxping_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_city_mountain",
+    "venue": "City Mountain",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "300 Nguyễn Văn Cừ, Phường Diên Hồng, (TP.Pleiku cũ), Tỉnh Gia Lai",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 13.966935045583215,
+      "longitude": 107.98140632095328
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_city_mountain/main/avatar-1786180878874-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_city_mountain/main/cover-1753374380516-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 21:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_city_mountain",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_cta_badminton_co_so_van_hoi",
+    "venue": "CTA Văn Hội - Cụm 6 sân",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Ngõ 35/1 Văn Hội, Bắc Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.079986692769026,
+      "longitude": 105.77255006808655
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cta_badminton_co_so_van_hoi/main/avatar-1753286564966-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cta_badminton_co_so_van_hoi/main/cover-1753286564967-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cta_badminton_co_so_van_hoi",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_happyland_pickleball",
+    "venue": "Happyland Pickleball Long Biên ( FULL ĐIỀU HÒA)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "139 Đàm Quang Trung, Phúc Đồng, Long Biên, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.032959521284134,
+      "longitude": 105.90086466604197
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_happyland_pickleball/main/avatar-1753286970095-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_happyland_pickleball/main/cover-1753286970095-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_happyland_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_thanh_dat_pickleball",
+    "venue": "Thành Đạt Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "75-79 Trương Công Giai, Dịch Vọng, Cầu Giấy, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.030265864034835,
+      "longitude": 105.78952895169658
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_thanh_dat_pickleball/main/avatar-1753289344978-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_thanh_dat_pickleball/main/cover-1753289344978-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_thanh_dat_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_175_dinh_cong_club",
+    "venue": "Câu lạc bộ pickleball 175 Định Công",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 12, Ngõ 175 Định Công, Hoàng Mai, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.982519244516848,
+      "longitude": 105.83659013066786
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_175_dinh_cong_club/main/avatar-1753285626739-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_175_dinh_cong_club/main/cover-1753285626740-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_175_dinh_cong_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_ae_badminton",
+    "venue": "SHĐ Badminton Yên Bệ",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Ngõ 66 Đ. Yên Bệ, Kim Chung, Hoài Đức, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.046644728647713,
+      "longitude": 105.70717053108194
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ae_badminton/main/avatar-1783520670137-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ae_badminton/main/cover-1753293588896-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ae_badminton",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_an_chau_chuong",
+    "venue": "ACC Cầu Lông",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "39 Hùng Vương, Phường 2, Sadec, ĐT",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.310997492724349,
+      "longitude": 105.74964922209607
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_an_chau_chuong/main/avatar-1753285827375-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_an_chau_chuong/main/cover-1753285827379-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_an_chau_chuong",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_ap_sports_club",
+    "venue": "AP SPORTS CLUB",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "SỐ 1A ĐƯỜNG 66, PHƯỜNG AN KHÁNH, TP. THỦ ĐỨC, TP.HCM",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.815098254918285,
+      "longitude": 106.72584878834331
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ap_sports_club/main/avatar-1753286017727-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ap_sports_club/main/cover-1753286017728-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ap_sports_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_atp_clubhouse",
+    "venue": "ATP Riverside",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Khu Thể Thao TT4, Đường Bình Kỳ, Ngũ Hành Sơn",
+    "phone": "0702700379",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 16.005055925916956,
+      "longitude": 108.23369612883589
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_atp_clubhouse/main/avatar-1785309762596-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_atp_clubhouse/main/cover-1785334060929-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_atp_clubhouse",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_bien_dong_pickleball",
+    "venue": "Biển Đông Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "472/2 Võ Nguyên Giáp, Đà Nẵng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.039226517848665,
+      "longitude": 108.24928556687249
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_bien_dong_pickleball/main/avatar-1753286132402-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_bien_dong_pickleball/main/cover-1753286132402-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_bien_dong_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_beauty_chill_pickleball",
+    "venue": "Beauty & Chill Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Đối diện Chung cư Đông Dương, Đ. Lạc Long Quân, P. Vũ Ninh, TP. Bắc Ninh",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 21.19466529222657,
+      "longitude": 106.0697693
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_beauty_chill_pickleball/main/avatar-1753286127756-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_beauty_chill_pickleball/main/cover-1753286127757-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_beauty_chill_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_boss_badminton",
+    "venue": "T SMASH",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Số 4, Đường Số 8, P. Trường Thọ, TP. Thủ Đức",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.846204783995306,
+      "longitude": 106.76074942719202
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_boss_badminton/main/avatar-1785515350047-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_boss_badminton/main/cover-1753286196713-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_boss_badminton",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_cappy_pickleball",
+    "venue": "Cappy Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "126, Trần Phú, Thị Trấn Củng Sơn, Huyện Sơn Hoà, Tỉnh Phú Yên",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 13.044893894598648,
+      "longitude": 108.97331141059647
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cappy_pickleball/main/avatar-1753286233255-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cappy_pickleball/main/cover-1753286233255-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cappy_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_cau_long_195",
+    "venue": "Sân cầu lông 19/5",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Sân cầu lông 19/5 thôn Văn, Thanh Liệt, Thanh Trì, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.959649701801546,
+      "longitude": 105.81620171724266
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cau_long_195/main/avatar-1753262870867-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cau_long_195/main/cover-1753262870870-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cau_long_195",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_chuong_duong_pickleball",
+    "venue": "Chương Dương Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Đê Lâm Du , Phường Bồ Đề - Quận Long Biên , Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.03281897724078,
+      "longitude": 105.87481149086298
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_chuong_duong_pickleball/main/avatar-1753293882275-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_chuong_duong_pickleball/main/cover-1753293882276-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_chuong_duong_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_cong_ty_cp_pickleball_viet_nam_clb_saigon_q1",
+    "venue": "C.Ty CP Pickleball VN CLB Saigon Q1(Cụm 2 Sân Trong Cung Văn Hoá Lao Động TP.HCM)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "55B Nguyễn Thị Minh Khai, P. Bến Thành,TP. Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.776470854925122,
+      "longitude": 106.69305336154693
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cong_ty_cp_pickleball_viet_nam_clb_saigon_q1/main/avatar-1753294126113-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cong_ty_cp_pickleball_viet_nam_clb_saigon_q1/main/cover-1753294126114-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cong_ty_cp_pickleball_viet_nam_clb_saigon_q1",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_ecopark_pickleball",
+    "venue": "EcoUp Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Khu Thủy Nguyên, Khu đô thị Ecopark, Văn Giang, Hưng Yên",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 20.949794809798245,
+      "longitude": 105.9403256
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ecopark_pickleball/main/avatar-1753374967738-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ecopark_pickleball/main/cover-1753374967742-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ecopark_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_forheads_sports_club",
+    "venue": "Forheads Sports Club",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "11 Nguyễn Chí Thanh Km4, QL14, Tân An, Thành phố Buôn Ma Thuột, Đắk Lắk",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 12.695934952307056,
+      "longitude": 108.06829566630823
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_forheads_sports_club/main/avatar-1753286810189-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_forheads_sports_club/main/cover-1753286810190-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_forheads_sports_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_forheads_pickleball_club",
+    "venue": "Forheads Pickleball Club",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "564 Đ. Nguyễn Văn Cừ, Ngọc Lâm, Long Biên, Hà Nội (Tầng 4 toà nhà bưu điện, phía sau toà VCB. Khách gửi xe ở toà nhà- miễn phí)",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.050426054201008,
+      "longitude": 105.88474641617285
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_forheads_pickleball_club/main/avatar-1753286807875-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_forheads_pickleball_club/main/cover-1753286807876-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_forheads_pickleball_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_gia_dinh_badminton_center",
+    "venue": "GIA ĐỊNH BADMINTON CENTER",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "69A Đường số 23, Phường Hiệp Bình Chánh, Thủ Đức",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.82819614138973,
+      "longitude": 106.72718112945495
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_gia_dinh_badminton_center/main/avatar-1753286840244-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_gia_dinh_badminton_center/main/cover-1772321300927-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_gia_dinh_badminton_center",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_hoa_my_pickleball",
+    "venue": "HOÀ MỸ Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "67 Tô Hiệu, Hoà Minh, Liên Chiểu, Đà Nẵng 550000",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.059144036816058,
+      "longitude": 108.16814898815211
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_hoa_my_pickleball/main/avatar-1753287042795-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_hoa_my_pickleball/main/cover-1753287042796-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_hoa_my_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_hoang_thanh_trung_pickleball",
+    "venue": "CN 3_CLB Tennis Hoàng Thành Trung_Lương Định Của",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Tennis)"
+    },
+    "sport_type": [
+      "Tennis"
+    ],
+    "address": "Số 31 đường số 1, Lương Định Của, Bình Khánh, quận 2, TPHCM",
+    "phone": "0918435436",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.847554582152034,
+      "longitude": 106.7935798275865
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_hoang_thanh_trung_pickleball/main/avatar-1784697460900-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_hoang_thanh_trung_pickleball/main/cover-1785754289754-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_hoang_thanh_trung_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_hs_pickleball",
+    "venue": "HS PICKLEBALL VINH CITY",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "77 Phan Bội Châu, TP Vinh, Nghệ An",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 18.68748662732696,
+      "longitude": 105.67343517709644
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_hs_pickleball/main/avatar-1753294449040-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_hs_pickleball/main/cover-1753294449040-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_hs_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_kavi_pickleball",
+    "venue": "KaVi Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Hoàng Quốc Việt, Khánh Vinh, Khánh Vĩnh, Khánh Hòa",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 12.28508084399611,
+      "longitude": 108.90956213244337
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_kavi_pickleball/main/avatar-1753287219629-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_kavi_pickleball/main/cover-1753287219629-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_kavi_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_la_duong_sports_cn1",
+    "venue": "Sân Cầu Lông ATUS",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "55 Đường 72 - La Dương - Dương Nội - Hà Đông - HN",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.994315467794387,
+      "longitude": 105.73930318741267
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_la_duong_sports_cn1/main/avatar-1753287293482-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_la_duong_sports_cn1/main/cover-1753287293483-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_la_duong_sports_cn1",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_lita_badminton",
+    "venue": "Sân cầu lông LITA",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "442 Lê Hồng Phong, Phước Hải, Nha Trang, Khánh Hoà",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 12.231665614353865,
+      "longitude": 109.18189938836673
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_lita_badminton/main/avatar-1753294639841-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_lita_badminton/main/cover-1753294639842-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_lita_badminton",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_long_binh_badminton_club",
+    "venue": "Long Bình Badminton Club",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "52 Ngô Từ - Lam Sơn - TP Thanh Hóa - Thanh Hóa",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 19.800611446978287,
+      "longitude": 105.78433355253749
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_long_binh_badminton_club/main/avatar-1753287382993-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_long_binh_badminton_club/main/cover-1753287383008-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_long_binh_badminton_club",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_lucky_family_pickleball",
+    "venue": "Lucky Family",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Khu 4, Đồng Xuân, Thanh Ba, Phú Thọ",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 21.502582731745758,
+      "longitude": 105.12922123375012
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_lucky_family_pickleball/main/avatar-1753287390665-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_lucky_family_pickleball/main/cover-1753287390666-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_lucky_family_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_mtd_pickleball",
+    "venue": "MTĐ Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "136 Nguyễn Trung Trực, P. Dương Đông, Phú Quốc, Kiên Giang",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.222857811164111,
+      "longitude": 103.96313312474301
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_mtd_pickleball/main/avatar-1753287533847-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_mtd_pickleball/main/cover-1753287533848-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_mtd_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_nfs_389_truong_dinh",
+    "venue": "Sân Pickleball NFS Arena 389 Trương Định HN",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "88/389 Trương Định - Tân Mai - Hoàng Mai - Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.985472922813628,
+      "longitude": 105.848033525063
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nfs_389_truong_dinh/main/avatar-1753299689541-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nfs_389_truong_dinh/main/cover-1753299689541-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nfs_389_truong_dinh",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_nha_thi_dau_truong_son",
+    "venue": "Pickleball  Trường Sơn Nghi Kim ( Sân trong nhà )",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "180 Đặng Thái Mai , xóm  12, xã Nghi Kim, đầu đường Cao Huy Tuân ( gần cầu vượt Quán Bánh; vuông góc với đường Đặng Thai Mai)",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 18.713779643433476,
+      "longitude": 105.66240387158432
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nha_thi_dau_truong_son/main/avatar-1753287632911-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nha_thi_dau_truong_son/main/cover-1753287632925-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nha_thi_dau_truong_son",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_cau_do",
+    "venue": "Pickleball Cầu Đơ",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "46 Lê Hồng Phong, Phường Hà Đông, Hà Nội",
+    "phone": "0866020626",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.967805708030088,
+      "longitude": 105.77630275254607
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_cau_do/main/avatar-1753288061963-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_cau_do/main/cover-1753288061964-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_cau_do",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_cong_vien_bac_linh_dam",
+    "venue": "Pickleball Hồ Linh Đàm ( Sân Mái Che)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 2B Nguyễn Hữu Thọ, Linh Đàm, Hoàng Liệt, Hoàng Mai, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.968160484878126,
+      "longitude": 105.82810222839295
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_cong_vien_bac_linh_dam/main/avatar-1753295127580-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_cong_vien_bac_linh_dam/main/cover-1753295127581-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_cong_vien_bac_linh_dam",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_hoang_minh",
+    "venue": "Pickleball Hoàng Minh",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "32-38 Lê Anh Xuân, Quận 1, TP Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.772106048959726,
+      "longitude": 106.69518447116324
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_hoang_minh/main/avatar-1753288232889-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_hoang_minh/main/cover-1753288232890-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_hoang_minh",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_lam_hong",
+    "venue": "Pickleball Lam Hồng",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "2312a Trần Văn Trà, Phú Đông, Nhơn Trạch, Đồng Nai, Việt Nam",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.713562716364788,
+      "longitude": 106.82454790104076
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_lam_hong/main/avatar-1753295245411-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_lam_hong/main/cover-1753295245412-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_lam_hong",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_ngoc_son",
+    "venue": "Pickleball Ngọc Sơn",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "29 Nguyễn Du, Di Linh, Lâm Đồng",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 11.589449596055795,
+      "longitude": 108.07488279377203
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_ngoc_son/main/avatar-1753295319750-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_ngoc_son/main/cover-1753295319751-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_ngoc_son",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_thao_dien",
+    "venue": "Pickleball Thảo Điền",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "196 Nguyễn Văn Hưởng, Phường Thảo Điền, Quận 2, TP.Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.816992696385542,
+      "longitude": 106.73241635239478
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_thao_dien/main/avatar-1753288527142-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_thao_dien/main/cover-1753288527143-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_thao_dien",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_thanh_long_hai_phong",
+    "venue": "Pickleball Thành Long Hải Phòng",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "215 Đường Cống Nải, An Đông, An Dương, Hải Phòng",
+    "phone": null,
+    "location": {
+      "city": "Hải Phòng",
+      "latitude": 20.85435127020745,
+      "longitude": 106.65885886841161
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_thanh_long_hai_phong/main/avatar-1753288522894-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_thanh_long_hai_phong/main/cover-1753288522909-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_thanh_long_hai_phong",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_tu_dinh",
+    "venue": "Pickleball Tư Đình (Full Mái Che, Điều Hòa)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 1 Cổ Linh, Tư Đình, Long Biên, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.02983146134052,
+      "longitude": 105.88478941183615
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_tu_dinh/main/avatar-1753288578287-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_tu_dinh/main/cover-1753288578288-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_tu_dinh",
+    "crawled_at": "2026-08-09T15:17:56.467Z"
+  },
+  {
+    "id": "sport_pickleball_tuyet_hung",
+    "venue": "PickleBall Tuyết Hưng",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Canh Nậu, Thạch Thất, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.045427057298962,
+      "longitude": 105.60901795351968
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_tuyet_hung/main/avatar-1753288585222-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_tuyet_hung/main/cover-1753288585223-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_tuyet_hung",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_v_goodminton",
+    "venue": "Sân Cầu Lông V Goodminton - Phan Thiết",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Kế bên Homestay Hoa Gió House, đối diện Cafe An, 52 Đặng Thai Mai, Phú Thuỷ, Thành phố Phan Thiết, Bình Thuận 800000",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.942608584565304,
+      "longitude": 108.11054659108547
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_v_goodminton/main/avatar-1753288955476-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_v_goodminton/main/cover-1753288955478-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_v_goodminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_sport_an_don_55",
+    "venue": "SPORT AN ĐỒN 5.5",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Lô số 5, Đường số 5, KCN An Đồn, Quận Sơn Trà, Đà Nẵng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.0748482049795,
+      "longitude": 108.23513606629261
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_sport_an_don_55/main/avatar-1753289116893-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_sport_an_don_55/main/cover-1753289116895-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_sport_an_don_55",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_sport_nfs_arena_dong_ngac",
+    "venue": "NFS Arena Đông Ngạc",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "20 Đông Thắng - Đông Ngạc Bắc Từ Liêm - HN - (Phố Kẻ Vẽ đi vào 100m) (cách Ciputra 1,5 Km)(cổng sau chung cư Eco Home 123)",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.087778223839543,
+      "longitude": 105.78155242312886
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_sport_nfs_arena_dong_ngac/main/avatar-1753289126040-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_sport_nfs_arena_dong_ngac/main/cover-1753289126041-thumb.jpg"
+    ],
+    "opening_hours": "7:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_sport_nfs_arena_dong_ngac",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_th_dai_mo_3",
+    "venue": "Vinsmart C1ĐM3 CS2",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Trường Tiểu học Đại Mỗ 3, Đường quang Tiến Phường Tây Mỗ, Nam Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.00303803022525,
+      "longitude": 105.75859115654842
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_th_dai_mo_3/main/avatar-1786005317012-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_th_dai_mo_3/main/cover-1786005317015-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_th_dai_mo_3",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_thcs_tay_mo_3",
+    "venue": "Vinsmart C2TM3 CS4",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Trường THCS Tây Mỗ 3, Khu ĐT Vsmart, Phường Tây Mỗ, Nam Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.997165602794198,
+      "longitude": 105.73755720989679
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_tay_mo_3/main/avatar-1786005432835-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_tay_mo_3/main/cover-1786005432839-thumb.jpg"
+    ],
+    "opening_hours": "6.5:00 – 22.75:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_thcs_tay_mo_3",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_thcs_nguyen_quy_duc",
+    "venue": "Vinsmart C2NQĐ CS1",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "35 Ngõ 8 Quang Tiến, Đai Mỗ, phường Tây Mỗ, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.00243949276783,
+      "longitude": 105.75724229400414
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_nguyen_quy_duc/main/avatar-1786005132001-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_nguyen_quy_duc/main/cover-1753289681001-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_thcs_nguyen_quy_duc",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_tieu_hoc_tay_mo_3",
+    "venue": "Vinsmart C1TM3 CS3",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Đối diện Tòa S106, Vinhomes Smart City, Nam Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.009070958360873,
+      "longitude": 105.73704256711085
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_tieu_hoc_tay_mo_3/main/avatar-1786005377734-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_tieu_hoc_tay_mo_3/main/cover-1753289694624-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.75:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_tieu_hoc_tay_mo_3",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_vina_badminton",
+    "venue": "Vina Badminton - TC5",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Đường số 1 Tổng Cục 5, Tân Triều, Thanh Trì, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.967761055570914,
+      "longitude": 105.79907864824312
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_vina_badminton/main/avatar-1753289772078-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_vina_badminton/main/cover-1753289772083-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_vina_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_vietgangz_pickleball",
+    "venue": "Vietgangz Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "XWMW+FV3, Kiêu Kỵ, Gia Lâm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.98487914557453,
+      "longitude": 105.94678827766381
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_vietgangz_pickleball/main/avatar-1753333627795-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_vietgangz_pickleball/main/cover-1753333627796-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_vietgangz_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_zone_pickleball",
+    "venue": "Zone Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "272/67, Đường 30/4, Khu 3, Chánh Nghĩa, TP. Thủ Dầu Một, Bình Dương",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.971657923051767,
+      "longitude": 106.66809358169371
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_zone_pickleball/main/avatar-1753289932502-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_zone_pickleball/main/cover-1753289932503-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_zone_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_yama",
+    "venue": "YAMA",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Trung hồng, Đức châu (diễn hồng cũ), Nghệ an",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 19.0512107615408,
+      "longitude": 105.58742907493358
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_yama/main/avatar-1753263109321-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_yama/main/cover-1753263109324-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_yama",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_zenny_sport",
+    "venue": "Zenny Sport",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "88B đường Thành Trung, phường Yên Bái, tỉnh Lào Cai",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 21.722597561780177,
+      "longitude": 104.90124604766488
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_zenny_sport/main/avatar-1753289921096-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_zenny_sport/main/cover-1753289921097-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_zenny_sport",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pick_hoc_vien_an_ninh_c500",
+    "venue": "Học Viện An Ninh",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Đường 19/5 cổng số 4, Phường Hà Đông, TP Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.978837044881786,
+      "longitude": 105.79258041842695
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pick_hoc_vien_an_ninh_c500/main/avatar-1753287813872-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 21.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pick_hoc_vien_an_ninh_c500",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_victory_pickleball_long_bien",
+    "venue": "Tesco Club Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Ngõ 1 Phú Viên, phường Bồ Đề, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.036931341721623,
+      "longitude": 105.86868268675629
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_victory_pickleball_long_bien/main/avatar-1753953164376-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_victory_pickleball_long_bien/main/cover-1753953164394-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_victory_pickleball_long_bien",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_an_binh_pickleball_thanh_tri",
+    "venue": "Sân Cầu Lông An Bình",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Ngách 88, Ngõ 286 Đ. Nguyễn Xiển, Tân Triều, Thanh  Trì, Hà Nội (Từ đầu ngõ 286 đi vào 100 m là đến sân)",
+    "phone": "0903262188",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.98350247390458,
+      "longitude": 105.80587427316352
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_an_binh_pickleball_thanh_tri/main/avatar-1775185755216-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_an_binh_pickleball_thanh_tri/main/cover-1775185755230-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_an_binh_pickleball_thanh_tri",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_coma6",
+    "venue": "Pickleball Coma6",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "2P8X+QM4, Ngõ 22 Nhuệ Giang, Tây Mỗ, Nam Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.01691384150235,
+      "longitude": 105.74920643550698
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_coma6/main/avatar-1769476431883-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_coma6/main/cover-1777256399857-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_coma6",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_peak_pickleball_court",
+    "venue": "Peak - Pickleball Court",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Peak - Pickleball Court: Ngõ 686 Chiến Thắng, Văn Quán, Hà Đông, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.974638963362672,
+      "longitude": 105.79426479938743
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_peak_pickleball_court/main/avatar-1755157524438-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_peak_pickleball_court/main/cover-1756544854457-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_peak_pickleball_court",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_zinka_05_mat_duong_le_hong_phong",
+    "venue": "SÂN PICK 1990 HẢI PHÒNG (ZINKA - THỎ TÂY)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "3A Lô 6A Lê Hồng Phong, Ngô Quyền, Hải Phòng",
+    "phone": null,
+    "location": {
+      "city": "Hải Phòng",
+      "latitude": 20.85114219378612,
+      "longitude": 106.70423263750106
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_zinka_05_mat_duong_le_hong_phong/main/avatar-1765081743385-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_zinka_05_mat_duong_le_hong_phong",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_le_quy_don_an_hai_da_nang",
+    "venue": "Sân Lê Quý Đôn - An Hải - Đà Nẵng",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Số 01 Đường An Trung 2, An Hải, Đà Nẵng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.05557508228355,
+      "longitude": 108.2331553266088
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_le_quy_don_an_hai_da_nang/main/avatar-1756799303305-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_le_quy_don_an_hai_da_nang/main/cover-1756799303309-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_le_quy_don_an_hai_da_nang",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_tram_cau_long_station_badminton",
+    "venue": "Trạm Cầu Lông Station Badminton",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "217 Mã Lò, Phường Bình Trị Đông, Quận Bình Tân",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.76920943468943,
+      "longitude": 106.60271264327308
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_tram_cau_long_station_badminton/main/avatar-1757738022877-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_tram_cau_long_station_badminton/main/cover-1757738022881-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_tram_cau_long_station_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_tennis_c3",
+    "venue": "Sân Tennis C3",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Tennis)"
+    },
+    "sport_type": [
+      "Tennis"
+    ],
+    "address": "Đường 18E Cộng Hoà, Phường 4, Quận Tân Bình, TP HCM",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.805138960629533,
+      "longitude": 106.65519486471983
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_tennis_c3/main/avatar-1760416533911-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_tennis_c3/main/cover-1760416533925-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_tennis_c3",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_129_club_pickleball_arena",
+    "venue": "129 Club Pickleball Arena",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "129 Đà Nẵng, Ngô Quyền, Hải Phòng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 20.86147510620668,
+      "longitude": 106.69859290487852
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_129_club_pickleball_arena/main/avatar-1768901527609-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_129_club_pickleball_arena/main/cover-1760589529564-thumb.jpg"
+    ],
+    "opening_hours": "7:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_129_club_pickleball_arena",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_vcn_dong_ngac",
+    "venue": "PICKLELBALL VCN - ĐÔNG NGẠC - HÀ NỘI",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Số 03 Cầu Vồng , Phường Đông Ngạc, Quận Bắc Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.077604270254874,
+      "longitude": 105.77517649631359
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_vcn_dong_ngac/main/avatar-1760954194193-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_vcn_dong_ngac/main/cover-1760954194195-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_vcn_dong_ngac",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_thanh_cong_pickleball",
+    "venue": "Thành Công Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Trung tâm thể thao Thành Công - 5A Phố Thành Công, Giảng Võ, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.020583587450325,
+      "longitude": 105.81492056095678
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_thanh_cong_pickleball/main/avatar-1761217757159-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_thanh_cong_pickleball/main/cover-1761217757172-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_thanh_cong_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_topball_pickleball",
+    "venue": "TopBall Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "31 Nguyễn Huy Tưởng( đối diện 138 Nguyễn Huy Tưởng), Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.99824088321858,
+      "longitude": 105.80411109562672
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_topball_pickleball/main/avatar-1765282072398-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_topball_pickleball/main/cover-1765282072415-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_topball_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_cuong_sport",
+    "venue": "1998 Badminton",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "304 P. Nguyễn Văn Giáp, Cầu Diễn, Nam Từ Liêm",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 21.0296765011531,
+      "longitude": 105.75821680912297
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cuong_sport/main/avatar-1783584938715-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cuong_sport/main/cover-1783668277423-thumb.jpg"
+    ],
+    "opening_hours": "7.5:00 – 23.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cuong_sport",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_tay_ho_green_pickleball",
+    "venue": "GREEN TAY HO PICKLEBALL",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 6 Trịnh Công Sơn, Tây Hồ, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.07859177116394,
+      "longitude": 105.81889699941372
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_tay_ho_green_pickleball/main/avatar-1764055198333-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_tay_ho_green_pickleball/main/cover-1764053224606-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_tay_ho_green_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_picb32",
+    "venue": "Pick B32 - FLC (Cụm 7sân gần Aeon Mall Hà Đông)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Chung cư B32 Đại Mỗ, P. Đại Mỗ, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.99106427528855,
+      "longitude": 105.75788431096612
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_picb32/main/avatar-1766050403385-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_picb32/main/cover-1764399267663-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_picb32",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_trung_doan_phao_phong_khong_218",
+    "venue": "Pickleball trung đoàn pháo phòng không 218",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "An Khánh.Hoài Đức, Hà Nội, Việt Nam",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.998894983360167,
+      "longitude": 105.72651565766975
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_trung_doan_phao_phong_khong_218/main/avatar-1764947120245-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_trung_doan_phao_phong_khong_218/main/cover-1764947120248-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_trung_doan_phao_phong_khong_218",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_aiko_xuan_dieu",
+    "venue": "Aiko Xuân Diệu",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "8/31 Đ. Xuân Diệu, Quảng An, Tây Hồ, Hà Nội (UBND phường Quảng An cũ)",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.062909133549432,
+      "longitude": 105.82924582815316
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_aiko_xuan_dieu/main/avatar-1765254406824-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_aiko_xuan_dieu/main/cover-1765252161522-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_aiko_xuan_dieu",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_lala_pickleball",
+    "venue": "LALA Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Ngõ 124 Phố Vĩnh Tuy, Hai Bà Trưng, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.00050930251466,
+      "longitude": 105.87853599756956
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_lala_pickleball/main/avatar-1766555447236-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_lala_pickleball/main/cover-1767722332909-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_lala_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_son_thuy_pickleball",
+    "venue": "Sơn Thủy Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 2, Đường Ngô Thị Nhậm, Phường Trường Vinh, Tỉnh Nghệ An",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 18.64286068200154,
+      "longitude": 105.70141521934757
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_son_thuy_pickleball/main/avatar-1766747438210-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_son_thuy_pickleball/main/cover-1766747438222-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_son_thuy_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_le_trong_tan_pickleball",
+    "venue": "Cụm sân Pickleball 186 Trường Chinh ( Sân mái che cứng)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "186 Đ. Trường Chinh, Khương Thượng, Đống Đa, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.000560802471472,
+      "longitude": 105.83116178223005
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_le_trong_tan_pickleball/main/avatar-1767064682430-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_le_trong_tan_pickleball/main/cover-1771991021831-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_le_trong_tan_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_lala",
+    "venue": "LALA SÂN TẬP TRONG NHÀ KHU VỰC TIMES CITY - HAI BÀ TRƯNG",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Ngõ 124 Vĩnh Tuy, Phường Vĩnh Phú, Quận Hai Bà Trưng, TP. Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.000539351102546,
+      "longitude": 105.87827850553245
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_lala/main/avatar-1768041968015-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_lala/main/cover-1768054734766-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_lala",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_ocean_pickleball_my_dinh",
+    "venue": "Ocean Pickleball Mỹ Đình (Sân Trong Nhà, Có Điều Hoà)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 99 đường Lê Đức Thọ, Phường Từ Liêm, TP. Hà Nội, Việt Nam",
+    "phone": "0987141888",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.022213640574627,
+      "longitude": 105.76733270136077
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ocean_pickleball_my_dinh/main/avatar-1771075270873-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ocean_pickleball_my_dinh/main/cover-1771075270875-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ocean_pickleball_my_dinh",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_hp_sport_tay_mo",
+    "venue": "Sân Cầu Lông HP SPORT Tây Mỗ",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "113 P. Miêu Nha, Tẫy Mỗ, Nam Từ Liêm, HN ( Đi vào trong công ty Cơ Khí Xây Dựng số 5)",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.018033585788608,
+      "longitude": 105.74607986712482
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_hp_sport_tay_mo/main/avatar-1768924158988-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_hp_sport_tay_mo/main/cover-1770100441276-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_hp_sport_tay_mo",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_maxping_vinh_tuy",
+    "venue": "Maxping Sân Cầu Lông 124 Vĩnh Tuy",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Địa Chỉ : 64 Ngõ, 124 Vĩnh Tuy, Vĩnh Phú  , Hai Bà Trưng - Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": null,
+      "longitude": null
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_maxping_vinh_tuy/main/avatar-1771816628834-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_maxping_vinh_tuy/main/cover-1769156649150-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_maxping_vinh_tuy",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_sixtynine_pickleball",
+    "venue": "SixtyNine Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "6 ngách 11 ngõ 69 Tứ Liên, Hồng Hà, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.068900456349756,
+      "longitude": 105.83276234251483
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_sixtynine_pickleball/main/avatar-1769584057431-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_sixtynine_pickleball/main/cover-1769584057445-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_sixtynine_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pick_ham_nghi",
+    "venue": "Sân Pick Hàm Nghi",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "số 19 Nguyễn Cơ Thạch, Từ Liêm, Hà Nội",
+    "phone": "0902981919",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.033092523438782,
+      "longitude": 105.7659444025358
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pick_ham_nghi/main/avatar-1769653914901-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pick_ham_nghi/main/cover-1769653914903-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pick_ham_nghi",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_bk",
+    "venue": "Pickleball BK",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "126 Lê Cao Lãng, Hòa Thọ Đông, Cẩm Lệ, Đà Nẵng 550000, Vietnam",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.00910582104973,
+      "longitude": 108.20112220516057
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_bk/main/avatar-1770449774807-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_bk/main/cover-1770449774821-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 21.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_bk",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_lynk_the_sports_club",
+    "venue": "Hanoi Sports Club - Tổ Hợp Thể Thao & Recovery",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "447 Nguyễn Văn Linh, Phường Phúc Lợi, TP Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.03528013171704,
+      "longitude": 105.90490854233022
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_lynk_the_sports_club/main/avatar-1772100514155-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_lynk_the_sports_club/main/cover-1786171376677-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_lynk_the_sports_club",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_kimi_pickleball",
+    "venue": "KIMI PICKLEBALL FPT",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Lô 108 Nam Kỳ Khởi Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng",
+    "phone": "0335228869",
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 15.97814247349002,
+      "longitude": 108.26006284863118
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_kimi_pickleball/main/avatar-1772437414254-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_kimi_pickleball/main/cover-1772437414271-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_kimi_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_pickleball_dai_thanh",
+    "venue": "Pickleball Đại Thanh (Mặt Đường Phan Trọng Tuệ  , Mái Che Cao 8 M Thoáng Mát )",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "47 Phan Trọng Tuệ phường thanh liệt đối diện KĐT Đại Thanh",
+    "phone": "0965375194",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 20.957590969093225,
+      "longitude": 105.80696806222653
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_pickleball_dai_thanh/main/avatar-1772533591890-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_pickleball_dai_thanh/main/cover-1772533591893-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_pickleball_dai_thanh",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_cau_long_pickleball_quang_an",
+    "venue": "Sân Cầu Lông Quảng An",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Số 6 Ngõ 6 Đặng Thai Mai, Phường Tây Hồ, Hà Nội",
+    "phone": "0915154565",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.064935289961323,
+      "longitude": 105.82582470000003
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cau_long_pickleball_quang_an/main/avatar-1786186268500-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cau_long_pickleball_quang_an/main/cover-1773284364833-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cau_long_pickleball_quang_an",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_maxping_hoa_sen_6_dao_duy_anh",
+    "venue": "Maxping Hoa sen 6 Đào Duy Anh",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Số 7 Phường Đào Duy Anh, Phương Liên, Đống Đa, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.008179182388123,
+      "longitude": 105.83849982698331
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_maxping_hoa_sen_6_dao_duy_anh/main/avatar-1774089205118-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_maxping_hoa_sen_6_dao_duy_anh/main/cover-1774089205135-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_maxping_hoa_sen_6_dao_duy_anh",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_goat_badminton",
+    "venue": "Goat Badminton Trịnh Văn Bô ( đối diện FPT)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Trịnh Văn Bô ( đối diện cao đẳng FPT), Xuân Phương, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.036473412363737,
+      "longitude": 105.74577069806708
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_goat_badminton/main/avatar-1773995983605-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_goat_badminton/main/cover-1773995983629-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_goat_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_nam_hoa_xuan_pickleball",
+    "venue": "PICKLEBALL - TRUNG TÂM THỂ THAO NAM HÒA XUÂN",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Đồng Khoa 4, Hòa Quý, Ngũ Hành Sơn, Đà Nẵng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 15.999146751967096,
+      "longitude": 108.24392881368556
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nam_hoa_xuan_pickleball/main/avatar-1775472953731-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nam_hoa_xuan_pickleball/main/cover-1775472953735-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nam_hoa_xuan_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_nam_hoa_xuan_football",
+    "venue": "BÓNG ĐÁ -  TRUNG TÂM THỂ THAO NAM HÒA XUÂN",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Bóng đá)"
+    },
+    "sport_type": [
+      "Bóng đá"
+    ],
+    "address": "Đồng Sĩ Nguyên , Ngũ Hành Sơn, Đà Nẵng",
+    "phone": null,
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 15.999146751967096,
+      "longitude": 108.24392881368556
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nam_hoa_xuan_football/main/avatar-1775473152055-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nam_hoa_xuan_football/main/cover-1775473152057-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nam_hoa_xuan_football",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_le_quang_dao_phu_do",
+    "venue": "Sân cầu lông Lê Quang Đạo - Phú Đô",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "42 nghách 26 ngõ 56 Lê Quang Đạo, Phú Đô (ngõ 54 Lê Quang Đạo đi thẳng qua 2 ngã ba quán cafe. Đi tiếp đến MT mart (đối diện chùa Trại) rẽ trái -> rẽ phải luôn là đến biển Yoga (cạnh Tona spa)",
+    "phone": "0961500398",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 21.011208917561206,
+      "longitude": 105.76872428411738
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_le_quang_dao_phu_do/main/avatar-1777220344439-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_le_quang_dao_phu_do/main/cover-1777191390026-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_le_quang_dao_phu_do",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_sunhome_pickle_arena",
+    "venue": "SUNHOME PICKLE ARENA",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Sân Pickleball, Đường LIMONI, Khu đô thị SunGran City, An Thới, Phú Quốc, An Giang, Việt Nam",
+    "phone": "0912074086",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.035576123654673,
+      "longitude": 104.00933276511438
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_sunhome_pickle_arena/main/avatar-1779489922317-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_sunhome_pickle_arena/main/cover-1779490311524-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_sunhome_pickle_arena",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_cau_long_pickleball_vq_badminton_cn2",
+    "venue": "Sân cầu lông Đại học Cảnh Sát Quận 7",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Cổng 4 Đại Học Cảnh Sát, Hoàng Trọng Mậu, Quận 7, HCM",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.735252274028511,
+      "longitude": 106.69559785952559
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cau_long_pickleball_vq_badminton_cn2/main/avatar-1778903516547-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cau_long_pickleball_vq_badminton_cn2/main/cover-1778903516558-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cau_long_pickleball_vq_badminton_cn2",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_railway_pickleball_sai_gon",
+    "venue": "Railway Pickleball Cs3 Sài Gòn",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Ga Sài Gòn – Số 1 Nguyễn Thông, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": null,
+      "longitude": null
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_railway_pickleball_sai_gon/main/avatar-1779177558322-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_railway_pickleball_sai_gon/main/cover-1779177558325-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_railway_pickleball_sai_gon",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_the_central_pickleball",
+    "venue": "The Central Pickleball at New World Sai Gon Hotel (Quận 1)",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Tầng 2, Khách sạn New World, 76 Lê Lai, Bến Thành, Hồ Chí Minh",
+    "phone": "0938713498",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.770873098130526,
+      "longitude": 106.6951901327558
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_the_central_pickleball/main/avatar-1780554874989-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_the_central_pickleball/main/cover-1780366931944-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_the_central_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_railway_pickleball_cmt8",
+    "venue": "Railway Pickleball Cs2 CMT8",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "540/45 Đ. Cách Mạng Tháng 8, Phường Nhiêu Lộc, Hồ Chí Minh",
+    "phone": "0968413791",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.785933766103822,
+      "longitude": 106.6685190343614
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_railway_pickleball_cmt8/main/avatar-1781172518261-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_railway_pickleball_cmt8/main/cover-1781165960591-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_railway_pickleball_cmt8",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_sou_badminton",
+    "venue": "WIN BADMINTON",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Số 2, ngõ Tự Do 1, Long Biên, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.009091367301036,
+      "longitude": 105.90447255093349
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_sou_badminton/main/avatar-1783407586191-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_sou_badminton/main/cover-1782977825574-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_sou_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_cta_van_hoi_cum_10_san_badminton",
+    "venue": "CTA Văn Hội - Cụm 10 sân",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Ngõ 35/1 Văn Hội, Đức Thắng, Bắc Từ Liêm, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.07978916310493,
+      "longitude": 105.77251621148048
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cta_van_hoi_cum_10_san_badminton/main/avatar-1781497153793-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cta_van_hoi_cum_10_san_badminton/main/cover-1781497153796-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cta_van_hoi_cum_10_san_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_79_pickleball",
+    "venue": "79 Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Ngõ 101 Nguyễn Đình Chiểu, phường Thành Vinh, tỉnh Nghệ An",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 18.68524645866358,
+      "longitude": 105.66679805302299
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_79_pickleball/main/avatar-1782379196926-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_79_pickleball/main/cover-1783000259579-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_79_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_thcs_phenikaa",
+    "venue": "THCS Phenikaa",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Tổ Dân Phố, 8 P.Tu Hoàng, Xuân Phương, Hà Nội, Việt Nam",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.048580493697347,
+      "longitude": 105.73024181560193
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_phenikaa/main/avatar-1782793304633-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_thcs_phenikaa/main/cover-1782793304639-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_thcs_phenikaa",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_us_badminton_tieu_hoc_phenikaa",
+    "venue": "Tiểu học Phenikaa",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Tổ Dân Phố, 8 P.Tu Hoàng, Xuân Phương, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.048574889355095,
+      "longitude": 105.73024091154855
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_us_badminton_tieu_hoc_phenikaa/main/avatar-1782793541946-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_us_badminton_tieu_hoc_phenikaa/main/cover-1782793541951-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_us_badminton_tieu_hoc_phenikaa",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_ttbc_center_cau_dien",
+    "venue": "TTBC CẦU DIỄN",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "201 Đường Cầu Diễn, Phường Xuân Phương, Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.045717086864816,
+      "longitude": 105.74751317453087
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_ttbc_center_cau_dien/main/avatar-1784099821391-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_ttbc_center_cau_dien/main/cover-1784827692939-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_ttbc_center_cau_dien",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_phuc_long_460_tran_quy_cap",
+    "venue": "Phúc Long Badminton - 460 Trần Quý Cáp",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "P. Trần Quý Cáp, Văn Miếu - Quốc Tử Giám, Hà Nội",
+    "phone": "0364059999",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.02205175175136,
+      "longitude": 105.83987850858524
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_phuc_long_460_tran_quy_cap/main/avatar-1784100688841-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_phuc_long_460_tran_quy_cap/main/cover-1786028152543-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_phuc_long_460_tran_quy_cap",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_cau_lac_bo_cau_long_pt_do_son",
+    "venue": "Câu lạc bộ cầu lông PT Đồ Sơn",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Tổ dân phố Trung Dũng, phường Đồ Sơn, thành phố Hải Phòng",
+    "phone": null,
+    "location": {
+      "city": "Hải Phòng",
+      "latitude": 20.72365180173138,
+      "longitude": 106.78093852406887
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_cau_lac_bo_cau_long_pt_do_son/main/avatar-1784541092232-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_cau_lac_bo_cau_long_pt_do_son/main/cover-1784541092235-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_cau_lac_bo_cau_long_pt_do_son",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_phu_thinh_riverside_pickleball_club",
+    "venue": "Phú Thịnh Riverside Pickleball Club",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "48 Chuyên Dùng Chính, Phường Phú Thuận, TP HCM",
+    "phone": "0906363956",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.705098326375712,
+      "longitude": 106.73909669175741
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_phu_thinh_riverside_pickleball_club/main/avatar-1784886678595-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_phu_thinh_riverside_pickleball_club/main/cover-1784886678614-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_phu_thinh_riverside_pickleball_club",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_pickleball_phuc_long_460_tran_quy_cap",
+    "venue": "Phúc Long Pickleball 460 Trần Quý Cáp",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "P. Trần Quý Cáp, Văn Miếu - Quốc Tử Giám, Hà Nội",
+    "phone": "0364059999",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.022272743425642,
+      "longitude": 105.8396910930943
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_pickleball_phuc_long_460_tran_quy_cap/main/avatar-1785855299979-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_pickleball_phuc_long_460_tran_quy_cap/main/cover-1785855354348-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_pickleball_phuc_long_460_tran_quy_cap",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_maxping_phu_dien_khu_trai_ga_dong_ngac_badminton",
+    "venue": "MAXPING Phú Diễn - Khu Trại Gà – Đông Ngạc",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Trại gà- phú diễn- đông ngạc- hà nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.062146162126027,
+      "longitude": 105.76125503262286
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_maxping_phu_dien_khu_trai_ga_dong_ngac_badminton/main/avatar-1785122256924-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_maxping_phu_dien_khu_trai_ga_dong_ngac_badminton/main/cover-1785121615259-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_maxping_phu_dien_khu_trai_ga_dong_ngac_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_nhhk_pickleball_hcm",
+    "venue": "NHHK PICKLEBALL",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "144 Đường Trịnh Quang Nghị, Phường Bình Đông, Thành phố Hồ Chí Minh",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.707164305855207,
+      "longitude": 106.6241489853618
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_nhhk_pickleball_hcm/main/avatar-1785208495105-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_nhhk_pickleball_hcm/main/cover-1785208495123-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_nhhk_pickleball_hcm",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_chi_lang_school",
+    "venue": "Pickleball Chi Lăng School",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "47 Đại Cồ Việt, Phường An Cựu, TP Huế (gần Aeon Mall)",
+    "phone": "0913125015",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 16.45022925684686,
+      "longitude": 107.61371519819076
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_chi_lang_school/main/avatar-1785306666466-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_chi_lang_school/main/cover-1785306666484-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 21:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_chi_lang_school",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_bt_chem_badminton",
+    "venue": "Sân cầu lông BT Chèm",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "Kho 10 - số 9 Đ.Thụy Phương, Đông Ngạc, Hà Nội",
+    "phone": "0366966096",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.086206883055205,
+      "longitude": 105.7750626442157
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_bt_chem_badminton/main/avatar-1785491958688-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_bt_chem_badminton/main/cover-1785491958704-thumb.jpg"
+    ],
+    "opening_hours": "5.5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_bt_chem_badminton",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_nha_tap_luyen_phu_tho",
+    "venue": "Sân Cầu Lông Nhà Tập Luyện Phú Thọ",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "219 Đ. Lý Thường Kiệt, Phú Thọ, Hồ Chí Minh, Việt Nam",
+    "phone": null,
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.76763075973398,
+      "longitude": 106.6585367085938
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_nha_tap_luyen_phu_tho/main/avatar-1785554284445-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_nha_tap_luyen_phu_tho/main/cover-1785554284447-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_nha_tap_luyen_phu_tho",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_levelix_pickleball",
+    "venue": "Levelix Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Ngõ 538 đường Láng, Phường Láng, Thành Phố Hà Nội",
+    "phone": null,
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.012921260007193,
+      "longitude": 105.81096096095074
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_levelix_pickleball/main/avatar-1785730032263-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_levelix_pickleball/main/cover-1785730032280-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_levelix_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_tropical_pickle_arena",
+    "venue": "TROPICAL PICKLE ARENA",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Sân Pickleball, Khu Làng Nhiệt Đới Sungruop, Bãi Khem, An Thới, Phú Quốc, An Giang, Việt Nam.",
+    "phone": "0912074086",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": null,
+      "longitude": null
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_tropical_pickle_arena/main/avatar-1785901052524-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_tropical_pickle_arena/main/cover-1785901052528-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_tropical_pickle_arena",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_kaly_pickleball",
+    "venue": "KALY PICKLEBALL",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "362 Mai Chí Thọ, An Khánh, Hồ Chí Minh",
+    "phone": "0908888611",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.786312731573048,
+      "longitude": 106.74716802642158
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_kaly_pickleball/main/avatar-1785826789307-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_kaly_pickleball/main/cover-1785826789324-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_kaly_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickle_bay_hai_phong",
+    "venue": "Pickle Bay",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "15A Lê Hồng Phong, Phường Hải An, Hải Phòng",
+    "phone": null,
+    "location": {
+      "city": "Hải Phòng",
+      "latitude": 20.83241677848713,
+      "longitude": 106.71957914141979
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickle_bay_hai_phong/main/avatar-1785903847764-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickle_bay_hai_phong/main/cover-1786174994116-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickle_bay_hai_phong",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_kaly_pickleball_ban_hang",
+    "venue": "HKD BÁN HÀNG",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "Đang cập nhật",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": null,
+      "longitude": null
+    },
+    "images": [],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_kaly_pickleball_ban_hang",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_clb_pickleball_tan_son_nhat",
+    "venue": "CLB PICKLEBALL TÂN SƠN NHẤT",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "446 HOÀNG VĂN THỤ, phường TÂN SƠN NHẤT",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.795504385368663,
+      "longitude": 106.65486698074415
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_clb_pickleball_tan_son_nhat/main/avatar-1785981616835-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_clb_pickleball_tan_son_nhat/main/cover-1785981616852-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_clb_pickleball_tan_son_nhat",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_crown_pickleball",
+    "venue": "Crown Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "KĐT New City, Phô Nôi, Nguyễn Văn Linh, Hưng Yên, Việt Nam",
+    "phone": "0944804445",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 20.91004209485289,
+      "longitude": 106.05918271564168
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_crown_pickleball/main/avatar-1785997391975-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_crown_pickleball/main/cover-1785997391992-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_crown_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_pna",
+    "venue": "Pickleball PNA",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "18 Nguyễn Văn Mại, Phường Tân Sơn Nhất, TP. HCM",
+    "phone": null,
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.806313120231993,
+      "longitude": 106.66346725270569
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_pna/main/avatar-1786009998382-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_pna/main/cover-1786009998400-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 21:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_pna",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_sai_gon",
+    "venue": "Sân cầu lông Sài Gòn",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "237/2/3 Hòa Bình, Phú Thạnh, Thành Phô Hồ Chí Minh",
+    "phone": "0798052799",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.771702459058506,
+      "longitude": 106.62479886334638
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_sai_gon/main/avatar-1786098811987-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_sai_gon/main/cover-1786072340689-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_sai_gon",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_pickleball_quang_an",
+    "venue": "Sân Pickleball Quảng An",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Số 6 Ngõ 6 Đặng Thai Mai, Phường Tây Hồ, Hà Nội",
+    "phone": "0915154565",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 21.064935289961323,
+      "longitude": 105.84582470000004
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_pickleball_quang_an/main/avatar-1786074373144-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_pickleball_quang_an/main/cover-1786074373161-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22.5:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_pickleball_quang_an",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_brotherhood_baskeball",
+    "venue": "BrotherHood - Bình Tân Outdoor Basketball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Thể thao)"
+    },
+    "sport_type": [
+      "Thể thao"
+    ],
+    "address": "565 Kinh Dương Vương, P. An Lạc, HCM",
+    "phone": "0982443337",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 10.733260160353844,
+      "longitude": 106.61234439280068
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_brotherhood_baskeball/main/avatar-1786155770675-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_brotherhood_baskeball/main/cover-1786155770677-thumb.jpg"
+    ],
+    "opening_hours": "7:00 – 23:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_brotherhood_baskeball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_chuong_dang_pickleball",
+    "venue": "CHƯƠNG ĐANG PICKLEBALL",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "Yên Sở, Hà Nội",
+    "phone": "0903220600",
+    "location": {
+      "city": "Hà Nội",
+      "latitude": 20.960480007087927,
+      "longitude": 105.84464987890267
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_chuong_dang_pickleball/main/avatar-1786155122041-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_chuong_dang_pickleball/main/cover-1786155122060-thumb.jpg"
+    ],
+    "opening_hours": "6:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_chuong_dang_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_san_cau_long_phu_my",
+    "venue": "Sân Cầu Lông Phú Mỹ",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Cầu lông)"
+    },
+    "sport_type": [
+      "Cầu lông"
+    ],
+    "address": "83/4 Hoàng Quốc Việt, Phường Tân Mỹ, Thành Phố Hồ Chí Minh",
+    "phone": "0372687978",
+    "location": {
+      "city": "TP. Hồ Chí Minh",
+      "latitude": 10.713458611707194,
+      "longitude": 106.73055451808469
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_phu_my/main/avatar-1786156463949-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_san_cau_long_phu_my/main/cover-1786156463951-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 24:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_san_cau_long_phu_my",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_my_khe_pickleball_club",
+    "venue": "Mỹ Khê Pickleball Club",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "254 Võ Nguyên Giáp, Phường An Hải, Thanh phố Đà Nẵng",
+    "phone": "02366260214",
+    "location": {
+      "city": "Đà Nẵng",
+      "latitude": 16.060033080784343,
+      "longitude": 108.24606300346515
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_my_khe_pickleball_club/main/avatar-1786158193093-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_my_khe_pickleball_club/main/cover-1786158193112-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 22:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_my_khe_pickleball_club",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  },
+  {
+    "id": "sport_kvg_mozzadiso_pickleball",
+    "venue": "KVG Mozzadiso Pickleball",
+    "branch": "Cơ sở chính",
+    "court": {
+      "total": 4,
+      "summary": "4 sân (Pickleball)"
+    },
+    "sport_type": [
+      "Pickleball"
+    ],
+    "address": "DV6, đường số 70, Khu đô thị Mỹ Gia- An Khánh, phường Nam Nha Trang, Khánh Hoà",
+    "phone": "0347079123",
+    "location": {
+      "city": "Việt Nam",
+      "latitude": 12.248371521139289,
+      "longitude": 109.16889007319296
+    },
+    "images": [
+      "https://m-files.alobo.vn/branch/sport_kvg_mozzadiso_pickleball/main/avatar-1786174582607-thumb.jpg",
+      "https://m-files.alobo.vn/branch/sport_kvg_mozzadiso_pickleball/main/cover-1786173328818-thumb.jpg"
+    ],
+    "opening_hours": "5:00 – 21:00",
+    "price": {
+      "range": "80,000đ – 180,000đ/giờ",
+      "note": "Theo khung giờ"
+    },
+    "booking_url": "https://datlich.alobo.vn/san/sport_kvg_mozzadiso_pickleball",
+    "crawled_at": "2026-08-09T15:17:56.468Z"
+  }
+]
