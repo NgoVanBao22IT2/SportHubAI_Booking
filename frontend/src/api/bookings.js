@@ -1,16 +1,21 @@
 import apiClient from './apiClient';
 
 /**
- * Create a new court booking record on backend.
+ * Create a new court booking record on backend with optional Idempotency-Key header.
  * @param {Object} bookingData
  * @param {string} bookingData.court_id
  * @param {string} bookingData.booking_date - Format YYYY-MM-DD
  * @param {string} bookingData.start_time - Format HH:mm:ss
  * @param {string} bookingData.end_time - Format HH:mm:ss
+ * @param {string} [idempotencyKey] - Category A Idempotency Key header
  */
-export const createBooking = async (bookingData) => {
+export const createBooking = async (bookingData, idempotencyKey = null) => {
   try {
-    const response = await apiClient.post('/bookings', bookingData);
+    const config = {};
+    if (idempotencyKey) {
+      config.headers = { 'Idempotency-Key': idempotencyKey };
+    }
+    const response = await apiClient.post('/bookings', bookingData, config);
     return response.data;
   } catch (error) {
     console.error('Error creating booking:', error);
@@ -42,6 +47,21 @@ export const getUserBookings = async (params = {}) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching user bookings:', error);
+    throw error;
+  }
+};
+
+/**
+ * Cancel a court booking record on backend API.
+ * @param {string} bookingId
+ * @param {string} [reason]
+ */
+export const cancelBooking = async (bookingId, reason = 'Khách hàng yêu cầu hủy đơn') => {
+  try {
+    const response = await apiClient.patch(`/bookings/${bookingId}/cancel`, { reason });
+    return response.data;
+  } catch (error) {
+    console.error('Error cancelling booking:', error);
     throw error;
   }
 };

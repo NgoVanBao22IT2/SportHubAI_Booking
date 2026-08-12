@@ -1,7 +1,20 @@
-import { Link } from 'react-router-dom';
-import { Bell } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Bell, User, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const { currentUser, isAuthenticated, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (err) {
+      console.error('Error logging out:', err);
+    }
+  };
+
   return (
     <header className="bg-primary text-white w-full h-16 flex items-center justify-center sticky top-0 z-50">
       <div className="container mx-auto px-4 max-w-7xl flex items-center justify-between">
@@ -14,20 +27,47 @@ export default function Navbar() {
           <nav className="hidden md:flex space-x-6 text-sm font-medium">
             <Link to="/" className="hover:text-green-200 border-b-2 border-white pb-1">Trang chủ</Link>
             <Link to="/search" className="hover:text-green-200 pb-1">Đặt sân</Link>
-            <Link to="/matches" className="hover:text-green-200 pb-1">Trận đấu</Link>
-            <Link to="/leaderboard" className="hover:text-green-200 pb-1">Bảng xếp hạng</Link>
-            <Link to="/management" className="hover:text-green-200 pb-1">Quản lý</Link>
+            {isAuthenticated && (
+              <>
+                <Link to="/my-bookings" className="hover:text-green-200 pb-1">Đơn đặt của tôi</Link>
+                <Link to="/favorites" className="hover:text-green-200 pb-1">Yêu thích</Link>
+                <Link to="/profile" className="hover:text-green-200 pb-1">Hồ sơ</Link>
+              </>
+            )}
           </nav>
         </div>
 
         {/* Auth & Actions */}
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="text-sm font-medium hover:text-green-200 border border-white/50 px-4 py-1.5 rounded-full">
-            Đăng nhập
-          </Link>
-          <Link to="/register" className="text-sm font-medium bg-orange-500 hover:bg-orange-600 px-4 py-1.5 rounded-full text-white transition-colors">
-            Đăng ký
-          </Link>
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-3">
+              <Link
+                to="/profile"
+                className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+              >
+                <User size={16} />
+                <span className="max-w-[120px] truncate">{currentUser?.full_name || 'Tài khoản'}</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-1 text-sm font-medium hover:text-green-200 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors"
+                title="Đăng xuất"
+              >
+                <LogOut size={16} />
+                <span className="hidden sm:inline">Đăng xuất</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="text-sm font-medium hover:text-green-200 border border-white/50 px-4 py-1.5 rounded-full">
+                Đăng nhập
+              </Link>
+              <Link to="/register" className="text-sm font-medium bg-orange-500 hover:bg-orange-600 px-4 py-1.5 rounded-full text-white transition-colors">
+                Đăng ký
+              </Link>
+            </>
+          )}
+
           <button className="p-2 hover:bg-white/10 rounded-full transition-colors relative" title="Tính năng thông báo sắp ra mắt">
             <Bell size={20} />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>

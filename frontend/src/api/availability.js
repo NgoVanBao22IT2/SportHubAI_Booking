@@ -22,3 +22,20 @@ export const checkCourtAvailability = async (courtId, date, startTime, endTime) 
     throw error;
   }
 };
+
+/**
+ * Fetch full daily availability matrix for a venue.
+ * @param {string} venueId
+ * @param {string} date - Format: YYYY-MM-DD
+ */
+export const getVenueDailyAvailability = async (venueId, date) => {
+  try {
+    const response = await apiClient.get(`/availability/venue/${venueId}`, {
+      params: { date }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching venue daily availability:', error);
+    throw error;
+  }
+};

@@ -30,7 +30,7 @@ export default function HomePage() {
       setLoading(true);
       setError(false);
       const data = await getFeaturedVenues(4);
-      setVenues(data || []);
+      setVenues(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load featured venues", err);
       setError(true);

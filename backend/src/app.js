@@ -19,21 +19,9 @@ app.use('/api/v1/auth', authRoutes);
 const adminRoutes = require('./routes/admin.routes');
 app.use('/api/v1/admin', adminRoutes);
 
-// Mount Venue API Routes
-const venueRoutes = require('./routes/venue.routes');
-const venueSearchRoutes = require('./routes/venue-search.routes');
-
-app.use('/api/v1', venueSearchRoutes); // public GET /venues
-app.use('/api/v1', venueRoutes); // protected POST/PUT/DELETE /venues
-
-// Mount Availability & Pricing Engine
+// Mount Public Availability & Pricing Engine
 const availabilityRoutes = require('./routes/availability.routes');
-const slotBlockingRoutes = require('./routes/slot-blocking.routes');
-const ownerAggregateRoutes = require('./routes/owner.routes');
-
 app.use('/api/v1/availability', availabilityRoutes);
-app.use('/api/v1/owner', slotBlockingRoutes);
-app.use('/api/v1/owner', ownerAggregateRoutes);
 
 // Mount Booking Engine
 const bookingRoutes = require('./routes/booking.routes');
@@ -42,6 +30,19 @@ app.use('/api/v1/bookings', bookingRoutes);
 // Mount Payment Integration
 const paymentRoutes = require('./routes/payment.routes');
 app.use('/api/v1/payments', paymentRoutes);
+
+// Mount Owner Operations
+const slotBlockingRoutes = require('./routes/slot-blocking.routes');
+const ownerAggregateRoutes = require('./routes/owner.routes');
+app.use('/api/v1/owner', slotBlockingRoutes);
+app.use('/api/v1/owner', ownerAggregateRoutes);
+
+// Mount Venue Discovery & Venue Management Routes
+const venueRoutes = require('./routes/venue.routes');
+const venueSearchRoutes = require('./routes/venue-search.routes');
+
+app.use('/api/v1', venueSearchRoutes); // public GET /venues
+app.use('/api/v1', venueRoutes); // protected POST/PUT/DELETE /venues
 
 // (Admin Operations moved up)
 

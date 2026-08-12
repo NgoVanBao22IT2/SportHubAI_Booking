@@ -15,6 +15,9 @@ router.get('/:id', BookingController.getBooking);
 // POST /api/v1/bookings
 router.post('/', BookingController.createBooking);
 
+// POST /api/v1/bookings/batch
+router.post('/batch', BookingController.createBatchBookings);
+
 // PATCH /api/v1/bookings/:id/cancel
 router.patch('/:id/cancel', BookingController.cancelBooking);
 

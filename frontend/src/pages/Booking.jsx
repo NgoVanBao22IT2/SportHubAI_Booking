@@ -29,6 +29,7 @@ export default function Booking() {
   const navigate = useNavigate();
 
   const venueId = searchParams.get('venueId') || searchParams.get('venue') || searchParams.get('id');
+  const initialCourtId = searchParams.get('courtId');
 
   // State Management
   const [venue, setVenue] = useState(null);
@@ -71,7 +72,7 @@ export default function Booking() {
     }
   }, [availableDates, selectedDate]);
 
-  // Fetch Venue Details & Courts from API
+  // Fetch Venue Details & Courts from API with Ownership Verification
   const fetchVenueData = useCallback(async () => {
     if (!venueId) {
       setLoading(false);
@@ -87,7 +88,17 @@ export default function Booking() {
       if (data && data.branches && data.branches.length > 0 && data.branches[0].courts) {
         const activeCourts = data.branches[0].courts.filter(c => c.court_status === 'ACTIVE' || !c.court_status);
         setCourts(activeCourts);
-        if (activeCourts.length > 0) {
+
+        // TASK 04.02D-07: Validate Court Ownership
+        if (initialCourtId) {
+          const matchedCourt = activeCourts.find(c => (c.court_id || c.id) === initialCourtId);
+          if (matchedCourt) {
+            setSelectedCourt(matchedCourt);
+          } else {
+            setValidationError('Sân con chỉ định không thuộc về câu lạc bộ này. Đã chọn sân mặc định.');
+            if (activeCourts.length > 0) setSelectedCourt(activeCourts[0]);
+          }
+        } else if (activeCourts.length > 0) {
           setSelectedCourt(activeCourts[0]);
         }
       } else {
@@ -99,13 +110,13 @@ export default function Booking() {
     } finally {
       setLoading(false);
     }
-  }, [venueId]);
+  }, [venueId, initialCourtId]);
 
   useEffect(() => {
     fetchVenueData();
   }, [fetchVenueData]);
 
-  // Fetch Real Availability for all time slots when court or date changes
+  // Fetch Real Availability for all time slots when court or date changes (NO FAKE AVAILABILITY FALLBACKS)
   const fetchRealAvailability = useCallback(async () => {
     if (!selectedCourt || !selectedDate) return;
 
@@ -115,27 +126,33 @@ export default function Booking() {
     try {
       setCheckingAvailability(true);
       const newAvailabilityMap = {};
+      let hasSuccess = false;
 
       await Promise.all(
         TIME_SLOTS.map(async (slot) => {
           try {
             const res = await checkCourtAvailability(courtId, selectedDate, slot.start, slot.end);
             if (res && res.status === 'success' && res.data) {
+              hasSuccess = true;
               newAvailabilityMap[slot.start] = {
-                available: res.data.is_available,
-                price: res.data.pricing?.total_price || 120000,
-                reason: res.data.reason
+                available: Boolean(res.data.is_available),
+                price: res.data.pricing?.total_price || null,
+                reason: res.data.reason || (res.data.is_available ? '' : 'Đã ngưng phục vụ')
               };
             } else {
-              newAvailabilityMap[slot.start] = { available: true, price: 120000 };
+              newAvailabilityMap[slot.start] = { available: false, price: null, reason: 'Không có thông tin' };
             }
-          } catch {
-            newAvailabilityMap[slot.start] = { available: true, price: 120000 };
+          } catch (err) {
+            console.warn(`Failed availability check for slot ${slot.start}`, err);
+            newAvailabilityMap[slot.start] = { available: false, price: null, reason: 'Lỗi kết nối máy chủ' };
           }
         })
       );
 
       setSlotAvailabilityMap(newAvailabilityMap);
+      if (!hasSuccess && Object.keys(newAvailabilityMap).length > 0) {
+        setValidationError('Không thể xác thực danh sách khung giờ từ máy chủ.');
+      }
     } catch (err) {
       console.error("Failed to check slot availability", err);
     } finally {
@@ -172,25 +189,25 @@ export default function Booking() {
     try {
       setRevalidating(true);
       // Revalidate selected slot against Backend API before navigating
-      let isStillAvailable = true;
+      let isStillAvailable = false;
       try {
         const res = await checkCourtAvailability(courtId, selectedDate, selectedTimeSlot.start, selectedTimeSlot.end);
-        if (res && res.data && res.data.is_available === false) {
-          isStillAvailable = false;
+        if (res && res.data && res.data.is_available === true) {
+          isStillAvailable = true;
         }
-      } catch {
-        // If availability check endpoint fails, allow checkout to proceed where createBooking will do final validation
-        isStillAvailable = true;
+      } catch (err) {
+        console.error("Revalidation API failure", err);
+        isStillAvailable = false;
       }
 
       if (!isStillAvailable) {
-        setValidationError('Khung giờ này vừa được người khác chọn hoặc đã ngưng phục vụ. Vui lòng chọn khung giờ khác.');
+        setValidationError('Khung giờ này vừa được người khác đặt hoặc đã ngưng phục vụ. Vui lòng chọn khung giờ khác.');
         fetchRealAvailability(); // Refresh list
         setSelectedTimeSlot(null);
         return;
       }
 
-      // Build URL search params for Checkout (Only navigation context IDs, NO untrusted price state)
+      // Build URL search params for Checkout (Only navigation context IDs, NO untrusted financial state)
       const params = new URLSearchParams();
       params.set('venueId', venueId);
       if (courtId) params.set('courtId', courtId);
@@ -202,7 +219,7 @@ export default function Booking() {
       navigate(`/checkout?${params.toString()}`);
     } catch (err) {
       console.error("Revalidation error", err);
-      setValidationError('Không thể xác thực khung giờ. Vui lòng kiểm tra lại đường truyền.');
+      setValidationError('Không thể xác thực khung giờ với hệ thống. Vui lòng kiểm tra lại đường truyền.');
     } finally {
       setRevalidating(false);
     }
@@ -266,7 +283,7 @@ export default function Booking() {
     : "Chưa cập nhật địa chỉ";
 
   const selectedSlotData = selectedTimeSlot ? slotAvailabilityMap[selectedTimeSlot.start] : null;
-  const currentPrice = selectedSlotData?.price || 120000;
+  const currentPrice = selectedSlotData?.price;
 
   return (
     <div className="w-full bg-surface-subtle min-h-screen pb-20">
@@ -287,7 +304,7 @@ export default function Booking() {
                 Đặt lịch sân thể thao
               </h1>
               <p className="text-sm text-text-muted mt-1">
-                Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế
+                Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế từ Backend API
               </p>
             </div>
             <Button
@@ -317,7 +334,7 @@ export default function Booking() {
                 </div>
                 <div className="space-y-1">
                   <Badge variant="info" size="sm" className="mb-1">
-                    Kiểm tra lịch thời gian thực
+                    Xác thực Backend
                   </Badge>
                   <h2 className="font-bold text-xl text-gray-900 leading-snug">
                     {venue?.venue_name}
@@ -408,17 +425,17 @@ export default function Booking() {
               </Card.Body>
             </Card>
 
-            {/* TIME SLOT SELECTOR */}
+            {/* TIME SLOT SELECTOR (LIVE BACKEND AVAILABILITY) */}
             <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
               <Card.Header className="flex justify-between items-center">
                 <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
                   <Clock size={18} className="text-accent-primary" />
-                  3. Chọn khung giờ (Live Availability)
+                  3. Chọn khung giờ (Backend Live Availability)
                 </h3>
                 {checkingAvailability && (
                   <div className="flex items-center text-xs text-text-muted gap-1">
                     <Loader2 size={14} className="animate-spin text-accent-primary" />
-                    <span>Đang kiểm tra...</span>
+                    <span>Đang xác thực API...</span>
                   </div>
                 )}
               </Card.Header>
@@ -426,8 +443,9 @@ export default function Booking() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {TIME_SLOTS.map((slot) => {
                     const slotData = slotAvailabilityMap[slot.start];
-                    const isAvailable = slotData ? slotData.available : true;
-                    const price = slotData?.price || 120000;
+                    // NO FAKE AVAILABILITY: If API hasn't loaded or returned false, disable slot!
+                    const isAvailable = slotData ? Boolean(slotData.available) : false;
+                    const price = slotData?.price;
                     const isSelected = selectedTimeSlot?.start === slot.start;
 
                     return (
@@ -446,7 +464,7 @@ export default function Booking() {
                       >
                         <span className="text-sm font-semibold">{slot.label}</span>
                         <span className="text-[11px] mt-0.5 opacity-90">
-                          {isAvailable ? `${price.toLocaleString('vi-VN')}đ` : 'Đã đặt'}
+                          {isAvailable && price ? `${price.toLocaleString('vi-VN')}đ` : (slotData?.reason || 'Không khả dụng')}
                         </span>
                       </button>
                     );
@@ -502,14 +520,14 @@ export default function Booking() {
                 </div>
 
                 <div className="pt-4 border-t border-border-subtle-medium flex justify-between items-center">
-                  <span className="font-bold text-gray-900">Tạm tính (Backend Verified):</span>
+                  <span className="font-bold text-gray-900">Tạm tính (Xác thực Backend):</span>
                   <span className="text-xl font-bold text-brand-orange">
-                    {selectedTimeSlot ? `${currentPrice.toLocaleString('vi-VN')}đ` : '0đ'}
+                    {selectedTimeSlot && currentPrice ? `${currentPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá API'}
                   </span>
                 </div>
 
                 {validationError && (
-                  <div className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex items-center gap-2">
+                  <div role="alert" className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex items-center gap-2">
                     <AlertCircle size={16} className="flex-shrink-0 text-status-error" />
                     <span>{validationError}</span>
                   </div>

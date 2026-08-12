@@ -14,6 +14,7 @@ class VenueSearchController {
         code: err.code || 'SERVER_ERROR',
         message: err.message
       });
+    }
   }
 
   async getVenueDetails(req, res) {

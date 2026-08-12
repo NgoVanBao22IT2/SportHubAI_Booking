@@ -4,6 +4,16 @@ class BookingController {
   static async createBooking(req, res, next) {
     try {
       const userId = req.user.userId;
+
+      // Handle batch payload if slots array is provided
+      if (Array.isArray(req.body) || (req.body && Array.isArray(req.body.slots))) {
+        const bookings = await BookingService.createBatchBookings(userId, req.body);
+        return res.status(201).json({
+          status: 'success',
+          data: bookings
+        });
+      }
+
       const { court_id, booking_date, start_time, end_time } = req.body;
 
       // 09.02 Booking Validation
@@ -35,6 +45,27 @@ class BookingController {
       res.status(201).json({
         status: 'success',
         data: booking
+      });
+    } catch (error) {
+      if (error.statusCode) {
+        return res.status(error.statusCode).json({
+          status: 'error',
+          code: error.code || (error.statusCode === 404 ? 'NOT_FOUND' : (error.statusCode === 409 ? 'CONFLICT' : 'BAD_REQUEST')),
+          message: error.message
+        });
+      }
+      next(error);
+    }
+  }
+
+  static async createBatchBookings(req, res, next) {
+    try {
+      const userId = req.user.userId;
+      const bookings = await BookingService.createBatchBookings(userId, req.body);
+
+      res.status(201).json({
+        status: 'success',
+        data: bookings
       });
     } catch (error) {
       if (error.statusCode) {

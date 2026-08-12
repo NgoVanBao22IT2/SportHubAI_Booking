@@ -48,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // User.hasMany(models.OwnerApplication, { foreignKey: 'applicant_user_id', as: 'submitted_applications' });
     // User.hasMany(models.OwnerApplication, { foreignKey: 'reviewer_admin_id', as: 'reviewed_applications' });
-    // User.hasMany(models.RefreshToken, { foreignKey: 'user_id', as: 'refresh_tokens' });
-    // User.hasMany(models.PasswordResetToken, { foreignKey: 'user_id', as: 'reset_tokens' });
+    User.hasMany(models.RefreshToken, { foreignKey: 'user_id', as: 'refresh_tokens' });
+    User.hasMany(models.PasswordResetToken, { foreignKey: 'user_id', as: 'reset_tokens' });
     User.hasMany(models.Venue, { foreignKey: 'owner_user_id', as: 'venues' });
     User.hasMany(models.Booking, { foreignKey: 'customer_user_id', as: 'bookings' });
     User.hasMany(models.Payment, { foreignKey: 'user_id', as: 'payments' });

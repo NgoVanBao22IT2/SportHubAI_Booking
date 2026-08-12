@@ -17,19 +17,41 @@ class AuthService {
   async register(data, models, transaction = null) {
     const { email, password, full_name, phone_number, primary_role = 'CUSTOMER' } = data;
 
+    // Input validation guards — prevent 500 from DB constraint errors
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      const error = new Error('Email is required');
+      error.statusCode = 400;
+      error.code = 'EMAIL_REQUIRED';
+      throw error;
+    }
+
+    if (!full_name || typeof full_name !== 'string' || !full_name.trim()) {
+      const error = new Error('Full name is required');
+      error.statusCode = 400;
+      error.code = 'FULL_NAME_REQUIRED';
+      throw error;
+    }
+
+    if (!phone_number || typeof phone_number !== 'string' || !phone_number.trim()) {
+      const error = new Error('Phone number is required');
+      error.statusCode = 400;
+      error.code = 'PHONE_NUMBER_REQUIRED';
+      throw error;
+    }
+
+    if (!password || typeof password !== 'string' || password.length < 6) {
+      const error = new Error('Password must be at least 6 characters long');
+      error.statusCode = 400;
+      error.code = 'INVALID_PASSWORD';
+      throw error;
+    }
+
     // Check existing email
-    const existingUser = await models.User.findOne({ where: { email } });
+    const existingUser = await models.User.findOne({ where: { email: email.trim() } });
     if (existingUser) {
       const error = new Error('Email address is already registered');
       error.statusCode = 409;
       error.code = 'EMAIL_DUPLICATE';
-      throw error;
-    }
-
-    if (!password || password.length < 6) {
-      const error = new Error('Password must be at least 6 characters long');
-      error.statusCode = 400;
-      error.code = 'INVALID_PASSWORD';
       throw error;
     }
 
@@ -138,7 +160,22 @@ class AuthService {
    * Task 05.04: Login
    */
   async login(email, password, models) {
-    const user = await models.User.findOne({ where: { email } });
+    // Input validation guards — prevent 500 from undefined args
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      const error = new Error('Email is required');
+      error.statusCode = 400;
+      error.code = 'EMAIL_REQUIRED';
+      throw error;
+    }
+
+    if (!password || typeof password !== 'string') {
+      const error = new Error('Password must be at least 6 characters long');
+      error.statusCode = 400;
+      error.code = 'INVALID_PASSWORD';
+      throw error;
+    }
+
+    const user = await models.User.findOne({ where: { email: email.trim() } });
 
     // Generic error to prevent account enumeration
     if (!user) {
@@ -205,6 +242,14 @@ class AuthService {
    * Task 05.06: Refresh Token Renewal
    */
   async refreshToken(rawRefreshToken, models) {
+    // Validate token before hashing to prevent crypto crash on undefined
+    if (!rawRefreshToken || typeof rawRefreshToken !== 'string' || !rawRefreshToken.trim()) {
+      const error = new Error('Invalid or expired refresh token');
+      error.statusCode = 401;
+      error.code = 'INVALID_REFRESH_TOKEN';
+      throw error;
+    }
+
     const hashed = hashToken(rawRefreshToken);
     const tokenRecord = await models.RefreshToken.findOne({
       where: {
@@ -246,7 +291,14 @@ class AuthService {
    * Task 05.07: Forgot Password
    */
   async forgotPassword(email, models) {
-    const user = await models.User.findOne({ where: { email } });
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      const error = new Error('Email is required');
+      error.statusCode = 400;
+      error.code = 'EMAIL_REQUIRED';
+      throw error;
+    }
+
+    const user = await models.User.findOne({ where: { email: email.trim() } });
     // Generic response to prevent enumeration
     if (!user) {
       return { success: true, message: 'If an account with that email exists, a reset code has been sent.' };
@@ -274,7 +326,28 @@ class AuthService {
    * Task 05.08: Reset Password
    */
   async resetPassword(email, resetToken, newPassword, models) {
-    const user = await models.User.findOne({ where: { email } });
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      const error = new Error('Email is required');
+      error.statusCode = 400;
+      error.code = 'EMAIL_REQUIRED';
+      throw error;
+    }
+
+    if (!resetToken || typeof resetToken !== 'string' || !resetToken.trim()) {
+      const error = new Error('Reset token is required');
+      error.statusCode = 400;
+      error.code = 'RESET_TOKEN_REQUIRED';
+      throw error;
+    }
+
+    if (!newPassword || typeof newPassword !== 'string' || newPassword.length < 6) {
+      const error = new Error('Password must be at least 6 characters long');
+      error.statusCode = 400;
+      error.code = 'INVALID_PASSWORD';
+      throw error;
+    }
+
+    const user = await models.User.findOne({ where: { email: email.trim() } });
     if (!user) {
       const error = new Error('Invalid or expired password reset token');
       error.statusCode = 400;
@@ -297,18 +370,11 @@ class AuthService {
       throw error;
     }
 
-    const isMatch = await comparePassword(resetToken, resetRecord.token_hash);
+    const isMatch = await comparePassword(resetToken.trim(), resetRecord.token_hash);
     if (!isMatch) {
       const error = new Error('Invalid password reset token');
       error.statusCode = 400;
       error.code = 'INVALID_RESET_TOKEN';
-      throw error;
-    }
-
-    if (!newPassword || newPassword.length < 6) {
-      const error = new Error('Password must be at least 6 characters long');
-      error.statusCode = 400;
-      error.code = 'INVALID_PASSWORD';
       throw error;
     }
 
@@ -319,7 +385,7 @@ class AuthService {
       await user.update({ password_hash: newHashedPassword }, { transaction: t });
       await resetRecord.update({ is_consumed: true, consumed_at: new Date() }, { transaction: t });
       await t.commit();
-      return { success: true, message: 'Password has been reset successfully. You can now log in.' };
+      return { message: 'Password has been reset successfully. You can now log in.' };
     } catch (err) {
       await t.rollback();
       throw err;

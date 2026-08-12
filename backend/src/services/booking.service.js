@@ -123,6 +123,170 @@ class BookingService {
   }
 
   /**
+   * Create Batch Bookings for multiple slots/courts within a single atomic transaction.
+   */
+  static async createBatchBookings(userId, payload) {
+    const slots = Array.isArray(payload) ? payload : (payload.slots || [payload]);
+    if (!slots || slots.length === 0) {
+      const error = new Error('No booking slots provided');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const transaction = await sequelize.transaction();
+    try {
+      const createdBookings = [];
+      const holdExpiry = new Date(Date.now() + 10 * 60000); // 10 minutes hold
+
+      // Group slots by court_id & booking_date to merge contiguous time slots
+      const grouped = {};
+      slots.forEach(slot => {
+        const key = `${slot.court_id}___${slot.booking_date}`;
+        if (!grouped[key]) {
+          grouped[key] = {
+            court_id: slot.court_id,
+            booking_date: slot.booking_date,
+            intervals: []
+          };
+        }
+        grouped[key].intervals.push({ start: slot.start_time, end: slot.end_time });
+      });
+
+      // For each group, merge contiguous intervals
+      for (const key of Object.keys(grouped)) {
+        const group = grouped[key];
+        const court_id = group.court_id;
+        const booking_date = group.booking_date;
+
+        // Sort intervals by start_time
+        group.intervals.sort((a, b) => a.start.localeCompare(b.start));
+
+        const mergedIntervals = [];
+        let current = null;
+        for (const interval of group.intervals) {
+          if (!current) {
+            current = { ...interval };
+          } else if (current.end === interval.start) {
+            current.end = interval.end; // Merge continuous slot
+          } else {
+            mergedIntervals.push(current);
+            current = { ...interval };
+          }
+        }
+        if (current) mergedIntervals.push(current);
+
+        // Lock court
+        const court = await Court.findOne({
+          where: { court_id },
+          lock: transaction.LOCK.UPDATE,
+          transaction
+        });
+
+        if (!court || court.court_status !== 'ACTIVE') {
+          const error = new Error(`Court ${court ? court.court_name : court_id} is not available`);
+          error.statusCode = 404;
+          throw error;
+        }
+
+        // Process each merged interval
+        for (const interval of mergedIntervals) {
+          const { start: start_time, end: end_time } = interval;
+
+          if (start_time >= end_time) {
+            const error = new Error('start_time must be before end_time');
+            error.statusCode = 400;
+            throw error;
+          }
+
+          // Calculate price
+          let pricing;
+          try {
+            pricing = await PricingService.calculatePrice(court_id, booking_date, start_time, end_time);
+          } catch (err) {
+            if (err.message === 'Requested time is outside operating hours') {
+              const error = new Error('Outside operating hours');
+              error.statusCode = 400;
+              throw error;
+            }
+            throw err;
+          }
+
+          // Check blockings
+          const blocking = await SlotBlocking.findOne({
+            where: {
+              court_id,
+              block_date: booking_date,
+              start_time: { [Op.lt]: end_time },
+              end_time: { [Op.gt]: start_time }
+            },
+            transaction
+          });
+
+          if (blocking) {
+            const error = new Error('One or more selected slots are blocked');
+            error.statusCode = 409;
+            throw error;
+          }
+
+          // Double booking check
+          const conflict = await Booking.findOne({
+            where: {
+              court_id,
+              booking_date,
+              booking_status: {
+                [Op.in]: ['HOLDING', 'PAYMENT_PENDING', 'CONFIRMED', 'COMPLETED']
+              },
+              start_time: { [Op.lt]: end_time },
+              end_time: { [Op.gt]: start_time }
+            },
+            transaction
+          });
+
+          if (conflict) {
+            const error = new Error('One or more selected slots are already booked');
+            error.statusCode = 409;
+            error.code = 'BOOKING_SLOT_OCCUPIED';
+            throw error;
+          }
+
+          const bookingId = uuidv4();
+          const booking = await Booking.create({
+            booking_id: bookingId,
+            customer_user_id: userId,
+            court_id,
+            booking_date,
+            start_time,
+            end_time,
+            total_amount: pricing.total_price,
+            currency: pricing.currency,
+            booking_source: 'ONLINE_CUSTOMER',
+            booking_status: 'HOLDING',
+            hold_expiry_at: holdExpiry
+          }, { transaction });
+
+          await BookingStatusHistory.create({
+            history_id: uuidv4(),
+            booking_id: bookingId,
+            from_status: null,
+            to_status: 'HOLDING',
+            changed_by_user_id: userId,
+            change_reason: 'User created batch booking'
+          }, { transaction });
+
+          createdBookings.push(booking);
+        }
+      }
+
+      await transaction.commit();
+      return createdBookings;
+
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  }
+
+  /**
    * 09.05 Booking Detail
    */
   static async getBooking(userId, bookingId) {

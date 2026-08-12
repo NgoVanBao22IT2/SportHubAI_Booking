@@ -48,7 +48,7 @@ export default function Search() {
       setError(false);
       // Fetch up to 50 venues for robust search & filtering
       const data = await getFeaturedVenues(50);
-      setVenues(data || []);
+      setVenues(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load venues for search", err);
       setError(true);

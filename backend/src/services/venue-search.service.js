@@ -202,6 +202,7 @@ class VenueSearchService {
       page: parseInt(page),
       limit: parseInt(limit),
       data: rows
+    };
   }
 
   async getVenueDetails(venueId, models) {

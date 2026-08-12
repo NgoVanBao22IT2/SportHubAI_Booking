@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Phone, Heart, Calendar, Star, CheckCircle2, Navigation, Image as ImageIcon, LayoutGrid, RefreshCw, ArrowRight } from 'lucide-react';
 import { getVenueById, getFeaturedVenues, getVenueImages } from '../../api/venues';
+import { addFavorite } from '../../api/favorites';
 
 // Design System Imports
 import Button from '../../components/ui/Button';
@@ -12,6 +13,7 @@ import Tabs from '../../components/ui/Tabs';
 import EmptyState from '../../components/ui/EmptyState';
 import ErrorState from '../../components/ui/ErrorState';
 import VenueCard from '../../components/domain/VenueCard';
+import BookingModal from '../../components/domain/BookingModal';
 
 export default function VenueDetail() {
   const { id } = useParams();
@@ -23,6 +25,8 @@ export default function VenueDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [activeTab, setActiveTab] = useState('Thông tin');
+  const [favPending, setFavPending] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const fetchVenueDetails = useCallback(async () => {
     try {
@@ -199,7 +203,7 @@ export default function VenueDetail() {
                 size="lg"
                 fullWidth
                 leftIcon={<Calendar size={18} />}
-                onClick={() => navigate(`/search`)}
+                onClick={() => setIsBookingModalOpen(true)}
               >
                 Đặt lịch
               </Button>
@@ -207,8 +211,30 @@ export default function VenueDetail() {
                 variant="outline"
                 size="md"
                 fullWidth
+                disabled={favPending}
+                aria-busy={favPending}
                 leftIcon={<Heart size={18} />}
                 aria-label="Thêm sân vào danh sách yêu thích"
+                onClick={async () => {
+                  if (favPending) return;
+                  try {
+                    setFavPending(true);
+                    await addFavorite(id);
+                    alert("Đã thêm vào danh sách yêu thích thành công.");
+                  } catch (err) {
+                    console.error("Failed to add favorite", err);
+                    const status = err.response?.status;
+                    if (status === 401) {
+                      alert("Vui lòng đăng nhập để sử dụng danh sách yêu thích.");
+                    } else if (status === 409) {
+                      alert("Sân này đã có trong danh sách yêu thích của bạn.");
+                    } else {
+                      alert("Tính năng Backend Favorites chưa khả dụng trên máy chủ (/api/v1/favorites).");
+                    }
+                  } finally {
+                    setFavPending(false);
+                  }
+                }}
               >
                 Yêu thích
               </Button>
@@ -403,6 +429,17 @@ export default function VenueDetail() {
           </div>
         )}
       </section>
+
+      {/* CHỌN HÌNH THỨC ĐẶT MODAL */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        onSelectVisualBooking={() => {
+          setIsBookingModalOpen(false);
+          navigate(`/venues/${id}/booking`);
+        }}
+        venue={venue}
+      />
     </div>
   );
 }

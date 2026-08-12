@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { CheckCircle2, ArrowLeft, CreditCard, User, Lock, Check, AlertCircle, RefreshCw } from 'lucide-react';
+import { useSearchParams, useNavigate, useLocation, Link } from 'react-router-dom';
+import { CheckCircle2, ArrowLeft, CreditCard, User, Lock, Check, AlertCircle, RefreshCw, AlertTriangle, Calendar, Clock, MapPin } from 'lucide-react';
 import { getVenueById } from '../api/venues';
 import { checkCourtAvailability } from '../api/availability';
-import { createBooking } from '../api/bookings';
+import { createBooking, getBookingById } from '../api/bookings';
 import { createPayment } from '../api/payments';
+import { useAuth } from '../context/AuthContext';
 
 // Design System Imports
 import Button from '../components/ui/Button';
@@ -18,35 +19,41 @@ import ErrorState from '../components/ui/ErrorState';
 export default function Checkout() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { currentUser } = useAuth();
 
-  // Extract navigation context from URL (Decoupled from untrusted price/code)
-  const venueId = searchParams.get('venueId');
-  const courtId = searchParams.get('courtId');
-  const bookingDate = searchParams.get('date') || '';
+  // Extract navigation context from location state or URL params
+  const locationState = location.state || {};
+  const selectedSlots = locationState.selectedSlots || [];
+  
+  const venueId = locationState.venueId || searchParams.get('venueId');
+  const courtId = searchParams.get('courtId') || (selectedSlots.length > 0 ? selectedSlots[0].court_id : null);
+  const bookingDate = locationState.date || searchParams.get('date') || '';
   const startTime = searchParams.get('startTime') || '18:00:00';
   const endTime = searchParams.get('endTime') || '19:00:00';
-  const timeLabel = searchParams.get('label') || '18:00 - 19:00';
 
   // Backend trusted states
   const [venue, setVenue] = useState(null);
   const [court, setCourt] = useState(null);
-  const [verifiedPrice, setVerifiedPrice] = useState(120000);
+  const [verifiedPrice, setVerifiedPrice] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [ownershipError, setOwnershipError] = useState(false);
 
-  // Form State
-  const [fullName, setFullName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+  // Form State prefilled from currentUser if available
+  const [fullName, setFullName] = useState(currentUser?.full_name || currentUser?.fullName || '');
+  const [phoneNumber, setPhoneNumber] = useState(currentUser?.phone || currentUser?.phoneNumber || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
   const [note, setNote] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('momo');
 
   // Transaction States
   const [submitting, setSubmitting] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
+  const [unknownOutcomeState, setUnknownOutcomeState] = useState(null);
   const [apiErrorMessage, setApiErrorMessage] = useState('');
 
-  // Fetch Trusted Venue & Price Information from Backend API (Ignores untrusted URL price)
+  // Fetch Trusted Venue & Price Information from Backend API (With Ownership Check)
   const fetchCheckoutContext = useCallback(async () => {
     if (!venueId) {
       setLoading(false);
@@ -56,23 +63,39 @@ export default function Checkout() {
     try {
       setLoading(true);
       setError(false);
+      setOwnershipError(false);
+
       const data = await getVenueById(venueId);
       setVenue(data);
 
       if (data && data.branches && data.branches.length > 0 && data.branches[0].courts) {
-        const foundCourt = data.branches[0].courts.find(c => (c.court_id || c.id) === courtId) || data.branches[0].courts[0];
-        setCourt(foundCourt);
+        const activeCourts = data.branches[0].courts;
+        const foundCourt = activeCourts.find(c => (c.court_id || c.id) === courtId);
+
+        // TASK 04.02D-07: Venue ↔ Court Ownership Validation
+        if (courtId && !foundCourt) {
+          console.error(`Security Violation: courtId ${courtId} does not belong to venue ${venueId}`);
+          setOwnershipError(true);
+          setLoading(false);
+          return;
+        }
+
+        const targetCourt = foundCourt || activeCourts[0];
+        setCourt(targetCourt);
         
         // Revalidate price with Availability API
-        const targetCourtId = foundCourt ? (foundCourt.court_id || foundCourt.id) : courtId;
+        const targetCourtId = targetCourt ? (targetCourt.court_id || targetCourt.id) : courtId;
         if (targetCourtId && bookingDate) {
           try {
             const availRes = await checkCourtAvailability(targetCourtId, bookingDate, startTime, endTime);
             if (availRes && availRes.data && availRes.data.pricing?.total_price) {
               setVerifiedPrice(availRes.data.pricing.total_price);
+            } else {
+              setVerifiedPrice(null);
             }
-          } catch {
-            setVerifiedPrice(120000);
+          } catch (availErr) {
+            console.warn("Pricing availability check failed", availErr);
+            setVerifiedPrice(null);
           }
         }
       }
@@ -88,11 +111,12 @@ export default function Checkout() {
     fetchCheckoutContext();
   }, [fetchCheckoutContext]);
 
-  // Handle Real Booking Submission to Backend API
+  // Handle Real Booking Submission to Backend API (NO MOCK/FAKE FALLBACKS)
   const handleConfirmOrder = async (e) => {
     e?.preventDefault();
     if (submitting) return; // Prevent double-submit
     setApiErrorMessage('');
+    setUnknownOutcomeState(null);
 
     if (!fullName.trim()) {
       setApiErrorMessage('Vui lòng nhập Họ và tên của bạn.');
@@ -106,46 +130,120 @@ export default function Checkout() {
 
     const targetCourtId = courtId || (court ? (court.court_id || court.id) : '');
 
+    // TASK 04.02D-02: Generate Deterministic Idempotency Key
+    const sanitizedPhone = phoneNumber.replace(/\D/g, '');
+    const idempotencyKey = `idem-book-${targetCourtId || 'batch'}-${bookingDate}-${startTime.replace(/:/g, '')}-${sanitizedPhone}`;
+
     try {
       setSubmitting(true);
 
-      // 1. Execute Real Booking Creation API
-      let bookingResponse;
-      try {
-        bookingResponse = await createBooking({
+      // Construct payload for API
+      let bookingPayload;
+      if (selectedSlots && selectedSlots.length > 0) {
+        bookingPayload = {
+          slots: selectedSlots.map(s => ({
+            court_id: s.court_id,
+            booking_date: s.booking_date || bookingDate,
+            start_time: s.start_time,
+            end_time: s.end_time
+          }))
+        };
+      } else {
+        if (!targetCourtId || ownershipError) {
+          setApiErrorMessage('Sân con không hợp lệ hoặc không thuộc câu lạc bộ này.');
+          setSubmitting(false);
+          return;
+        }
+        bookingPayload = {
           court_id: targetCourtId,
           booking_date: bookingDate,
           start_time: startTime,
           end_time: endTime,
-        });
+        };
+      }
+
+      // 1. Execute Real Booking Creation API with Idempotency Key
+      let bookingResponse;
+      try {
+        bookingResponse = await createBooking(bookingPayload, idempotencyKey);
       } catch (err) {
-        if (err.response?.status === 401) {
-          // Authentication error fallback
-          bookingResponse = {
-            status: 'success',
-            data: {
-              booking_id: 'SPH-' + Math.floor(100000 + Math.random() * 900000),
-              booking_date: bookingDate,
-              start_time: startTime,
-              end_time: endTime,
-              booking_status: 'HOLDING'
-            }
-          };
-        } else if (err.response?.status === 409) {
-          setApiErrorMessage('Khung giờ này vừa được người khác chọn hoặc đã ngưng phục vụ. Vui lòng quay lại chọn khung giờ khác.');
+        // TASK 04.02D-03: POST Success but Response Lost (Network Timeout)
+        if (!err.response && (err.code === 'ECONNABORTED' || err.message?.includes('Network Error'))) {
+          setUnknownOutcomeState({
+            idempotencyKey,
+            message: 'Yêu cầu đặt sân đã gửi đi nhưng kết nối mạng bị rớt trước khi nhận phản hồi. Vui lòng kiểm tra lại trạng thái hoặc liên hệ hỗ trợ trước khi thử lại.'
+          });
+          setSubmitting(false);
+          return;
+        }
+
+        const status = err.response?.status;
+        if (status === 409) {
+          setApiErrorMessage('Khung giờ này vừa được người khác đặt giữ chỗ. Vui lòng quay lại chọn khung giờ khác.');
+          setSubmitting(false);
+          return;
+        } else if (status === 401) {
+          setApiErrorMessage('Phiên đăng nhập đã hết hạn hoặc bạn cần đăng nhập để thực hiện giữ chỗ.');
+          setSubmitting(false);
+          return;
+        } else if (status === 403) {
+          setApiErrorMessage('Bạn không có quyền thực hiện thao tác đặt sân cho tài nguyên này.');
+          setSubmitting(false);
+          return;
+        } else if (status === 429) {
+          setApiErrorMessage('Hệ thống đang tiếp nhận quá nhiều yêu cầu. Vui lòng chờ 1-2 phút rồi thử lại.');
+          setSubmitting(false);
+          return;
+        } else if (status === 400 || status === 422) {
+          setApiErrorMessage('Dữ liệu yêu cầu đặt sân chưa hợp lệ.');
+          setSubmitting(false);
+          return;
+        } else if (status >= 500) {
+          setApiErrorMessage('Máy chủ đang gặp sự cố khi xử lý đơn hàng (Lỗi 5xx). Vui lòng thử lại sau.');
           setSubmitting(false);
           return;
         } else {
-          throw err;
+          setApiErrorMessage('Không thể kết nối đến hệ thống tạo đơn đặt sân.');
+          setSubmitting(false);
+          return;
         }
       }
 
-      const createdData = bookingResponse?.data || bookingResponse;
-      const reservationId = createdData?.booking_id || ('SPH-' + Math.floor(100000 + Math.random() * 900000));
-      const bookingStatus = createdData?.booking_status || 'HOLDING';
+      const rawData = bookingResponse?.data || bookingResponse;
+      const primaryBooking = Array.isArray(rawData) ? rawData[0] : rawData;
+      const reservationId = primaryBooking?.booking_id;
 
-      // 2. Execute Real Payment API (if online method)
-      let paymentLabel = 'Thanh toán tại sân';
+      // NO FAKE BOOKING: If backend returned no booking_id, throw error
+      if (!reservationId) {
+        throw new Error("Backend API không trả về mã giữ chỗ (booking_id).");
+      }
+
+      // 3. Fetch Booking Details from Backend to Verify Real Status (TASK 04.02D-04)
+      let verifiedStatus = primaryBooking?.booking_status || 'HOLDING';
+      let verifiedAmount = verifiedPrice || primaryBooking?.total_amount || primaryBooking?.total_price || null;
+
+      try {
+        const fetchedBooking = await getBookingById(reservationId);
+        if (fetchedBooking && fetchedBooking.data) {
+          verifiedStatus = fetchedBooking.data.booking_status || verifiedStatus;
+          verifiedAmount = fetchedBooking.data.total_amount || fetchedBooking.data.total_price || verifiedAmount;
+        }
+      } catch (fetchErr) {
+        const fetchStatus = fetchErr.response?.status;
+        if (fetchStatus === 404) {
+          setApiErrorMessage('Không thể xác minh đơn hàng từ hệ thống backend (Mã 404).');
+          setSubmitting(false);
+          return;
+        } else if (fetchStatus === 401 || fetchStatus === 403) {
+          setApiErrorMessage('Không có quyền xác minh thông tin đơn đặt sân.');
+          setSubmitting(false);
+          return;
+        }
+        console.warn("Fetching verified booking details warning, using creation response", fetchErr);
+      }
+
+      // 4. Execute Real Payment API (if online method)
+      let paymentLabel = 'Thanh toán tại sân (Khi nhận sân)';
       let isPaymentPending = false;
 
       if (paymentMethod === 'momo' || paymentMethod === 'banking') {
@@ -153,44 +251,34 @@ export default function Checkout() {
           await createPayment({
             booking_id: reservationId,
             payment_method: paymentMethod,
-            amount: verifiedPrice
+            amount: verifiedAmount || 0
           });
-          paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo (Đang xử lý QR)' : 'Chuyển khoản Ngân hàng (Đang chờ IPN)';
+          paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo (Đang chờ thanh toán QR)' : 'Chuyển khoản Ngân hàng (Đang chờ IPN)';
           isPaymentPending = true;
-        } catch {
+        } catch (payErr) {
+          console.warn("Payment API initiation warning", payErr);
           paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo' : 'Chuyển khoản Ngân hàng';
           isPaymentPending = true;
         }
       }
 
-      // Render Verified Response Confirmation Screen
+      // Render Verified Response Confirmation Screen (HOLDING state, NOT fake paid success)
       setConfirmedBooking({
         id: reservationId,
         venueName: venue?.venue_name || 'Sân thể thao',
         courtName: court?.court_name || court?.name || 'Sân tiêu chuẩn',
         bookingDate,
         timeLabel,
-        price: verifiedPrice,
+        price: verifiedAmount,
         fullName,
         phoneNumber,
         paymentMethod: paymentLabel,
         isPaymentPending,
-        bookingStatus
+        bookingStatus: verifiedStatus
       });
     } catch (err) {
-      console.error("Booking API execution error", err);
-      const status = err.response?.status;
-      if (status === 409) {
-        setApiErrorMessage('Khung giờ này vừa được người khác đặt. Vui lòng chọn khung giờ khác.');
-      } else if (status === 400 || status === 422) {
-        setApiErrorMessage('Dữ liệu yêu cầu đặt sân chưa hợp lệ.');
-      } else if (status === 401) {
-        setApiErrorMessage('Phiên đăng nhập đã hết hạn. Vui lòng thử lại.');
-      } else if (status >= 500) {
-        setApiErrorMessage('Hệ thống máy chủ đang gặp sự cố. Vui lòng thử lại sau.');
-      } else {
-        setApiErrorMessage('Không thể hoàn tất đơn đặt sân. Vui lòng kiểm tra lại đường truyền.');
-      }
+      console.error("Booking transaction failed", err);
+      setApiErrorMessage(err.message || 'Đã xảy ra lỗi khi hoàn tất thủ tục giữ chỗ.');
     } finally {
       setSubmitting(false);
     }
@@ -230,6 +318,23 @@ export default function Checkout() {
     );
   }
 
+  // Ownership Error State (TASK 04.02D-07)
+  if (ownershipError) {
+    return (
+      <div className="container mx-auto px-4 py-20 max-w-3xl">
+        <ErrorState
+          title="Sân con không thuộc câu lạc bộ này"
+          description="Mã sân con (courtId) chỉ định không thuộc quyền quản lý của câu lạc bộ thể thao đã chọn."
+          action={
+            <Button variant="primary" onClick={() => navigate(`/booking?venueId=${venueId}`)}>
+              Quay lại chọn sân hợp lệ
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
+
   // Error State
   if (error) {
     return (
@@ -247,7 +352,51 @@ export default function Checkout() {
     );
   }
 
-  // CONFIRMATION SCREEN (Verified Backend Response)
+  // UNKNOWN TRANSACTION OUTCOME SCREEN (TASK 04.02D-03)
+  if (unknownOutcomeState) {
+    return (
+      <div className="w-full bg-surface-subtle min-h-screen py-16 px-4">
+        <div className="container mx-auto max-w-2xl">
+          <Card padding="lg" radius="2xl" className="border border-border-subtle-medium shadow-xl text-center space-y-6">
+            <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 mx-auto flex items-center justify-center border-2 border-amber-400">
+              <AlertTriangle size={36} />
+            </div>
+
+            <div className="space-y-2">
+              <Badge variant="warning" size="md" className="uppercase font-bold tracking-wider">
+                Đang xác minh trạng thái giao dịch
+              </Badge>
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+                Chưa nhận được phản hồi từ máy chủ
+              </h1>
+              <p className="text-sm text-text-muted">
+                {unknownOutcomeState.message}
+              </p>
+            </div>
+
+            <div className="bg-amber-50 p-4 rounded-xl text-left border border-amber-200 text-xs text-amber-800 space-y-2">
+              <p className="font-bold">Hướng dẫn an toàn:</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Vui lòng không thao tác bấm đặt lại liên tiếp để tránh tạo trùng đơn giữ chỗ.</li>
+                <li>Bạn có thể kiểm tra danh sách đơn đặt của mình hoặc thử tải lại trang sau ít phút.</li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <Button variant="outline" size="lg" fullWidth onClick={() => navigate('/search')}>
+                Về trang tìm sân
+              </Button>
+              <Button variant="primary" size="lg" fullWidth onClick={() => window.location.reload()}>
+                Tải lại trang xác minh
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // CONFIRMATION SCREEN (Backend Response Verified - NO FAKE SUCCESS)
   if (confirmedBooking) {
     return (
       <div className="w-full bg-surface-subtle min-h-screen py-16 px-4">
@@ -263,13 +412,13 @@ export default function Checkout() {
                 size="md"
                 className="uppercase font-bold tracking-wider"
               >
-                {confirmedBooking.isPaymentPending ? 'Giữ chỗ thành công — Chờ thanh toán' : 'Xác nhận giữ chỗ thành công'}
+                {confirmedBooking.isPaymentPending ? 'Đơn giữ chỗ đã tạo (HOLDING 10 phút) — Chờ thanh toán' : 'Xác nhận giữ chỗ thành công (HOLDING)'}
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
                 Cảm ơn bạn, {confirmedBooking.fullName}!
               </h1>
               <p className="text-sm text-text-muted">
-                Mã đơn hàng backend: <span className="font-bold text-gray-900">{confirmedBooking.id}</span>
+                Mã đơn giữ chỗ từ Backend: <span className="font-bold text-gray-900">{confirmedBooking.id}</span>
               </p>
             </div>
 
@@ -292,13 +441,17 @@ export default function Checkout() {
                 <span className="font-semibold text-gray-900">{confirmedBooking.timeLabel}</span>
               </div>
               <div className="flex justify-between border-b border-border-subtle pb-2">
+                <span className="text-text-muted">Trạng thái giữ chỗ:</span>
+                <span className="font-bold text-accent-primary">{confirmedBooking.bookingStatus} (10 phút)</span>
+              </div>
+              <div className="flex justify-between border-b border-border-subtle pb-2">
                 <span className="text-text-muted">Phương thức thanh toán:</span>
                 <span className="font-semibold text-gray-900">{confirmedBooking.paymentMethod}</span>
               </div>
               <div className="flex justify-between pt-1">
                 <span className="font-bold text-gray-900">Tổng thanh toán:</span>
                 <span className="font-bold text-brand-orange text-lg">
-                  {confirmedBooking.price.toLocaleString('vi-VN')}đ
+                  {confirmedBooking.price ? `${confirmedBooking.price.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân'}
                 </span>
               </div>
             </div>
@@ -523,36 +676,76 @@ export default function Checkout() {
               </Card.Header>
 
               <Card.Body className="space-y-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-text-muted">
-                    <span>Sân thể thao:</span>
-                    <span className="font-bold text-gray-900 text-right truncate max-w-[150px]">
-                      {venue?.venue_name || 'Sân thể thao'}
-                    </span>
-                  </div>
+                {selectedSlots && selectedSlots.length > 0 ? (
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-text-muted">
+                      <span>Sân thể thao:</span>
+                      <span className="font-bold text-gray-900 text-right truncate max-w-[160px]">
+                        {locationState.venueName || venue?.venue_name || 'SportHub Venue'}
+                      </span>
+                    </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Sân con:</span>
-                    <span className="font-semibold text-gray-900">
-                      {court ? (court.court_name || court.name) : 'Sân tiêu chuẩn'}
-                    </span>
-                  </div>
+                    <div className="flex justify-between text-text-muted">
+                      <span>Ngày đặt sân:</span>
+                      <span className="font-semibold text-gray-900">{bookingDate.split('-').reverse().join('/')}</span>
+                    </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Ngày đặt:</span>
-                    <span className="font-semibold text-gray-900">{bookingDate}</span>
-                  </div>
+                    <div className="flex justify-between text-text-muted">
+                      <span>Số khung giờ chọn:</span>
+                      <span className="font-semibold text-brand-orange">{selectedSlots.length} slot ({locationState.totalHours || selectedSlots.length}h)</span>
+                    </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Khung giờ:</span>
-                    <span className="font-semibold text-gray-900">{timeLabel}</span>
+                    <div className="mt-3 pt-2 border-t border-border-subtle-medium space-y-2 max-h-52 overflow-y-auto pr-1">
+                      <span className="text-xs font-bold text-gray-700 block">Các sân & khung giờ đã chọn:</span>
+                      {selectedSlots.map((slot, idx) => (
+                        <div key={idx} className="flex justify-between items-center text-xs bg-surface-subtle p-2 rounded-xl border border-border-subtle-medium">
+                          <div>
+                            <span className="font-bold text-gray-900 block">{slot.court_name}</span>
+                            <span className="text-text-muted">{slot.label}</span>
+                          </div>
+                          <span className="font-bold text-brand-orange">
+                            {slot.price ? `${slot.price.toLocaleString('vi-VN')}đ` : 'Miễn phí'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-text-muted">
+                      <span>Sân thể thao:</span>
+                      <span className="font-bold text-gray-900 text-right truncate max-w-[150px]">
+                        {venue?.venue_name || 'Sân thể thao'}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between text-text-muted">
+                      <span>Sân con:</span>
+                      <span className="font-semibold text-gray-900">
+                        {court ? (court.court_name || court.name) : 'Sân tiêu chuẩn'}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between text-text-muted">
+                      <span>Ngày đặt:</span>
+                      <span className="font-semibold text-gray-900">{bookingDate}</span>
+                    </div>
+
+                    <div className="flex justify-between text-text-muted">
+                      <span>Khung giờ:</span>
+                      <span className="font-semibold text-gray-900">{searchParams.get('label') || '18:00 - 19:00'}</span>
+                    </div>
+                  </div>
+                )}
 
                 <div className="pt-4 border-t border-border-subtle-medium space-y-2">
                   <div className="flex justify-between text-text-muted">
                     <span>Tiền sân (Xác thực Backend):</span>
-                    <span>{verifiedPrice.toLocaleString('vi-VN')}đ</span>
+                    <span>
+                      {selectedSlots && selectedSlots.length > 0
+                        ? `${(locationState.totalAmount || selectedSlots.reduce((s, x) => s + (x.price || 0), 0)).toLocaleString('vi-VN')}đ`
+                        : (verifiedPrice ? `${verifiedPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân')}
+                    </span>
                   </div>
 
                   <div className="flex justify-between text-text-muted">
@@ -563,13 +756,15 @@ export default function Checkout() {
                   <div className="flex justify-between items-center pt-2 text-base">
                     <span className="font-bold text-gray-900">Tổng thanh toán:</span>
                     <span className="font-bold text-brand-orange text-xl">
-                      {verifiedPrice.toLocaleString('vi-VN')}đ
+                      {selectedSlots && selectedSlots.length > 0
+                        ? `${(locationState.totalAmount || selectedSlots.reduce((s, x) => s + (x.price || 0), 0)).toLocaleString('vi-VN')}đ`
+                        : (verifiedPrice ? `${verifiedPrice.toLocaleString('vi-VN')}đ` : 'Báo giá sân')}
                     </span>
                   </div>
                 </div>
 
                 {apiErrorMessage && (
-                  <div className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex flex-col gap-2">
+                  <div role="alert" className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex flex-col gap-2">
                     <div className="flex items-start gap-2">
                       <AlertCircle size={16} className="flex-shrink-0 text-status-error mt-0.5" />
                       <span>{apiErrorMessage}</span>
