@@ -135,13 +135,13 @@ export default function MyBooking() {
       case 'HOLDING':
       case 'PENDING':
       case 'PAYMENT_PENDING':
-        return { variant: 'warning', label: 'Đang giữ chỗ (10m)' };
+        return { variant: 'warning', label: 'Đang giữ sân (10m)' };
       case 'COMPLETED':
         return { variant: 'info', label: 'Đã hoàn thành' };
       case 'CANCELLED':
         return { variant: 'neutral', label: 'Đã hủy' };
       case 'EXPIRED':
-        return { variant: 'neutral', label: 'Hết hạn giữ chỗ' };
+        return { variant: 'neutral', label: 'Hết hạn giữ sân' };
       case 'FAILED':
         return { variant: 'danger', label: 'Đặt thất bại' };
       default:
@@ -172,10 +172,10 @@ export default function MyBooking() {
       <div className="container mx-auto px-4 py-20 max-w-3xl">
         <ErrorState
           title="Không thể tải danh sách đơn đặt sân"
-          description="Đã xảy ra sự cố khi kết nối tới máy chủ Backend. Vui lòng thử lại."
+          description="Đã xảy ra sự cố khi kết nối tới hệ thống. Vui lòng thử lại."
           action={
             <Button variant="primary" leftIcon={<RefreshCw size={16} />} onClick={fetchBookingHistory}>
-              Thử lại kết nối API
+              Thử lại
             </Button>
           }
         />
@@ -200,9 +200,9 @@ export default function MyBooking() {
                 <Calendar size={28} className="text-accent-primary" />
                 Lịch sử & Đơn đặt sân cá nhân
               </h1>
-              <p className="text-sm text-text-muted mt-1">
-                Quản lý các lượt giữ chỗ, thông tin đặt sân và lịch sử thanh toán từ Backend SportHubAI
-              </p>
+              {/* <p className="text-sm text-text-muted mt-1">
+                Quản lý các lượt giữ sân, thông tin đặt sân và lịch sử thanh toán từ SportHub
+              </p> */}
             </div>
             <Button
               variant="outline"
@@ -228,7 +228,7 @@ export default function MyBooking() {
                 <span>{refreshError}</span>
               </div>
               <Button variant="outline" size="sm" onClick={fetchBookingHistory}>
-                Thử tải lại
+                Thử lại
               </Button>
             </div>
           )}
@@ -243,7 +243,7 @@ export default function MyBooking() {
           <Tabs
             items={[
               { id: 'all', label: `Tất cả (${bookings.length})` },
-              { id: 'upcoming', label: 'Sắp tới & Giữ chỗ' },
+              { id: 'upcoming', label: 'Sắp tới & Giữ sân' },
               { id: 'completed', label: 'Đã hoàn thành' },
               { id: 'cancelled', label: 'Đã hủy & Hết hạn' },
             ]}
@@ -275,7 +275,7 @@ export default function MyBooking() {
               title={activeTab === 'all' ? "Bạn chưa có đơn đặt sân nào" : "Không tìm thấy đơn đặt sân phù hợp"}
               description={
                 activeTab === 'all'
-                  ? "Danh sách lịch giữ chỗ và lịch sử đặt sân thể thao của bạn sẽ xuất hiện tại đây."
+                  ? "Danh sách lịch giữ sân và lịch sử đặt sân thể thao của bạn sẽ xuất hiện tại đây."
                   : "Vui lòng chọn tab lọc khác hoặc tìm kiếm thêm sân mới."
               }
               action={
@@ -325,7 +325,7 @@ export default function MyBooking() {
                         <span>{courtName}</span>
                       </p>
                     </div>
-                    <span className="text-[11px] font-mono text-text-muted bg-surface-subtle px-2 py-1 rounded border border-border-subtle shrink-0">
+                    <span className="text-[11px] font-mono text-accent-primary bg-surface-subtle px-2 py-1 rounded border border-border-subtle shrink-0">
                       #{bookingId.substring(0, 8)}
                     </span>
                   </Card.Header>
@@ -344,7 +344,7 @@ export default function MyBooking() {
                     {item.hold_expiry_at && (statusStr === 'HOLDING') && (
                       <div className="p-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800 flex items-center gap-1.5 mt-2">
                         <AlertCircle size={14} className="shrink-0 text-amber-600" />
-                        <span>Hết hạn giữ chỗ lúc: {new Date(item.hold_expiry_at).toLocaleTimeString('vi-VN')}</span>
+                        <span>Hết hạn giữ sân lúc: {new Date(item.hold_expiry_at).toLocaleTimeString('vi-VN')}</span>
                       </div>
                     )}
 
@@ -410,10 +410,10 @@ export default function MyBooking() {
             </Card.Header>
             <Card.Body className="space-y-2 text-sm text-gray-700">
               <p>
-                Bạn có chắc chắn muốn hủy đơn giữ chỗ tại <strong className="text-gray-900">{confirmCancelModal.Venue?.venue_name || confirmCancelModal.venue_name || 'sân thể thao'}</strong> (<span className="font-mono text-xs">#{(confirmCancelModal.booking_id || confirmCancelModal.id).substring(0, 8)}</span>)?
+                Bạn có chắc chắn muốn hủy đơn giữ sân tại <strong className="text-gray-900">{confirmCancelModal.Venue?.venue_name || confirmCancelModal.venue_name || 'sân thể thao'}</strong> (<span className="font-mono text-accent-primary text-xs">#{(confirmCancelModal.booking_id || confirmCancelModal.id).substring(0, 8)}</span>)?
               </p>
               <p className="text-xs text-text-muted">
-                Sau khi xác nhận hủy, trạng thái đơn sẽ được cập nhật thành <strong>Đã hủy</strong> theo quy định hệ thống Backend.
+                Sau khi xác nhận hủy, trạng thái đơn sẽ được cập nhật thành <strong style={{ color : "Red"}}>Đã hủy</strong> theo quy định SportHub.
               </p>
             </Card.Body>
             <Card.Footer className="pt-3 border-t border-border-subtle flex justify-end gap-3">

@@ -75,7 +75,7 @@ export default function Profile() {
           description={errorInfo.description}
           action={
             <Button variant="primary" leftIcon={<RefreshCw size={16} />} onClick={fetchProfile}>
-              Thử lại kết nối API
+              Thử lại
             </Button>
           }
         />
@@ -107,11 +107,11 @@ export default function Profile() {
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
                 <User size={28} className="text-accent-primary" />
-                Hồ sơ cá nhân & Tài khoản
+                Hồ sơ cá nhân
               </h1>
-              <p className="text-sm text-text-muted mt-1">
-                Thông tin tài khoản đã xác thực từ hệ thống Backend SportHubAI
-              </p>
+              {/* <p className="text-sm text-text-muted mt-1">
+                Thông tin tài khoản đã xác thực từ hệ thống SportHub
+              </p> */}
             </div>
             <Button
               variant="outline"
@@ -197,9 +197,9 @@ export default function Profile() {
                     <User size={20} className="text-accent-primary" />
                     Thông tin chi tiết
                   </h3>
-                  <Badge variant="default" size="sm">
+                  {/* <Badge variant="default" size="sm">
                     Backend Verified
-                  </Badge>
+                  </Badge> */}
                 </Card.Header>
 
                 <Card.Body className="space-y-4">
@@ -258,7 +258,7 @@ export default function Profile() {
                       Thông báo bảo mật tài khoản:
                     </p>
                     <p>
-                      Thông tin hồ sơ cá nhân được xác thực và bảo mật trực tiếp theo chuẩn an toàn từ hệ thống Backend. Để thay đổi Email hoặc Số điện thoại, vui lòng liên hệ bộ phận hỗ trợ khách hàng.
+                      Thông tin hồ sơ cá nhân được xác thực và bảo mật trực tiếp theo chuẩn an toàn từ hệ thống SportHub. Để thay đổi Email hoặc Số điện thoại, vui lòng liên hệ bộ phận hỗ trợ khách hàng.
                     </p>
                   </div>
                 </Card.Body>

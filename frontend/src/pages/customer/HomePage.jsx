@@ -182,7 +182,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. PROMO BANNERS */}
-      <section className="container mx-auto px-4 max-w-7xl pb-16">
+      <section className="container mx-auto px-4 max-w-7xl pb-52">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-[340px]">
           {/* Main Hero Promo Banner */}
           <div className="lg:col-span-2 relative rounded-3xl overflow-hidden shadow-sm border border-border-subtle-medium group">
@@ -192,9 +192,9 @@ export default function HomePage() {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/60 to-transparent"></div>
-            <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center">
+            <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-center">
               <Badge variant="rating" size="sm" className="w-max mb-4 font-bold tracking-wider uppercase">
-                Mã: NEWPICA
+                Mã: NEWBIE
               </Badge>
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight max-w-md">
                 Giảm 20% cho sân<br />Pickleball mới

@@ -231,7 +231,7 @@ export default function Booking() {
       <div className="container mx-auto px-4 py-20 max-w-3xl">
         <EmptyState
           title="Chưa chọn sân thể thao"
-          description="Vui lòng chọn câu lạc bộ thể thao trước khi thực hiện quy trình đặt lịch giữ chỗ."
+          description="Vui lòng chọn câu lạc bộ thể thao trước khi thực hiện quy trình đặt lịch giữ sân."
           action={
             <Button variant="primary" onClick={() => navigate('/search')}>
               Khám phá danh sách sân
@@ -266,7 +266,7 @@ export default function Booking() {
       <div className="container mx-auto px-4 py-20 max-w-3xl">
         <ErrorState
           title="Không thể tải thông tin đặt lịch"
-          description="Đã xảy ra sự cố khi kết nối đến hệ thống backend. Vui lòng thử lại."
+          description="Đã xảy ra sự cố khi kết nối đến hệ thống. Vui lòng thử lại."
           action={
             <Button variant="primary" leftIcon={<RefreshCw size={16} />} onClick={fetchVenueData}>
               Thử lại
@@ -304,7 +304,7 @@ export default function Booking() {
                 Đặt lịch sân thể thao
               </h1>
               <p className="text-sm text-text-muted mt-1">
-                Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế từ Backend API
+                Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế 
               </p>
             </div>
             <Button
@@ -334,7 +334,7 @@ export default function Booking() {
                 </div>
                 <div className="space-y-1">
                   <Badge variant="info" size="sm" className="mb-1">
-                    Xác thực Backend
+                    Xác nhận hệ thống
                   </Badge>
                   <h2 className="font-bold text-xl text-gray-900 leading-snug">
                     {venue?.venue_name}
@@ -430,12 +430,12 @@ export default function Booking() {
               <Card.Header className="flex justify-between items-center">
                 <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
                   <Clock size={18} className="text-accent-primary" />
-                  3. Chọn khung giờ (Backend Live Availability)
+                  3. Chọn khung giờ 
                 </h3>
                 {checkingAvailability && (
                   <div className="flex items-center text-xs text-text-muted gap-1">
                     <Loader2 size={14} className="animate-spin text-accent-primary" />
-                    <span>Đang xác thực API...</span>
+                    <span>Đang xác thực...</span>
                   </div>
                 )}
               </Card.Header>
@@ -520,9 +520,9 @@ export default function Booking() {
                 </div>
 
                 <div className="pt-4 border-t border-border-subtle-medium flex justify-between items-center">
-                  <span className="font-bold text-gray-900">Tạm tính (Xác thực Backend):</span>
+                  <span className="font-bold text-gray-900">Tạm tính:</span>
                   <span className="text-xl font-bold text-brand-orange">
-                    {selectedTimeSlot && currentPrice ? `${currentPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá API'}
+                    {selectedTimeSlot && currentPrice ? `${currentPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân'}
                   </span>
                 </div>
 

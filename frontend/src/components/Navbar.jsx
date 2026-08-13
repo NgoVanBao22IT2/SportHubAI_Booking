@@ -19,19 +19,17 @@ export default function Navbar() {
     <header className="bg-primary text-white w-full h-16 flex items-center justify-center sticky top-0 z-50">
       <div className="container mx-auto px-4 max-w-7xl flex items-center justify-between">
         {/* Logo & Main Nav */}
-        <div className="flex items-center space-x-10">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center text-primary font-bold italic text-xl">S</div>
-            <span className="font-bold text-xl tracking-tight">SportHubAI</span>
-          </Link>
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
-            <Link to="/" className="hover:text-green-200 border-b-2 border-white pb-1">Trang chủ</Link>
+        <div className="flex items-center space-x-4 ">
+          <img src="/logo-badminton.png" alt="logo" className=" w-10 h-15 " />
+          <span className="font-bold text-2xl tracking-tight">SPORTHUB</span>
+
+          <nav className="hidden md:flex space-x-6 text-dm font-medium">
+            <Link to="/" className="hover:text-green-200 ml-10">Trang chủ</Link>
             <Link to="/search" className="hover:text-green-200 pb-1">Đặt sân</Link>
             {isAuthenticated && (
               <>
-                <Link to="/my-bookings" className="hover:text-green-200 pb-1">Đơn đặt của tôi</Link>
+                <Link to="/my-bookings" className="hover:text-green-200 pb-1">Lịch sử đặt sân</Link>
                 <Link to="/favorites" className="hover:text-green-200 pb-1">Yêu thích</Link>
-                <Link to="/profile" className="hover:text-green-200 pb-1">Hồ sơ</Link>
               </>
             )}
           </nav>
@@ -48,14 +46,14 @@ export default function Navbar() {
                 <User size={16} />
                 <span className="max-w-[120px] truncate">{currentUser?.full_name || 'Tài khoản'}</span>
               </Link>
-              <button
+              {/* <button
                 onClick={handleLogout}
                 className="flex items-center space-x-1 text-sm font-medium hover:text-green-200 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors"
                 title="Đăng xuất"
               >
                 <LogOut size={16} />
-                <span className="hidden sm:inline">Đăng xuất</span>
-              </button>
+                <span className="hidden sm:inline"></span>
+              </button> */}
             </div>
           ) : (
             <>

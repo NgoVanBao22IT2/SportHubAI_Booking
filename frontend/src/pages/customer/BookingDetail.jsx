@@ -249,7 +249,7 @@ export default function BookingDetail() {
   const timeLabel = (booking?.start_time && booking?.end_time)
     ? `${booking.start_time.substring(0, 5)} - ${booking.end_time.substring(0, 5)}`
     : 'Chưa có dữ liệu';
-  
+
   // Section 3: Read strictly booking.total_amount without fallback to booking.price or default numeric values
   const totalAmount = booking?.total_amount;
 
@@ -262,8 +262,8 @@ export default function BookingDetail() {
             <Link to="/" className="hover:text-accent-primary">Trang chủ</Link>
             <span>/</span>
             <Link to="/my-bookings" className="hover:text-accent-primary">Đơn đặt của tôi</Link>
-            <span>/</span>
-            <span className="text-gray-900 font-medium font-mono">#{displayId.substring(0, 8)}</span>
+            {/* <span>/</span>
+            <span className="text-gray-900 font-medium font-mono">#{displayId.substring(0, 8)}</span> */}
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -279,9 +279,7 @@ export default function BookingDetail() {
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
                   Chi tiết đơn đặt sân
                 </h1>
-                <p className="text-xs font-mono text-text-muted mt-0.5">
-                  Mã đơn Backend: {displayId}
-                </p>
+                {/*  */}
               </div>
             </div>
 
@@ -334,7 +332,7 @@ export default function BookingDetail() {
           <div className="space-y-6">
             {/* OVERVIEW CARD */}
             <Card padding="lg" radius="xl" className="border border-border-subtle-medium shadow-sm space-y-6">
-              
+
               {/* CARD TOP BAR: STATUS BADGES */}
               <div className="pb-4 border-b border-border-subtle flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-2">
@@ -345,21 +343,24 @@ export default function BookingDetail() {
                     {paymentBadge.label}
                   </Badge>
                 </div>
-                <span className="text-xs font-mono text-text-muted bg-surface-subtle px-3 py-1 rounded-lg border border-border-subtle">
+                {/* <span className="text-xs font-mono text-accent-primary bg-surface-subtle px-3 py-1 rounded-lg border border-border-subtle">
                   Mã: #{displayId.substring(0, 8)}
-                </span>
+                </span> */}
               </div>
 
               {/* VENUE & COURT INFO */}
               <div className="space-y-2">
-                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <p className="text-md  text-text-muted flex items-center gap-2">
+                  <Tag size={22} className="text-accent-primary shrink-0" />
+                  <p className="text-md text-text-muted text-gray-900 flex items-center gap-2">
+                  Mã đơn: {displayId}
+                </p>
+                </p>
+                <p className="text-md text-text-muted text-gray-900 flex items-center gap-2">
                   <ShieldCheck className="text-accent-primary" size={22} />
                   {venueName}
-                </h2>
-                <p className="text-sm text-text-muted flex items-center gap-2">
-                  <Tag size={16} className="text-accent-primary shrink-0" />
-                  <span>Sân: <strong className="text-gray-800">{courtName}</strong></span>
                 </p>
+                
               </div>
 
               {/* BOOKING DETAILS GRID */}

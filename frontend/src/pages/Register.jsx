@@ -93,11 +93,11 @@ export default function Register() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold italic text-2xl mx-auto mb-4">
-            S
+          <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center text-white font-bold italic text-2xl mx-auto mb-4">
+            <img src="/logo-badminton.png" alt="logo" className=" w-10 h-15 " />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Tạo tài khoản</h1>
-          <p className="text-text-muted mt-1 text-sm">Tham gia SportHubAI ngay hôm nay!</p>
+          <h1 className="text-2xl font-bold text-accent-primary">Tạo tài khoản</h1>
+          <p className="text-text-muted mt-1 text-sm">Tham gia SportHub ngay hôm nay!</p>
         </div>
 
         {/* Card */}
@@ -231,7 +231,7 @@ export default function Register() {
             Đã có tài khoản?{' '}
             <Link
               to="/login"
-              className="text-brand-orange hover:text-brand-orange-hover font-semibold transition-colors"
+              className="text-accent-primary hover:text-brand-orange-hover font-semibold transition-colors"
             >
               Đăng nhập
             </Link>

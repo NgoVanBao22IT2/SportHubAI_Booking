@@ -131,22 +131,22 @@ export default function VenueDetail() {
   const facilitiesList = venue.facilities && venue.facilities.length > 0
     ? venue.facilities
     : [
-        { facility_id: '1', facility_name: 'Cho thuê vợt thi đấu (Victor, Yonex)' },
-        { facility_id: '2', facility_name: 'Wifi miễn phí tốc độ cao' },
-        { facility_id: '3', facility_name: 'Nước giải khát & Phục vụ Snack' },
-        { facility_id: '4', facility_name: 'Phòng thay đồ & Nhà tắm nước nóng' },
-      ];
+      { facility_id: '1', facility_name: 'Cho thuê vợt thi đấu (Victor, Yonex)' },
+      { facility_id: '2', facility_name: 'Wifi miễn phí tốc độ cao' },
+      { facility_id: '3', facility_name: 'Nước giải khát & Phục vụ Snack' },
+      { facility_id: '4', facility_name: 'Phòng thay đồ & Nhà tắm nước nóng' },
+    ];
 
   // Gallery Photos fallback list
   const galleryPhotos = venueImages.length >= 5
     ? venueImages.map(img => img.image_url)
     : [
-        '/gallery_main.png',
-        '/gallery_racket.png',
-        'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop',
-        '/gallery_blue.png',
-        'https://images.unsplash.com/photo-1521537634581-0ddea2eed258?q=80&w=600&auto=format&fit=crop'
-      ];
+      '/gallery_main.png',
+      '/gallery_racket.png',
+      'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop',
+      '/gallery_blue.png',
+      'https://images.unsplash.com/photo-1521537634581-0ddea2eed258?q=80&w=600&auto=format&fit=crop'
+    ];
 
   return (
     <div className="w-full bg-surface-subtle pb-20">
@@ -160,9 +160,9 @@ export default function VenueDetail() {
       <section className="container mx-auto px-4 max-w-5xl -mt-24 relative z-10">
         <Card radius="2xl" padding="lg" className="shadow-lg border border-border-subtle-medium bg-surface">
           <div className="flex flex-col md:flex-row gap-6 items-start">
-            
+
             {/* Venue Avatar / Logo */}
-            <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl border border-border-subtle-medium shadow-sm bg-surface flex items-center justify-center flex-shrink-0 p-2 overflow-hidden -mt-14 md:-mt-16 relative">
+            <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl border border-border-subtle-medium shadow-sm bg-surface flex items-center justify-center flex-shrink-0 p-2 overflow-hidden -mt-14 md:-mt-0 relative">
               <div className="w-full h-full border border-accent-primary-light rounded-xl flex items-center justify-center font-bold text-2xl text-accent-primary bg-surface-subtle shadow-inner">
                 {venue.venue_name.substring(0, 3).toUpperCase()}
               </div>
@@ -307,7 +307,7 @@ export default function VenueDetail() {
                   <Card.Body>
                     <div className="w-full aspect-square bg-accent-primary-light rounded-xl relative overflow-hidden flex items-center justify-center border border-accent-primary-light">
                       <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-accent-primary/20"></div>
-                      
+
                       <div className="absolute z-10 flex flex-col items-center">
                         <div className="bg-surface shadow-md rounded-full px-3 py-1 flex items-center mb-1 border border-border-subtle-medium">
                           <span className="font-bold text-xs text-gray-900">SPORTHUB</span>
@@ -362,7 +362,7 @@ export default function VenueDetail() {
                     <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
                       <img src={galleryPhotos[1]} alt="Gallery Photo 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
-                    
+
                     <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
                       <img src={galleryPhotos[2]} alt="Gallery Photo 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>

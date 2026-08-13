@@ -7,8 +7,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center text-primary font-bold italic text-xl">S</div>
-              <span className="font-bold text-xl">SportHubAI</span>
+              <img src="/logo-badminton.png" alt="logo" className=" w-10 h-15 " />
+              <span className="font-bold text-2xl tracking-tight">SPORTHUB</span>
             </div>
             <p className="text-sm text-green-50">
               Nền tảng kết nối người chơi và chủ sân hàng đầu Việt Nam. Nâng tầm trải nghiệm thể thao mỗi ngày.
@@ -25,7 +25,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          
+
           <div>
             <h4 className="font-semibold text-lg mb-4">Dịch vụ</h4>
             <ul className="space-y-2 text-sm text-green-50">
@@ -37,7 +37,7 @@ export default function Footer() {
               <li className="hover:text-white cursor-pointer">Chính sách chung</li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-semibold text-lg mb-4">Công ty</h4>
             <ul className="space-y-2 text-sm text-green-50">
@@ -57,9 +57,9 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-white/20 mt-10 pt-6 text-center text-xs text-green-100">
-          © 2026 SportHubAI. All rights reserved.
+          © 2026 SportHub. Bản quyền thuộc về công ty TNHH 1 thành viên MARAHUB.
         </div>
       </div>
     </footer>

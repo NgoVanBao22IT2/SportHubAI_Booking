@@ -25,7 +25,7 @@ export default function Checkout() {
   // Extract navigation context from location state or URL params
   const locationState = location.state || {};
   const selectedSlots = locationState.selectedSlots || [];
-  
+
   const venueId = locationState.venueId || searchParams.get('venueId');
   const courtId = searchParams.get('courtId') || (selectedSlots.length > 0 ? selectedSlots[0].court_id : null);
   const bookingDate = locationState.date || searchParams.get('date') || '';
@@ -82,7 +82,7 @@ export default function Checkout() {
 
         const targetCourt = foundCourt || activeCourts[0];
         setCourt(targetCourt);
-        
+
         // Revalidate price with Availability API
         const targetCourtId = targetCourt ? (targetCourt.court_id || targetCourt.id) : courtId;
         if (targetCourtId && bookingDate) {
@@ -418,7 +418,7 @@ export default function Checkout() {
                 Cảm ơn bạn, {confirmedBooking.fullName}!
               </h1>
               <p className="text-sm text-text-muted">
-                Mã đơn giữ chỗ từ Backend: <span className="font-bold text-gray-900">{confirmedBooking.id}</span>
+                Mã đơn giữ sân: <span className="font-bold text-gray-900">{confirmedBooking.id}</span>
               </p>
             </div>
 
@@ -441,7 +441,7 @@ export default function Checkout() {
                 <span className="font-semibold text-gray-900">{confirmedBooking.timeLabel}</span>
               </div>
               <div className="flex justify-between border-b border-border-subtle pb-2">
-                <span className="text-text-muted">Trạng thái giữ chỗ:</span>
+                <span className="text-text-muted">Trạng thái giữ sân:</span>
                 <span className="font-bold text-accent-primary">{confirmedBooking.bookingStatus} (10 phút)</span>
               </div>
               <div className="flex justify-between border-b border-border-subtle pb-2">
@@ -499,7 +499,7 @@ export default function Checkout() {
                 Xác nhận & Thanh toán
               </h1>
               <p className="text-sm text-text-muted mt-1">
-                Kiểm tra thông tin đơn đặt sân từ hệ thống và hoàn tất giữ chỗ
+                Kiểm tra thông tin đơn đặt sân từ hệ thống và hoàn tất giữ sân
               </p>
             </div>
             <Button
@@ -517,10 +517,10 @@ export default function Checkout() {
       {/* MAIN FORM CONTENT */}
       <div className="container mx-auto px-4 max-w-5xl py-8">
         <form onSubmit={handleConfirmOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* LEFT FORM COLUMN */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             {/* CUSTOMER INFORMATION CARD */}
             <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
               <Card.Header>
@@ -740,7 +740,7 @@ export default function Checkout() {
 
                 <div className="pt-4 border-t border-border-subtle-medium space-y-2">
                   <div className="flex justify-between text-text-muted">
-                    <span>Tiền sân (Xác thực Backend):</span>
+                    <span>Tiền sân:</span>
                     <span>
                       {selectedSlots && selectedSlots.length > 0
                         ? `${(locationState.totalAmount || selectedSlots.reduce((s, x) => s + (x.price || 0), 0)).toLocaleString('vi-VN')}đ`
@@ -797,7 +797,7 @@ export default function Checkout() {
 
                 <div className="flex items-center justify-center text-xs text-text-muted gap-1">
                   <Lock size={12} />
-                  <span>Xác thực qua Backend API an toàn</span>
+                  <span>Xác nhận thành công</span>
                 </div>
               </Card.Footer>
             </Card>
