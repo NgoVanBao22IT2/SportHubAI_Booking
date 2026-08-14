@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate, useLocation, Link } from 'react-router-dom';
-import { CheckCircle2, ArrowLeft, CreditCard, User, Lock, Check, AlertCircle, RefreshCw, AlertTriangle, Calendar, Clock, MapPin } from 'lucide-react';
-import { getVenueById } from '../api/venues';
+import { CheckCircle2, ArrowLeft, CreditCard, User, Lock, Check, AlertCircle, RefreshCw, AlertTriangle, Calendar, Clock, MapPin, Upload, FileImage } from 'lucide-react';
+import { getVenueById, getVenuePaymentAccounts } from '../api/venues';
 import { checkCourtAvailability } from '../api/availability';
 import { createBooking, getBookingById } from '../api/bookings';
-import { createPayment } from '../api/payments';
+import { createPayment, getPaymentStatus, uploadPaymentProof } from '../api/payments';
 import { useAuth } from '../context/AuthContext';
 
 // Design System Imports
@@ -53,6 +53,91 @@ export default function Checkout() {
   const [unknownOutcomeState, setUnknownOutcomeState] = useState(null);
   const [apiErrorMessage, setApiErrorMessage] = useState('');
 
+  // Upload Payment Proof States
+  const [proofFile, setProofFile] = useState(null);
+  const [proofPreview, setProofPreview] = useState('');
+  const [uploadingProof, setUploadingProof] = useState(false);
+  const [proofUploaded, setProofUploaded] = useState(false);
+
+  // Check Payment Status if Returning from Payment Gateway via URL query params
+  useEffect(() => {
+    const pId = searchParams.get('paymentId') || searchParams.get('orderId');
+    if (pId && !confirmedBooking) {
+      getPaymentStatus(pId)
+        .then((res) => {
+          const p = res?.data || res;
+          if (p && p.booking) {
+            const b = p.booking;
+            setConfirmedBooking({
+              id: b.booking_id,
+              paymentId: p.payment_id,
+              venueName: b.court?.branch?.venue?.venue_name || 'Sân thể thao',
+              courtName: b.court?.court_name || 'Sân tiêu chuẩn',
+              bookingDate: b.booking_date,
+              timeLabel: `${(b.start_time || '').substring(0, 5)} - ${(b.end_time || '').substring(0, 5)}`,
+              price: b.total_amount,
+              fullName: currentUser?.full_name || 'Khách hàng',
+              phoneNumber: currentUser?.phone_number || '',
+              paymentMethod: p.payment_method === 'MOMO' ? 'Ví MoMo' : 'Chuyển khoản Ngân hàng',
+              bookingStatus: b.booking_status,
+              paymentStatus: p.payment_status
+            });
+            if (b.payment_proof_url) {
+              setProofPreview(b.payment_proof_url);
+              setProofUploaded(true);
+            }
+          }
+        })
+        .catch(err => console.warn('Could not fetch payment status from URL param:', err));
+    }
+  }, [searchParams, confirmedBooking, currentUser]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Vui lòng chọn tệp hình ảnh (JPG, PNG, WEBP).');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Dung lượng ảnh tối đa cho phép là 5MB.');
+      return;
+    }
+    setProofFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProofPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleUploadProofSubmit = async () => {
+    const targetPaymentId = confirmedBooking?.paymentId;
+    if (!proofPreview) {
+      alert('Vui lòng chọn ảnh minh chứng giao dịch trước khi gửi.');
+      return;
+    }
+    try {
+      setUploadingProof(true);
+      if (targetPaymentId) {
+        await uploadPaymentProof(targetPaymentId, proofPreview);
+      }
+      setProofUploaded(true);
+      setConfirmedBooking(prev => ({
+        ...prev,
+        bookingStatus: 'WAITING_OWNER_CONFIRMATION',
+        paymentStatus: 'SUCCESS'
+      }));
+    } catch (err) {
+      console.error('Failed to upload payment proof', err);
+      alert('Không thể tải lên ảnh minh chứng. Vui lòng thử lại.');
+    } finally {
+      setUploadingProof(false);
+    }
+  };
+
+  const [venuePaymentAccounts, setVenuePaymentAccounts] = useState([]);
+
   // Fetch Trusted Venue & Price Information from Backend API (With Ownership Check)
   const fetchCheckoutContext = useCallback(async () => {
     if (!venueId) {
@@ -65,8 +150,12 @@ export default function Checkout() {
       setError(false);
       setOwnershipError(false);
 
-      const data = await getVenueById(venueId);
+      const [data, accountsData] = await Promise.all([
+        getVenueById(venueId),
+        getVenuePaymentAccounts(venueId).catch(() => [])
+      ]);
       setVenue(data);
+      setVenuePaymentAccounts(accountsData || []);
 
       if (data && data.branches && data.branches.length > 0 && data.branches[0].courts) {
         const activeCourts = data.branches[0].courts;
@@ -245,16 +334,27 @@ export default function Checkout() {
       // 4. Execute Real Payment API (if online method)
       let paymentLabel = 'Thanh toán tại sân (Khi nhận sân)';
       let isPaymentPending = false;
+      let createdPaymentId = null;
 
       if (paymentMethod === 'momo' || paymentMethod === 'banking') {
         try {
-          await createPayment({
+          const payRes = await createPayment({
             booking_id: reservationId,
             payment_method: paymentMethod,
-            amount: verifiedAmount || 0
+            amount: verifiedAmount || 0,
+            returnUrl: window.location.origin + '/checkout'
           });
-          paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo (Đang chờ thanh toán QR)' : 'Chuyển khoản Ngân hàng (Đang chờ IPN)';
+
+          const payData = payRes?.data || payRes;
+          createdPaymentId = payData?.payment_id;
+          paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo Gateway' : 'Chuyển khoản Ngân hàng';
           isPaymentPending = true;
+
+          // If MoMo Gateway returned a valid redirect payUrl, redirect user to MoMo
+          if (paymentMethod === 'momo' && payData?.pay_url && payData.pay_url.startsWith('http') && !payData.pay_url.includes('/checkout?paymentId=')) {
+            window.location.href = payData.pay_url;
+            return;
+          }
         } catch (payErr) {
           console.warn("Payment API initiation warning", payErr);
           paymentLabel = paymentMethod === 'momo' ? 'Ví MoMo' : 'Chuyển khoản Ngân hàng';
@@ -262,13 +362,33 @@ export default function Checkout() {
         }
       }
 
+      // Calculate dynamic timeLabel and courtName from actual booking data
+      let calculatedTimeLabel = '';
+      let calculatedCourtName = '';
+
+      if (selectedSlots && selectedSlots.length > 0) {
+        const sortedSlots = [...selectedSlots].sort((a, b) => a.start_time.localeCompare(b.start_time));
+        const earliestTime = sortedSlots[0].start_time.substring(0, 5);
+        const latestTime = sortedSlots[sortedSlots.length - 1].end_time.substring(0, 5);
+        calculatedTimeLabel = `${earliestTime} - ${latestTime} (${selectedSlots.length} slot)`;
+
+        const uniqueCourts = Array.from(new Set(selectedSlots.map(s => s.court_name).filter(Boolean)));
+        calculatedCourtName = uniqueCourts.join(', ');
+      } else {
+        const sTime = (startTime || '').substring(0, 5);
+        const eTime = (endTime || '').substring(0, 5);
+        calculatedTimeLabel = (sTime && eTime) ? `${sTime} - ${eTime}` : '---';
+        calculatedCourtName = court?.court_name || court?.name || 'Sân tiêu chuẩn';
+      }
+
       // Render Verified Response Confirmation Screen (HOLDING state, NOT fake paid success)
       setConfirmedBooking({
         id: reservationId,
-        venueName: venue?.venue_name || 'Sân thể thao',
-        courtName: court?.court_name || court?.name || 'Sân tiêu chuẩn',
-        bookingDate,
-        timeLabel,
+        paymentId: createdPaymentId,
+        venueName: venue?.venue_name || locationState.venueName || 'Sân thể thao',
+        courtName: calculatedCourtName || 'Sân tiêu chuẩn',
+        bookingDate: bookingDate.split('-').reverse().join('/'),
+        timeLabel: calculatedTimeLabel,
         price: verifiedAmount,
         fullName,
         phoneNumber,
@@ -425,11 +545,11 @@ export default function Checkout() {
             {/* CONFIRMED DETAILS BOX */}
             <div className="bg-surface-subtle p-5 rounded-xl text-left border border-border-subtle-medium space-y-3 text-sm">
               <div className="flex justify-between border-b border-border-subtle pb-2">
-                <span className="text-text-muted">Câu lạc bộ:</span>
+                <span className="text-text-muted">Sân thể thao:</span>
                 <span className="font-bold text-gray-900">{confirmedBooking.venueName}</span>
               </div>
               <div className="flex justify-between border-b border-border-subtle pb-2">
-                <span className="text-text-muted">Sân con:</span>
+                <span className="text-text-muted">Sân:</span>
                 <span className="font-semibold text-gray-900">{confirmedBooking.courtName}</span>
               </div>
               <div className="flex justify-between border-b border-border-subtle pb-2">
@@ -454,6 +574,143 @@ export default function Checkout() {
                   {confirmedBooking.price ? `${confirmedBooking.price.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân'}
                 </span>
               </div>
+            </div>
+
+            {/* OWNER PAYMENT ACCOUNT INFORMATION CARD (ON CONFIRMATION SCREEN) */}
+            {paymentMethod !== 'onsite' && (
+              <div className="p-5 rounded-2xl bg-surface-subtle border-2 border-brand-orange/40 text-left space-y-4 shadow-sm">
+                {(() => {
+                  const isMomo = String(confirmedBooking.paymentMethod || paymentMethod).toLowerCase().includes('momo');
+                  const selectedAcc = venuePaymentAccounts.find(a =>
+                    isMomo ? a.payment_method === 'MOMO' : a.payment_method === 'BANK_TRANSFER'
+                  ) || venuePaymentAccounts[0];
+
+                  const ownerName = selectedAcc?.account_name || venue?.venue_name || 'Chủ sân SportHub';
+                  const accNum = selectedAcc?.account_number || '0905123456';
+                  const bankName = selectedAcc?.bank_name || (isMomo ? 'Ví MoMo' : 'MB Bank');
+                  const qrUrl = selectedAcc?.qr_code_url;
+                  const transferNote = `SPORT-${(confirmedBooking.id || venueId || 'BOOKING').substring(0, 8).toUpperCase()}`;
+
+                  return (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                        <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
+                          <CreditCard size={18} className="text-brand-orange" />
+                          Thông tin tài khoản nhận tiền của Chủ Sân
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                        <div className="space-y-2 text-xs">
+                          <div>
+                            <span className="text-text-muted block">Ngân hàng / Ví điện tử:</span>
+                            <span className="font-bold text-gray-900 text-sm">{bankName}</span>
+                          </div>
+
+                          <div>
+                            <span className="text-text-muted block">Tên chủ tài khoản:</span>
+                            <span className="font-bold text-gray-900 text-sm uppercase">{ownerName}</span>
+                          </div>
+
+                          <div>
+                            <span className="text-text-muted block">
+                              {isMomo ? 'Số điện thoại MoMo:' : 'Số tài khoản:'}
+                            </span>
+                            <span className="font-extrabold text-brand-orange text-base tracking-wider font-mono">
+                              {accNum}
+                            </span>
+                          </div>
+
+                          <div>
+                            <span className="text-text-muted block">Nội dung chuyển khoản chuẩn:</span>
+                            <span className="inline-block bg-surface p-2 rounded-lg border font-mono font-bold text-gray-900 text-xs mt-0.5">
+                              {transferNote}
+                            </span>
+                          </div>
+                        </div>
+
+                        {qrUrl && (
+                          <div className="flex flex-col items-center justify-center p-3 bg-surface rounded-xl border border-border-subtle-medium shadow-xs text-center">
+                            <img src={qrUrl} alt="Mã QR Thanh toán" className="w-36 h-36 object-contain rounded-lg" />
+                            <span className="text-[11px] text-text-muted mt-2 font-medium">Quét mã QR để chuyển tiền</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* UPLOAD PAYMENT PROOF SECTION */}
+            <div className="bg-surface p-5 rounded-2xl border-2 border-brand-orange/30 text-left space-y-4 shadow-sm">
+              <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                <div>
+                  <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
+                    <Upload size={18} className="text-brand-orange" />
+                    Minh chứng giao dịch thanh toán
+                  </h3>
+                  <p className="text-xs text-text-muted mt-0.5">
+                    Tải lên ảnh chụp chuyển khoản hoặc hóa đơn MoMo để Chủ sân xác nhận nhanh chóng.
+                  </p>
+                </div>
+                {proofUploaded && (
+                  <Badge variant="success" size="sm" leftIcon={<Check size={12} />}>
+                    Đã gửi minh chứng
+                  </Badge>
+                )}
+              </div>
+
+              {proofUploaded ? (
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 space-y-2">
+                  <p className="font-bold flex items-center gap-2 text-sm">
+                    <CheckCircle2 size={18} className="text-emerald-600" />
+                    Đã tải lên minh chứng thành công!
+                  </p>
+                  <p>
+                    Trạng thái đơn: <strong className="text-emerald-900">CHỜ CHỦ SÂN XÁC NHẬN</strong>.
+                  </p>
+                  {proofPreview && (
+                    <div className="w-32 h-32 rounded-lg overflow-hidden border border-emerald-300 mt-2">
+                      <img src={proofPreview} alt="Payment Proof Preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-border-subtle-medium hover:border-brand-orange rounded-xl bg-surface-subtle transition-colors cursor-pointer relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                    <FileImage size={32} className="text-brand-orange mb-2" />
+                    <span className="text-xs font-bold text-gray-900">
+                      {proofFile ? proofFile.name : 'Bấm vào đây để chọn ảnh chuyển khoản'}
+                    </span>
+                    <span className="text-[11px] text-text-muted mt-1">Định dạng JPG, PNG, WEBP (Tối đa 5MB)</span>
+                  </div>
+
+                  {proofPreview && (
+                    <div className="flex items-center gap-4 p-3 bg-surface rounded-xl border border-border-subtle-medium">
+                      <img src={proofPreview} alt="Preview" className="w-16 h-16 object-cover rounded-lg border" />
+                      <div className="flex-1 text-xs">
+                        <p className="font-bold text-gray-900 truncate">{proofFile?.name || 'Ảnh minh chứng'}</p>
+                        <p className="text-text-muted">{proofFile ? `${(proofFile.size / 1024).toFixed(1)} KB` : 'Đã chọn'}</p>
+                      </div>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        loading={uploadingProof}
+                        onClick={handleUploadProofSubmit}
+                      >
+                        Gửi minh chứng
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
@@ -659,7 +916,6 @@ export default function Checkout() {
                       <p className="text-xs text-text-muted">Thanh toán cho thu ngân khi đến nhận sân</p>
                     </div>
                   </div>
-                  {paymentMethod === 'onsite' && <Check size={18} className="text-accent-primary" />}
                 </button>
               </Card.Body>
             </Card>
@@ -686,12 +942,12 @@ export default function Checkout() {
                     </div>
 
                     <div className="flex justify-between text-text-muted">
-                      <span>Ngày đặt sân:</span>
+                      <span>Ngày đặt:</span>
                       <span className="font-semibold text-gray-900">{bookingDate.split('-').reverse().join('/')}</span>
                     </div>
 
                     <div className="flex justify-between text-text-muted">
-                      <span>Số khung giờ chọn:</span>
+                      <span>Số khung giờ:</span>
                       <span className="font-semibold text-brand-orange">{selectedSlots.length} slot ({locationState.totalHours || selectedSlots.length}h)</span>
                     </div>
 
@@ -774,7 +1030,7 @@ export default function Checkout() {
                         variant="outline"
                         size="sm"
                         className="mt-1 text-xs"
-                        onClick={() => navigate(`/booking?venueId=${venueId}`)}
+                        onClick={() => navigate(`/visualbooking?venueId=${venueId}`)}
                       >
                         Chuyển về chọn khung giờ khác
                       </Button>

@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   Court.associate = function(models) {
     Court.belongsTo(models.Branch, { foreignKey: 'branch_id', as: 'branch' });
     Court.hasMany(models.Booking, { foreignKey: 'court_id', as: 'bookings' });
+    Court.hasMany(models.Review, { foreignKey: 'court_id', as: 'reviews' });
   };
 
   return Court;

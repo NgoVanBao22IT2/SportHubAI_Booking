@@ -30,3 +30,18 @@ export const getPaymentStatus = async (paymentId) => {
     throw error;
   }
 };
+
+/**
+ * Upload payment proof image for a transaction.
+ * @param {string} paymentId
+ * @param {string} proofUrl - URL or Base64 string of payment receipt
+ */
+export const uploadPaymentProof = async (paymentId, proofUrl) => {
+  try {
+    const response = await apiClient.post(`/payments/${paymentId}/proof`, { proofUrl });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading payment proof:', error);
+    throw error;
+  }
+};

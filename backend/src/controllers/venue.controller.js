@@ -71,6 +71,20 @@ class VenueController {
       });
     }
   }
+
+  async getVenuePaymentAccounts(req, res) {
+    try {
+      const { venueId } = req.params;
+      const result = await venueService.getVenuePaymentAccounts(venueId, models);
+      return res.status(200).json({ success: true, data: result });
+    } catch (err) {
+      return res.status(err.statusCode || 500).json({
+        success: false,
+        code: err.code || 'SERVER_ERROR',
+        message: err.message
+      });
+    }
+  }
 }
 
 module.exports = new VenueController();

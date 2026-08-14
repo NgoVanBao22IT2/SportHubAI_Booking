@@ -155,11 +155,17 @@ export default function BookingDetail() {
     const status = String(statusStr).toUpperCase();
     switch (status) {
       case 'CONFIRMED':
-        return { variant: 'success', label: 'Đã xác nhận' };
+        return { variant: 'success', label: 'Đã xác nhận (CONFIRMED)' };
+      case 'WAITING_OWNER_CONFIRMATION':
+        return { variant: 'warning', label: 'Chờ chủ sân xác nhận' };
+      case 'PAYMENT_SUCCESS':
+        return { variant: 'success', label: 'Thanh toán thành công — Chờ xác nhận' };
+      case 'REJECTED':
+        return { variant: 'danger', label: 'Chủ sân từ chối' };
       case 'HOLDING':
       case 'PENDING':
       case 'PAYMENT_PENDING':
-        return { variant: 'warning', label: 'Đang giữ chỗ' };
+        return { variant: 'warning', label: 'Đang giữ chỗ (10 phút)' };
       case 'COMPLETED':
         return { variant: 'info', label: 'Đã hoàn thành' };
       case 'CANCELLED':
@@ -167,6 +173,7 @@ export default function BookingDetail() {
       case 'EXPIRED':
         return { variant: 'neutral', label: 'Hết hạn giữ chỗ' };
       case 'FAILED':
+      case 'PAYMENT_FAILED':
         return { variant: 'danger', label: 'Đặt thất bại' };
       default:
         return { variant: 'default', label: `Trạng thái: ${statusStr}` };

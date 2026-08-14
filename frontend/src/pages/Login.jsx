@@ -66,8 +66,15 @@ export default function Login() {
 
       saveSession(accessToken, refreshToken, user);
 
-      // Navigate to intended destination or home
-      const from = location.state?.from || '/';
+      // Determine default destination based on user primary_role
+      const userRole = (user?.primary_role || user?.role || '').toUpperCase();
+      let defaultDestination = '/';
+      if (userRole === 'OWNER' || userRole === 'ADMIN') {
+        defaultDestination = '/owner/dashboard';
+      }
+
+      // Navigate to intended destination or role default
+      const from = location.state?.from || defaultDestination;
       navigate(from, { replace: true });
     } catch (err) {
       const code = err.response?.data?.code;

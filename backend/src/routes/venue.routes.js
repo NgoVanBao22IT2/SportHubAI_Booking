@@ -15,7 +15,9 @@ const scheduleController = require('../controllers/schedule.controller');
 // ==========================================
 // PUBLIC ROUTES
 // ==========================================
+// Public Webhook & Venue endpoints
 router.get('/facilities', facilityController.getFacilities);
+router.get('/venues/:venueId/payment-accounts', venueController.getVenuePaymentAccounts);
 
 // Target Type and Target ID images (Public read)
 router.get('/images/:targetType/:targetId', imageController.getImagesByTarget);

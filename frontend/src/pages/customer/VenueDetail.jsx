@@ -127,26 +127,11 @@ export default function VenueDetail() {
     ? `${venue.branches[0].street_address || ''}, ${venue.branches[0].ward_district_city || ''}`
     : "Chưa cập nhật địa chỉ";
 
-  // Facilities list fallback
-  const facilitiesList = venue.facilities && venue.facilities.length > 0
-    ? venue.facilities
-    : [
-      { facility_id: '1', facility_name: 'Cho thuê vợt thi đấu (Victor, Yonex)' },
-      { facility_id: '2', facility_name: 'Wifi miễn phí tốc độ cao' },
-      { facility_id: '3', facility_name: 'Nước giải khát & Phục vụ Snack' },
-      { facility_id: '4', facility_name: 'Phòng thay đồ & Nhà tắm nước nóng' },
-    ];
+  // Facilities list from Database
+  const facilitiesList = venue.facilities || [];
 
-  // Gallery Photos fallback list
-  const galleryPhotos = venueImages.length >= 5
-    ? venueImages.map(img => img.image_url)
-    : [
-      '/gallery_main.png',
-      '/gallery_racket.png',
-      'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop',
-      '/gallery_blue.png',
-      'https://images.unsplash.com/photo-1521537634581-0ddea2eed258?q=80&w=600&auto=format&fit=crop'
-    ];
+  // Gallery Photos list from Database
+  const galleryPhotos = (venueImages || []).map(img => img.image_url);
 
   return (
     <div className="w-full bg-surface-subtle pb-20">
@@ -283,14 +268,18 @@ export default function VenueDetail() {
                     </h3>
                   </Card.Header>
                   <Card.Body>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                      {facilitiesList.map((facility, idx) => (
-                        <div key={idx} className="flex items-center text-sm text-gray-800">
-                          <CheckCircle2 size={18} className="text-accent-primary mr-2.5 flex-shrink-0" />
-                          <span>{facility.facility_name}</span>
-                        </div>
-                      ))}
-                    </div>
+                    {facilitiesList.length === 0 ? (
+                      <p className="text-xs text-text-muted italic">Thông tin dịch vụ & tiện ích đang được ban quản lý cập nhật.</p>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
+                        {facilitiesList.map((facility, idx) => (
+                          <div key={idx} className="flex items-center text-sm text-gray-800">
+                            <CheckCircle2 size={18} className="text-accent-primary mr-2.5 flex-shrink-0" />
+                            <span>{facility.facility_name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </Card.Body>
                 </Card>
               </div>
@@ -346,41 +335,33 @@ export default function VenueDetail() {
                 </h3>
               </Card.Header>
               <Card.Body>
-                {/* GALLERY BENTO GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-auto md:h-[450px]">
-                  {/* Main Big Photo (Left - 7 cols) */}
-                  <div className="md:col-span-7 h-[260px] md:h-full rounded-2xl overflow-hidden shadow-sm relative group">
-                    <img
-                      src={galleryPhotos[0]}
-                      alt={`${venue.venue_name} Photo 1`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-
-                  {/* 4 Small Photos (Right - 5 cols in 2x2 grid) */}
-                  <div className="md:col-span-5 grid grid-cols-2 gap-4 h-full">
-                    <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
-                      <img src={galleryPhotos[1]} alt="Gallery Photo 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                {galleryPhotos.length === 0 ? (
+                  <EmptyState
+                    title="Chưa có hình ảnh"
+                    description="Thư viện hình ảnh của câu lạc bộ đang được cập nhật."
+                  />
+                ) : (
+                  /* GALLERY BENTO GRID */
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-auto md:h-[450px]">
+                    {/* Main Big Photo (Left - 7 cols) */}
+                    <div className="md:col-span-7 h-[260px] md:h-full rounded-2xl overflow-hidden shadow-sm relative group">
+                      <img
+                        src={galleryPhotos[0]}
+                        alt={`${venue.venue_name} Photo 1`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
                     </div>
 
-                    <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
-                      <img src={galleryPhotos[2]} alt="Gallery Photo 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-
-                    <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
-                      <img src={galleryPhotos[3]} alt="Gallery Photo 4" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-
-                    {/* 4th Photo with Overlay */}
-                    <div className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group cursor-pointer">
-                      <img src={galleryPhotos[4]} alt="Gallery Photo 5" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-dark/65 backdrop-blur-[2px] flex flex-col items-center justify-center text-white transition-opacity group-hover:bg-dark/80">
-                        <LayoutGrid size={20} className="mb-1 text-white/90" />
-                        <span className="text-xs font-bold tracking-wide">Xem tất cả</span>
-                      </div>
+                    {/* Small Photos (Right - 5 cols in 2x2 grid) */}
+                    <div className="md:col-span-5 grid grid-cols-2 gap-4 h-full">
+                      {(galleryPhotos.slice(1, 5)).map((photoUrl, idx) => (
+                        <div key={idx} className="rounded-2xl overflow-hidden shadow-sm h-[120px] md:h-full relative group">
+                          <img src={photoUrl} alt={`Gallery Photo ${idx + 2}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </div>
+                )}
               </Card.Body>
             </Card>
           </Tabs.Panel>
@@ -430,13 +411,13 @@ export default function VenueDetail() {
         )}
       </section>
 
-      {/* CHỌN HÌNH THỨC ĐẶT MODAL */}
+      {/* CHỌN HÌNH THỨC & ĐỐI TƯỢNG ĐẶT MODAL */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
-        onSelectVisualBooking={() => {
+        onSelectVisualBooking={(targetType) => {
           setIsBookingModalOpen(false);
-          navigate(`/venues/${id}/booking`);
+          navigate(`/venues/${id}/booking`, { state: { bookingTarget: targetType } });
         }}
         venue={venue}
       />

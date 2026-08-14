@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   Venue.associate = function(models) {
     Venue.belongsTo(models.User, { foreignKey: 'owner_user_id', as: 'owner' });
     Venue.hasMany(models.Branch, { foreignKey: 'venue_id', as: 'branches' });
+    Venue.hasMany(models.VenuePaymentAccount, { foreignKey: 'venue_id', as: 'payment_accounts' });
     Venue.belongsToMany(models.Facility, { through: models.VenueFacility, foreignKey: 'venue_id', otherKey: 'facility_id', as: 'facilities' });
   };
 

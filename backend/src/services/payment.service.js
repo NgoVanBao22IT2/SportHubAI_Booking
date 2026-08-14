@@ -17,8 +17,9 @@ class PaymentService {
   static async createPayment(userId, payload) {
     const { bookingId, paymentMethod, amount, returnUrl } = payload;
 
-    // Validate Input
-    if (paymentMethod !== 'MOMO') {
+    // Normalize Payment Method
+    const methodUpper = (paymentMethod || 'MOMO').toUpperCase();
+    if (!['MOMO', 'BANK_TRANSFER', 'CASH'].includes(methodUpper)) {
       const err = new Error('Unsupported payment method');
       err.statusCode = 400;
       throw err;
@@ -40,8 +41,8 @@ class PaymentService {
         throw err;
       }
 
-      // 2. Authorize
-      if (booking.customer_user_id !== userId) {
+      // 2. Authorize (allow if booking customer matches or if booking is guest)
+      if (booking.customer_user_id && booking.customer_user_id !== userId) {
         const err = new Error('Forbidden');
         err.statusCode = 403;
         err.code = 'FORBIDDEN';
@@ -49,15 +50,17 @@ class PaymentService {
       }
 
       // 3. Check Booking Status & Expiry (BR-BOOK-003)
-      if (booking.booking_status !== 'HOLDING') {
-        const err = new Error('Booking is not in HOLDING state');
+      if (!['HOLDING', 'PAYMENT_PENDING', 'PAYMENT_FAILED'].includes(booking.booking_status)) {
+        const err = new Error('Booking is not in a payable state');
         err.statusCode = 400;
         err.code = 'PAYMENT_BOOKING_EXPIRED';
         throw err;
       }
 
-      // Assume a 10 min hold check:
+      // 10 min hold check:
       if (booking.hold_expiry_at && new Date() > new Date(booking.hold_expiry_at)) {
+        booking.booking_status = 'EXPIRED';
+        await booking.save({ transaction });
         const err = new Error('Booking hold expired');
         err.statusCode = 400;
         err.code = 'PAYMENT_BOOKING_EXPIRED';
@@ -66,7 +69,7 @@ class PaymentService {
 
       // 4. Server-Authoritative Amount
       const serverAmount = parseFloat(booking.total_amount);
-      if (serverAmount !== parseFloat(amount)) {
+      if (amount && serverAmount !== parseFloat(amount)) {
         const err = new Error('Amount mismatch');
         err.statusCode = 400;
         err.code = 'PAYMENT_AMOUNT_MISMATCH';
@@ -87,24 +90,35 @@ class PaymentService {
 
       // 6. Create Payment Record (INITIATED)
       const paymentId = uuidv4();
-      const orderId = paymentId; // Correlation Matching Identifier
+      const orderId = paymentId;
       const requestId = 'req_' + Date.now();
+
+      let payUrl = null;
+      if (methodUpper === 'MOMO') {
+        const momoRes = await MoMoUtils.createPaymentRequest({
+          amount: Math.round(serverAmount),
+          orderId,
+          orderInfo: `Thanh toan dat san SportHub #${bookingId.substring(0, 8)}`,
+          requestId,
+          redirectUrl: returnUrl || process.env.MOMO_REDIRECT_URL || 'http://localhost:5173/checkout'
+        });
+        payUrl = momoRes.payUrl || momoRes.deeplink || `https://payment.momo.vn/v2/gateway/pay?orderId=${orderId}`;
+      } else {
+        payUrl = `/checkout?paymentId=${paymentId}&status=bank_instructions`;
+      }
 
       const payment = await Payment.create({
         payment_id: paymentId,
         booking_id: bookingId,
         user_id: userId,
-        payment_method: 'MOMO',
+        payment_method: methodUpper,
         amount: serverAmount,
         currency: 'VND',
         payment_status: 'INITIATED',
         provider_order_id: orderId,
         provider_request_id: requestId,
-        pay_url: `https://payment.momo.vn/v2/gateway/pay?orderId=${orderId}` // Mock generated URL
+        pay_url: payUrl
       }, { transaction });
-
-      // In a real app, we would call MoMo API here to get the actual payUrl.
-      // We assume the provider call is successful and returns the payUrl.
 
       // Transition booking to PAYMENT_PENDING
       booking.booking_status = 'PAYMENT_PENDING';
@@ -114,10 +128,11 @@ class PaymentService {
       await BookingStatusHistory.create({
         history_id: uuidv4(),
         booking_id: bookingId,
-        from_status: 'HOLDING',
+        from_status: booking.booking_status,
         to_status: 'PAYMENT_PENDING',
         changed_by_user_id: userId,
-        change_reason: 'Payment Intent Created'
+        change_reason: `Payment Intent Created (${methodUpper})`
+      }, { transaction });
       }, { transaction });
 
       await transaction.commit();
@@ -247,7 +262,7 @@ class PaymentService {
 
       if (booking) {
         const oldStatus = booking.booking_status;
-        booking.booking_status = isSuccess ? 'CONFIRMED' : 'PAYMENT_FAILED';
+        booking.booking_status = isSuccess ? 'WAITING_OWNER_CONFIRMATION' : 'PAYMENT_FAILED';
         await booking.save({ transaction });
 
         await BookingStatusHistory.create({
@@ -256,7 +271,7 @@ class PaymentService {
           from_status: oldStatus,
           to_status: booking.booking_status,
           changed_by_user_id: null,
-          change_reason: `IPN Callback - ${isSuccess ? 'Payment Success' : 'Payment Failed'}`
+          change_reason: `IPN Callback - ${isSuccess ? 'Payment Success, Waiting Owner Confirmation' : 'Payment Failed'}`
         }, { transaction });
       }
 
@@ -422,6 +437,70 @@ class PaymentService {
       await transaction.rollback();
       throw error;
     }
+  }
+
+  /**
+   * Get Payment by ID with full booking details
+   */
+  static async getPaymentById(paymentId) {
+    const { Court, Branch, Venue } = require('../models');
+    const payment = await Payment.findOne({
+      where: { payment_id: paymentId },
+      include: [
+        {
+          model: Booking,
+          as: 'booking',
+          include: [
+            {
+              model: Court,
+              as: 'court',
+              include: [
+                {
+                  model: Branch,
+                  as: 'branch',
+                  include: [{ model: Venue, as: 'venue' }]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    });
+
+    if (!payment) {
+      const err = new Error('Payment transaction not found');
+      err.statusCode = 404;
+      throw err;
+    }
+
+    return payment;
+  }
+
+  /**
+   * Upload Payment Proof Image
+   */
+  static async uploadProof(paymentId, userId, proofUrl) {
+    const payment = await Payment.findOne({ where: { payment_id: paymentId } });
+    if (!payment) {
+      const err = new Error('Payment transaction not found');
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const booking = await Booking.findOne({ where: { booking_id: payment.booking_id } });
+    if (!booking) {
+      const err = new Error('Booking not found');
+      err.statusCode = 404;
+      throw err;
+    }
+
+    booking.payment_proof_url = proofUrl;
+    if (booking.booking_status === 'PAYMENT_PENDING' || booking.booking_status === 'HOLDING') {
+      booking.booking_status = 'WAITING_OWNER_CONFIRMATION';
+    }
+    await booking.save();
+
+    return { payment, booking };
   }
 }
 

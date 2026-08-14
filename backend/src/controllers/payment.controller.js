@@ -55,13 +55,11 @@ class PaymentController {
 
   static async getPaymentStatus(req, res, next) {
     try {
-      const userId = req.user.userId;
-      const userRole = req.user.role;
       const { id } = req.params;
-
-      const payment = await PaymentService.getPaymentStatus(userId, id, userRole);
+      const payment = await PaymentService.getPaymentById(id);
       
       res.status(200).json({
+        status: 'success',
         data: payment,
         meta: {
           requestId: 'req_get_pay_' + Date.now(),
@@ -76,6 +74,31 @@ class PaymentController {
             message: error.message,
             details: []
           }
+        });
+      }
+      next(error);
+    }
+  }
+
+  static async uploadProof(req, res, next) {
+    try {
+      const userId = req.user?.userId || null;
+      const { id } = req.params;
+      const { proofUrl, image_url } = req.body;
+      const finalUrl = proofUrl || image_url;
+
+      if (!finalUrl) {
+        return res.status(400).json({
+          error: { code: 'BAD_REQUEST', message: 'Vui lòng cung cấp đường dẫn hoặc dữ liệu hình ảnh minh chứng.' }
+        });
+      }
+
+      const result = await PaymentService.uploadProof(id, userId, finalUrl);
+      res.status(200).json({ status: 'success', data: result });
+    } catch (error) {
+      if (error.statusCode) {
+        return res.status(error.statusCode).json({
+          error: { code: error.code || 'BAD_REQUEST', message: error.message }
         });
       }
       next(error);

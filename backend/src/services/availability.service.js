@@ -160,26 +160,58 @@ class AvailabilityService {
       }
     });
 
-    // 4. Standard 1-hour time slots definition (06:00 to 22:00)
-    const timeSlots = [
-      { start_time: '06:00:00', end_time: '07:00:00', label: '06:00 - 07:00' },
-      { start_time: '07:00:00', end_time: '08:00:00', label: '07:00 - 08:00' },
-      { start_time: '08:00:00', end_time: '09:00:00', label: '08:00 - 09:00' },
-      { start_time: '09:00:00', end_time: '10:00:00', label: '09:00 - 10:00' },
-      { start_time: '10:00:00', end_time: '11:00:00', label: '10:00 - 11:00' },
-      { start_time: '11:00:00', end_time: '12:00:00', label: '11:00 - 12:00' },
-      { start_time: '12:00:00', end_time: '13:00:00', label: '12:00 - 13:00' },
-      { start_time: '13:00:00', end_time: '14:00:00', label: '13:00 - 14:00' },
-      { start_time: '14:00:00', end_time: '15:00:00', label: '14:00 - 15:00' },
-      { start_time: '15:00:00', end_time: '16:00:00', label: '15:00 - 16:00' },
-      { start_time: '16:00:00', end_time: '17:00:00', label: '16:00 - 17:00' },
-      { start_time: '17:00:00', end_time: '18:00:00', label: '17:00 - 18:00' },
-      { start_time: '18:00:00', end_time: '19:00:00', label: '18:00 - 19:00' },
-      { start_time: '19:00:00', end_time: '20:00:00', label: '19:00 - 20:00' },
-      { start_time: '20:00:00', end_time: '21:00:00', label: '20:00 - 21:00' },
-      { start_time: '21:00:00', end_time: '22:00:00', label: '21:00 - 22:00' },
-      { start_time: '22:00:00', end_time: '23:00:00', label: '22:00 - 23:00' }
-    ];
+    // 4. Query OperatingSchedule from Database for opening and closing hours
+    const { OperatingSchedule } = require('../models');
+    const branchIds = (venue.branches || []).map(b => b.branch_id);
+    const schedules = await OperatingSchedule.findAll({
+      where: {
+        scope_target_type: ['VENUE', 'BRANCH', 'COURT'],
+        scope_target_id: [venueId, ...branchIds, ...courtIds]
+      }
+    });
+
+    let openTimeStr = '06:00:00';
+    let closeTimeStr = '22:00:00';
+
+    if (schedules && schedules.length > 0) {
+      const sched = schedules[0];
+      if (sched.opening_time) openTimeStr = sched.opening_time;
+      if (sched.closing_time) closeTimeStr = sched.closing_time;
+    }
+
+    const parseHHMM = (tStr) => {
+      const parts = tStr.split(':');
+      return {
+        h: parseInt(parts[0], 10) || 6,
+        m: parseInt(parts[1], 10) || 0
+      };
+    };
+
+    const startObj = parseHHMM(openTimeStr);
+    const endObj = parseHHMM(closeTimeStr);
+
+    const timeSlots = [];
+    let currH = startObj.h;
+    let currM = startObj.m;
+
+    while (currH < endObj.h || (currH === endObj.h && currM < endObj.m)) {
+      const nextH = currM === 30 ? currH + 1 : currH;
+      const nextM = currM === 30 ? 0 : 30;
+
+      const sH = String(currH).padStart(2, '0');
+      const sM = String(currM).padStart(2, '0');
+      const eH = String(nextH).padStart(2, '0');
+      const eM = String(nextM).padStart(2, '0');
+
+      timeSlots.push({
+        start_time: `${sH}:${sM}:00`,
+        end_time: `${eH}:${eM}:00`,
+        label: `${sH}:${sM} - ${eH}:${eM}`
+      });
+
+      currH = nextH;
+      currM = nextM;
+    }
 
     // Helper functions for time interval overlap check
     const isOverlapping = (s1, e1, s2, e2) => s1 < e2 && e1 > s2;
@@ -224,11 +256,13 @@ class AvailabilityService {
               isOverlapping(b.start_time, b.end_time, slot.start_time, slot.end_time)
             );
             if (blockingMatch) {
+              const reasonStr = (blockingMatch.block_reason || '').toLowerCase();
+              const isEvent = reasonStr.includes('sự kiện') || reasonStr.includes('event');
               return {
                 ...slot,
-                status: 'BLOCKED',
+                status: isEvent ? 'EVENT' : 'BLOCKED',
                 price: pricing.total_price,
-                reason: blockingMatch.block_reason || 'Chủ sân tạm khóa'
+                reason: blockingMatch.block_reason || (isEvent ? 'Sự kiện đặc biệt' : 'Chủ sân tạm khóa')
               };
             }
 

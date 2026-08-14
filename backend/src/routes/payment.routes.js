@@ -11,6 +11,7 @@ router.use(authMiddleware.authenticateJWT);
 
 router.post('/', PaymentController.createPayment);
 router.get('/:id', PaymentController.getPaymentStatus);
+router.post('/:id/proof', PaymentController.uploadProof);
 router.post('/:id/refunds', PaymentController.refundPayment);
 
 module.exports = router;

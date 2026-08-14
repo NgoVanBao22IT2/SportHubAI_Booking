@@ -51,3 +51,16 @@ export const getVenueImages = async (venueId) => {
     return [];
   }
 };
+
+/**
+ * Fetch venue owner payment accounts by venue ID from backend API.
+ */
+export const getVenuePaymentAccounts = async (venueId) => {
+  try {
+    const response = await apiClient.get(`/venues/${venueId}/payment-accounts`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching venue payment accounts:', error);
+    return [];
+  }
+};

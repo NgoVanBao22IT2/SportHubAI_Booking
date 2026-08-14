@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import CustomerLayout from './components/CustomerLayout';
 import HomePage from './pages/customer/HomePage';
 import VenueDetail from './pages/customer/VenueDetail';
@@ -16,6 +16,21 @@ import Register from './pages/Register';
 import VerifyOTP from './pages/VerifyOTP';
 import ForgotPassword from './pages/ForgotPassword';
 import ProtectedRoute from './components/ProtectedRoute';
+import OwnerLayout from './components/OwnerLayout';
+import OwnerDashboard from './pages/owner/OwnerDashboard';
+import OwnerBookings from './pages/owner/OwnerBookings';
+import OwnerBookingDetail from './pages/owner/OwnerBookingDetail';
+import OwnerSchedules from './pages/owner/OwnerSchedules';
+import OwnerVenues from './pages/owner/OwnerVenues';
+import OwnerVenueDetail from './pages/owner/OwnerVenueDetail';
+import OwnerPaymentAccounts from './pages/owner/OwnerPaymentAccounts';
+import OwnerPayments from './pages/owner/OwnerPayments';
+import OwnerPaymentDetail from './pages/owner/OwnerPaymentDetail';
+import OwnerRevenue from './pages/owner/OwnerRevenue';
+import OwnerReviews from './pages/owner/OwnerReviews';
+import OwnerReviewDetail from './pages/owner/OwnerReviewDetail';
+import OwnerNotifications from './pages/owner/OwnerNotifications';
+import OwnerProfile from './pages/owner/OwnerProfile';
 
 function App() {
   return (
@@ -90,6 +105,32 @@ function App() {
             </ProtectedRoute>
           }
         />
+      </Route>
+
+      {/* Protected Owner Routes */}
+      <Route
+        path="/owner"
+        element={
+          <ProtectedRoute allowedRoles={['OWNER', 'ADMIN']}>
+            <OwnerLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route path="dashboard" element={<OwnerDashboard />} />
+        <Route path="bookings" element={<OwnerBookings />} />
+        <Route path="bookings/:bookingId" element={<OwnerBookingDetail />} />
+        <Route path="schedules" element={<OwnerSchedules />} />
+        <Route path="venues" element={<OwnerVenues />} />
+        <Route path="venues/:venueId" element={<OwnerVenueDetail />} />
+        <Route path="payment-accounts" element={<OwnerPaymentAccounts />} />
+        <Route path="payments" element={<OwnerPayments />} />
+        <Route path="payments/:paymentId" element={<OwnerPaymentDetail />} />
+        <Route path="revenue" element={<OwnerRevenue />} />
+        <Route path="reviews" element={<OwnerReviews />} />
+        <Route path="reviews/:reviewId" element={<OwnerReviewDetail />} />
+        <Route path="notifications" element={<OwnerNotifications />} />
+        <Route path="profile" element={<OwnerProfile />} />
       </Route>
     </Routes>
   );

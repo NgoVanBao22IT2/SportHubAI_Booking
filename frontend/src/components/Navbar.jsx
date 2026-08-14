@@ -39,6 +39,14 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           {isAuthenticated ? (
             <div className="flex items-center space-x-3">
+              {(currentUser?.primary_role === 'OWNER' || currentUser?.primary_role === 'ADMIN') && (
+                <Link
+                  to="/owner/dashboard"
+                  className="text-xs bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-full transition-colors shadow-xs"
+                >
+                  Khu vực Chủ sân
+                </Link>
+              )}
               <Link
                 to="/profile"
                 className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
@@ -46,14 +54,6 @@ export default function Navbar() {
                 <User size={16} />
                 <span className="max-w-[120px] truncate">{currentUser?.full_name || 'Tài khoản'}</span>
               </Link>
-              {/* <button
-                onClick={handleLogout}
-                className="flex items-center space-x-1 text-sm font-medium hover:text-green-200 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors"
-                title="Đăng xuất"
-              >
-                <LogOut size={16} />
-                <span className="hidden sm:inline"></span>
-              </button> */}
             </div>
           ) : (
             <>

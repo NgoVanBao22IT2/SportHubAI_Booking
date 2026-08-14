@@ -115,13 +115,13 @@ export default function MyBooking() {
   const filteredBookings = bookings.filter((item) => {
     const status = String(item.booking_status || item.status || '').toUpperCase();
     if (activeTab === 'upcoming') {
-      return ['HOLDING', 'PENDING', 'PAYMENT_PENDING', 'CONFIRMED'].includes(status);
+      return ['HOLDING', 'PENDING', 'PAYMENT_PENDING', 'PAYMENT_SUCCESS', 'WAITING_OWNER_CONFIRMATION', 'CONFIRMED'].includes(status);
     }
     if (activeTab === 'completed') {
       return status === 'COMPLETED';
     }
     if (activeTab === 'cancelled') {
-      return ['CANCELLED', 'EXPIRED', 'FAILED'].includes(status);
+      return ['CANCELLED', 'EXPIRED', 'FAILED', 'REJECTED', 'PAYMENT_FAILED'].includes(status);
     }
     return true;
   });
@@ -132,6 +132,12 @@ export default function MyBooking() {
     switch (status) {
       case 'CONFIRMED':
         return { variant: 'success', label: 'Đã xác nhận' };
+      case 'WAITING_OWNER_CONFIRMATION':
+        return { variant: 'warning', label: 'Chờ chủ sân duyệt' };
+      case 'PAYMENT_SUCCESS':
+        return { variant: 'success', label: 'Thanh toán TC — Chờ duyệt' };
+      case 'REJECTED':
+        return { variant: 'danger', label: 'Chủ sân từ chối' };
       case 'HOLDING':
       case 'PENDING':
       case 'PAYMENT_PENDING':
@@ -143,6 +149,7 @@ export default function MyBooking() {
       case 'EXPIRED':
         return { variant: 'neutral', label: 'Hết hạn giữ sân' };
       case 'FAILED':
+      case 'PAYMENT_FAILED':
         return { variant: 'danger', label: 'Đặt thất bại' };
       default:
         return { variant: 'default', label: status || 'Chờ xử lý' };

@@ -43,12 +43,22 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'ONLINE_CUSTOMER'
     },
     booking_status: {
-      type: DataTypes.ENUM('AVAILABLE', 'HOLDING', 'PAYMENT_PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED', 'EXPIRED', 'PAYMENT_FAILED'),
+      type: DataTypes.ENUM('AVAILABLE', 'HOLDING', 'PAYMENT_PENDING', 'PAYMENT_SUCCESS', 'WAITING_OWNER_CONFIRMATION', 'CONFIRMED', 'REJECTED', 'COMPLETED', 'CANCELLED', 'EXPIRED', 'PAYMENT_FAILED'),
       allowNull: false,
       defaultValue: 'HOLDING'
     },
     hold_expiry_at: {
       type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null
+    },
+    payment_proof_url: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      defaultValue: null
+    },
+    rejection_reason: {
+      type: DataTypes.TEXT,
       allowNull: true,
       defaultValue: null
     },

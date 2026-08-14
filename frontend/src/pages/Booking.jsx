@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { Calendar, Clock, MapPin, ArrowRight, ArrowLeft, Check, ShieldCheck, RefreshCw, AlertCircle, Loader2 } from 'lucide-react';
 import { getVenueById } from '../api/venues';
-import { checkCourtAvailability } from '../api/availability';
+import { getVenueDailyAvailability, checkCourtAvailability } from '../api/availability';
 
 // Design System Imports
 import Button from '../components/ui/Button';
@@ -11,18 +11,6 @@ import Card from '../components/ui/Card';
 import Skeleton from '../components/ui/Skeleton';
 import EmptyState from '../components/ui/EmptyState';
 import ErrorState from '../components/ui/ErrorState';
-
-// Default Time Slots List (06:00 to 22:00)
-const TIME_SLOTS = [
-  { start: '06:00:00', end: '07:00:00', label: '06:00 - 07:00' },
-  { start: '07:00:00', end: '08:00:00', label: '07:00 - 08:00' },
-  { start: '08:00:00', end: '09:00:00', label: '08:00 - 09:00' },
-  { start: '17:00:00', end: '18:00:00', label: '17:00 - 18:00' },
-  { start: '18:00:00', end: '19:00:00', label: '18:00 - 19:00' },
-  { start: '19:00:00', end: '20:00:00', label: '19:00 - 20:00' },
-  { start: '20:00:00', end: '21:00:00', label: '20:00 - 21:00' },
-  { start: '21:00:00', end: '22:00:00', label: '21:00 - 22:00' },
-];
 
 export default function Booking() {
   const [searchParams] = useSearchParams();
@@ -34,6 +22,7 @@ export default function Booking() {
   // State Management
   const [venue, setVenue] = useState(null);
   const [courts, setCourts] = useState([]);
+  const [timeSlotsList, setTimeSlotsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -116,49 +105,48 @@ export default function Booking() {
     fetchVenueData();
   }, [fetchVenueData]);
 
-  // Fetch Real Availability for all time slots when court or date changes (NO FAKE AVAILABILITY FALLBACKS)
+  // Fetch Real Availability for time slots dynamically from Backend
   const fetchRealAvailability = useCallback(async () => {
-    if (!selectedCourt || !selectedDate) return;
-
-    const courtId = selectedCourt.court_id || selectedCourt.id;
-    if (!courtId) return;
+    if (!venueId || !selectedDate) return;
 
     try {
       setCheckingAvailability(true);
-      const newAvailabilityMap = {};
-      let hasSuccess = false;
+      const res = await getVenueDailyAvailability(venueId, selectedDate);
+      if (res && res.status === 'success' && res.data) {
+        const rawSlots = res.data.time_slots || [];
+        const formattedSlots = rawSlots.map(s => ({
+          start: s.start_time,
+          end: s.end_time,
+          label: s.label
+        }));
+        setTimeSlotsList(formattedSlots);
 
-      await Promise.all(
-        TIME_SLOTS.map(async (slot) => {
-          try {
-            const res = await checkCourtAvailability(courtId, selectedDate, slot.start, slot.end);
-            if (res && res.status === 'success' && res.data) {
-              hasSuccess = true;
-              newAvailabilityMap[slot.start] = {
-                available: Boolean(res.data.is_available),
-                price: res.data.pricing?.total_price || null,
-                reason: res.data.reason || (res.data.is_available ? '' : 'Đã ngưng phục vụ')
-              };
-            } else {
-              newAvailabilityMap[slot.start] = { available: false, price: null, reason: 'Không có thông tin' };
-            }
-          } catch (err) {
-            console.warn(`Failed availability check for slot ${slot.start}`, err);
-            newAvailabilityMap[slot.start] = { available: false, price: null, reason: 'Lỗi kết nối máy chủ' };
-          }
-        })
-      );
+        const targetCourtId = selectedCourt ? (selectedCourt.court_id || selectedCourt.id) : null;
+        const courtData = (res.data.courts || []).find(c => c.court_id === targetCourtId);
 
-      setSlotAvailabilityMap(newAvailabilityMap);
-      if (!hasSuccess && Object.keys(newAvailabilityMap).length > 0) {
-        setValidationError('Không thể xác thực danh sách khung giờ từ máy chủ.');
+        const newMap = {};
+        if (courtData && courtData.slots) {
+          courtData.slots.forEach(slot => {
+            newMap[slot.start_time] = {
+              available: slot.status === 'AVAILABLE',
+              price: slot.price,
+              reason: slot.reason
+            };
+          });
+        }
+        setSlotAvailabilityMap(newMap);
+      } else {
+        setTimeSlotsList([]);
+        setSlotAvailabilityMap({});
       }
     } catch (err) {
       console.error("Failed to check slot availability", err);
+      setTimeSlotsList([]);
+      setSlotAvailabilityMap({});
     } finally {
       setCheckingAvailability(false);
     }
-  }, [selectedCourt, selectedDate]);
+  }, [venueId, selectedCourt, selectedDate]);
 
   useEffect(() => {
     fetchRealAvailability();
@@ -277,280 +265,280 @@ export default function Booking() {
     );
   }
 
-  // Location string
-  const locationStr = venue?.branches && venue.branches.length > 0
-    ? `${venue.branches[0].ward_district_city || ''}, ${venue.branches[0].street_address || ''}`
-    : "Chưa cập nhật địa chỉ";
+  // // Location string
+  // const locationStr = venue?.branches && venue.branches.length > 0
+  //   ? `${venue.branches[0].ward_district_city || ''}, ${venue.branches[0].street_address || ''}`
+  //   : "Chưa cập nhật địa chỉ";
 
-  const selectedSlotData = selectedTimeSlot ? slotAvailabilityMap[selectedTimeSlot.start] : null;
-  const currentPrice = selectedSlotData?.price;
+  // const selectedSlotData = selectedTimeSlot ? slotAvailabilityMap[selectedTimeSlot.start] : null;
+  // const currentPrice = selectedSlotData?.price;
 
-  return (
-    <div className="w-full bg-surface-subtle min-h-screen pb-20">
-      {/* BREADCRUMB & HEADER */}
-      <section className="bg-surface border-b border-border-subtle-medium py-6 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex items-center text-xs text-text-muted gap-2 mb-3">
-            <Link to="/" className="hover:text-accent-primary">Trang chủ</Link>
-            <span>/</span>
-            <Link to="/search" className="hover:text-accent-primary">Tìm sân</Link>
-            <span>/</span>
-            <span className="text-gray-900 font-medium truncate">{venue?.venue_name}</span>
-          </div>
+  // return (
+  //   <div className="w-full bg-surface-subtle min-h-screen pb-20">
+  //     {/* BREADCRUMB & HEADER */}
+  //     <section className="bg-surface border-b border-border-subtle-medium py-6 px-4">
+  //       <div className="container mx-auto max-w-6xl">
+  //         <div className="flex items-center text-xs text-text-muted gap-2 mb-3">
+  //           <Link to="/" className="hover:text-accent-primary">Trang chủ</Link>
+  //           <span>/</span>
+  //           <Link to="/search" className="hover:text-accent-primary">Tìm sân</Link>
+  //           <span>/</span>
+  //           <span className="text-gray-900 font-medium truncate">{venue?.venue_name}</span>
+  //         </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Đặt lịch sân thể thao
-              </h1>
-              <p className="text-sm text-text-muted mt-1">
-                Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế 
-              </p>
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              leftIcon={<ArrowLeft size={16} />}
-              onClick={() => navigate(-1)}
-            >
-              Quay lại
-            </Button>
-          </div>
-        </div>
-      </section>
+  //         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  //           <div>
+  //             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+  //               Đặt lịch sân thể thao
+  //             </h1>
+  //             <p className="text-sm text-text-muted mt-1">
+  //               Chọn ngày, sân con và khung giờ kiểm tra trạng thái thực tế 
+  //             </p>
+  //           </div>
+  //           <Button
+  //             variant="outline"
+  //             size="sm"
+  //             leftIcon={<ArrowLeft size={16} />}
+  //             onClick={() => navigate(-1)}
+  //           >
+  //             Quay lại
+  //           </Button>
+  //         </div>
+  //       </div>
+  //     </section>
 
-      {/* MAIN CONTENT */}
-      <div className="container mx-auto px-4 max-w-6xl py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+  //     {/* MAIN CONTENT */}
+  //     <div className="container mx-auto px-4 max-w-6xl py-8">
+  //       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           
-          {/* LEFT CONFIGURATION COLUMN */}
-          <div className="lg:col-span-2 space-y-6">
+  //         {/* LEFT CONFIGURATION COLUMN */}
+  //         <div className="lg:col-span-2 space-y-6">
             
-            {/* VENUE SUMMARY CARD */}
-            <Card padding="md" radius="xl" className="border border-border-subtle-medium">
-              <div className="flex items-start gap-4">
-                <div className="w-20 h-20 rounded-xl bg-accent-primary-light text-accent-primary font-bold text-xl flex items-center justify-center flex-shrink-0 border border-accent-primary-light">
-                  {venue?.venue_name?.substring(0, 3).toUpperCase() || 'VEN'}
-                </div>
-                <div className="space-y-1">
-                  <Badge variant="info" size="sm" className="mb-1">
-                    Xác nhận hệ thống
-                  </Badge>
-                  <h2 className="font-bold text-xl text-gray-900 leading-snug">
-                    {venue?.venue_name}
-                  </h2>
-                  <div className="flex items-center text-xs text-text-muted">
-                    <MapPin size={14} className="mr-1 flex-shrink-0" />
-                    <span>{locationStr}</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
+  //           {/* VENUE SUMMARY CARD */}
+  //           <Card padding="md" radius="xl" className="border border-border-subtle-medium">
+  //             <div className="flex items-start gap-4">
+  //               <div className="w-20 h-20 rounded-xl bg-accent-primary-light text-accent-primary font-bold text-xl flex items-center justify-center flex-shrink-0 border border-accent-primary-light">
+  //                 {venue?.venue_name?.substring(0, 3).toUpperCase() || 'VEN'}
+  //               </div>
+  //               <div className="space-y-1">
+  //                 <Badge variant="info" size="sm" className="mb-1">
+  //                   Xác nhận hệ thống
+  //                 </Badge>
+  //                 <h2 className="font-bold text-xl text-gray-900 leading-snug">
+  //                   {venue?.venue_name}
+  //                 </h2>
+  //                 <div className="flex items-center text-xs text-text-muted">
+  //                   <MapPin size={14} className="mr-1 flex-shrink-0" />
+  //                   <span>{locationStr}</span>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </Card>
 
-            {/* DATE SELECTOR */}
-            <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
-              <Card.Header>
-                <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
-                  <Calendar size={18} className="text-accent-primary" />
-                  1. Chọn ngày đặt lịch
-                </h3>
-              </Card.Header>
-              <Card.Body>
-                <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
-                  {availableDates.map((item) => {
-                    const isSelected = selectedDate === item.isoDate;
-                    return (
-                      <button
-                        key={item.isoDate}
-                        onClick={() => setSelectedDate(item.isoDate)}
-                        className={[
-                          'flex flex-col items-center justify-center px-4 py-3 rounded-xl border text-center transition-all min-w-[85px] min-h-[44px]',
-                          isSelected
-                            ? 'bg-brand-orange text-white border-brand-orange shadow-md font-bold'
-                            : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-brand-orange/50 hover:bg-surface-subtle'
-                        ].join(' ')}
-                      >
-                        <span className="text-xs opacity-90">{item.dayName}</span>
-                        <span className="text-sm font-bold mt-0.5">{item.dayFormatted}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </Card.Body>
-            </Card>
+  //           {/* DATE SELECTOR */}
+  //           <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
+  //             <Card.Header>
+  //               <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
+  //                 <Calendar size={18} className="text-accent-primary" />
+  //                 1. Chọn ngày đặt lịch
+  //               </h3>
+  //             </Card.Header>
+  //             <Card.Body>
+  //               <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+  //                 {availableDates.map((item) => {
+  //                   const isSelected = selectedDate === item.isoDate;
+  //                   return (
+  //                     <button
+  //                       key={item.isoDate}
+  //                       onClick={() => setSelectedDate(item.isoDate)}
+  //                       className={[
+  //                         'flex flex-col items-center justify-center px-4 py-3 rounded-xl border text-center transition-all min-w-[85px] min-h-[44px]',
+  //                         isSelected
+  //                           ? 'bg-brand-orange text-white border-brand-orange shadow-md font-bold'
+  //                           : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-brand-orange/50 hover:bg-surface-subtle'
+  //                       ].join(' ')}
+  //                     >
+  //                       <span className="text-xs opacity-90">{item.dayName}</span>
+  //                       <span className="text-sm font-bold mt-0.5">{item.dayFormatted}</span>
+  //                     </button>
+  //                   );
+  //                 })}
+  //               </div>
+  //             </Card.Body>
+  //           </Card>
 
-            {/* COURT SELECTOR */}
-            <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
-              <Card.Header>
-                <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
-                  <ShieldCheck size={18} className="text-accent-primary" />
-                  2. Chọn sân con
-                </h3>
-              </Card.Header>
-              <Card.Body>
-                {courts.length === 0 ? (
-                  <EmptyState
-                    size="sm"
-                    title="Chưa có thông tin sân con"
-                    description="Hệ thống chưa cung cấp danh sách sân con cho câu lạc bộ này."
-                  />
-                ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {courts.map((court) => {
-                      const courtId = court.court_id || court.id;
-                      const courtName = court.court_name || court.name || 'Sân tiêu chuẩn';
-                      const isSelected = selectedCourt && (selectedCourt.court_id || selectedCourt.id) === courtId;
+  //           {/* COURT SELECTOR */}
+  //           <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
+  //             <Card.Header>
+  //               <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
+  //                 <ShieldCheck size={18} className="text-accent-primary" />
+  //                 2. Chọn sân con
+  //               </h3>
+  //             </Card.Header>
+  //             <Card.Body>
+  //               {courts.length === 0 ? (
+  //                 <EmptyState
+  //                   size="sm"
+  //                   title="Chưa có thông tin sân con"
+  //                   description="Hệ thống chưa cung cấp danh sách sân con cho câu lạc bộ này."
+  //                 />
+  //               ) : (
+  //                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+  //                   {courts.map((court) => {
+  //                     const courtId = court.court_id || court.id;
+  //                     const courtName = court.court_name || court.name || 'Sân tiêu chuẩn';
+  //                     const isSelected = selectedCourt && (selectedCourt.court_id || selectedCourt.id) === courtId;
 
-                      return (
-                        <button
-                          key={courtId}
-                          onClick={() => setSelectedCourt(court)}
-                          className={[
-                            'p-3.5 rounded-xl border text-left transition-all min-h-[44px] flex items-center justify-between',
-                            isSelected
-                              ? 'bg-accent-primary-light text-accent-primary border-accent-primary font-bold shadow-sm'
-                              : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-accent-primary/50'
-                          ].join(' ')}
-                        >
-                          <div>
-                            <p className="text-sm font-semibold">{courtName}</p>
-                            <p className="text-[11px] text-text-muted mt-0.5">Tiêu chuẩn thi đấu</p>
-                          </div>
-                          {isSelected && <Check size={16} className="text-accent-primary" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
+  //                     return (
+  //                       <button
+  //                         key={courtId}
+  //                         onClick={() => setSelectedCourt(court)}
+  //                         className={[
+  //                           'p-3.5 rounded-xl border text-left transition-all min-h-[44px] flex items-center justify-between',
+  //                           isSelected
+  //                             ? 'bg-accent-primary-light text-accent-primary border-accent-primary font-bold shadow-sm'
+  //                             : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-accent-primary/50'
+  //                         ].join(' ')}
+  //                       >
+  //                         <div>
+  //                           <p className="text-sm font-semibold">{courtName}</p>
+  //                           <p className="text-[11px] text-text-muted mt-0.5">Tiêu chuẩn thi đấu</p>
+  //                         </div>
+  //                         {isSelected && <Check size={16} className="text-accent-primary" />}
+  //                       </button>
+  //                     );
+  //                   })}
+  //                 </div>
+  //               )}
+  //             </Card.Body>
+  //           </Card>
 
-            {/* TIME SLOT SELECTOR (LIVE BACKEND AVAILABILITY) */}
-            <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
-              <Card.Header className="flex justify-between items-center">
-                <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
-                  <Clock size={18} className="text-accent-primary" />
-                  3. Chọn khung giờ 
-                </h3>
-                {checkingAvailability && (
-                  <div className="flex items-center text-xs text-text-muted gap-1">
-                    <Loader2 size={14} className="animate-spin text-accent-primary" />
-                    <span>Đang xác thực...</span>
-                  </div>
-                )}
-              </Card.Header>
-              <Card.Body>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {TIME_SLOTS.map((slot) => {
-                    const slotData = slotAvailabilityMap[slot.start];
-                    // NO FAKE AVAILABILITY: If API hasn't loaded or returned false, disable slot!
-                    const isAvailable = slotData ? Boolean(slotData.available) : false;
-                    const price = slotData?.price;
-                    const isSelected = selectedTimeSlot?.start === slot.start;
+  //           {/* TIME SLOT SELECTOR (LIVE BACKEND AVAILABILITY) */}
+  //           <Card padding="md" radius="xl" className="border border-border-subtle-medium space-y-4">
+  //             <Card.Header className="flex justify-between items-center">
+  //               <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
+  //                 <Clock size={18} className="text-accent-primary" />
+  //                 3. Chọn khung giờ 
+  //               </h3>
+  //               {checkingAvailability && (
+  //                 <div className="flex items-center text-xs text-text-muted gap-1">
+  //                   <Loader2 size={14} className="animate-spin text-accent-primary" />
+  //                   <span>Đang xác thực...</span>
+  //                 </div>
+  //               )}
+  //             </Card.Header>
+  //             <Card.Body>
+  //               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+  //                 {timeSlotsList.map((slot) => {
+  //                   const slotData = slotAvailabilityMap[slot.start];
+  //                   // NO FAKE AVAILABILITY: If API hasn't loaded or returned false, disable slot!
+  //                   const isAvailable = slotData ? Boolean(slotData.available) : false;
+  //                   const price = slotData?.price;
+  //                   const isSelected = selectedTimeSlot?.start === slot.start;
 
-                    return (
-                      <button
-                        key={slot.start}
-                        disabled={!isAvailable}
-                        onClick={() => setSelectedTimeSlot(slot)}
-                        className={[
-                          'p-3 rounded-xl border text-center transition-all min-h-[44px] flex flex-col items-center justify-center relative',
-                          !isAvailable
-                            ? 'bg-surface-muted text-text-muted border-border-subtle cursor-not-allowed opacity-50'
-                            : isSelected
-                            ? 'bg-brand-orange text-white border-brand-orange shadow-md font-bold'
-                            : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-brand-orange/50 hover:bg-surface-subtle'
-                        ].join(' ')}
-                      >
-                        <span className="text-sm font-semibold">{slot.label}</span>
-                        <span className="text-[11px] mt-0.5 opacity-90">
-                          {isAvailable && price ? `${price.toLocaleString('vi-VN')}đ` : (slotData?.reason || 'Không khả dụng')}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </Card.Body>
-            </Card>
-          </div>
+  //                   return (
+  //                     <button
+  //                       key={slot.start}
+  //                       disabled={!isAvailable}
+  //                       onClick={() => setSelectedTimeSlot(slot)}
+  //                       className={[
+  //                         'p-3 rounded-xl border text-center transition-all min-h-[44px] flex flex-col items-center justify-center relative',
+  //                         !isAvailable
+  //                           ? 'bg-surface-muted text-text-muted border-border-subtle cursor-not-allowed opacity-50'
+  //                           : isSelected
+  //                           ? 'bg-brand-orange text-white border-brand-orange shadow-md font-bold'
+  //                           : 'bg-surface text-gray-900 border-border-subtle-medium hover:border-brand-orange/50 hover:bg-surface-subtle'
+  //                       ].join(' ')}
+  //                     >
+  //                       <span className="text-sm font-semibold">{slot.label}</span>
+  //                       <span className="text-[11px] mt-0.5 opacity-90">
+  //                         {isAvailable && price ? `${price.toLocaleString('vi-VN')}đ` : (slotData?.reason || 'Không khả dụng')}
+  //                       </span>
+  //                     </button>
+  //                   );
+  //                 })}
+  //               </div>
+  //             </Card.Body>
+  //           </Card>
+  //         </div>
 
-          {/* STICKY SUMMARY COLUMN */}
-          <div className="lg:col-span-1 sticky top-24 space-y-4">
-            <Card padding="md" radius="xl" className="border border-border-subtle-medium shadow-md">
-              <Card.Header className="pb-3 border-b border-border-subtle-medium mb-4">
-                <h3 className="font-bold text-gray-900 text-lg">
-                  Tóm tắt đặt lịch
-                </h3>
-              </Card.Header>
+  //         {/* STICKY SUMMARY COLUMN */}
+  //         <div className="lg:col-span-1 sticky top-24 space-y-4">
+  //           <Card padding="md" radius="xl" className="border border-border-subtle-medium shadow-md">
+  //             <Card.Header className="pb-3 border-b border-border-subtle-medium mb-4">
+  //               <h3 className="font-bold text-gray-900 text-lg">
+  //                 Tóm tắt đặt lịch
+  //               </h3>
+  //             </Card.Header>
 
-              <Card.Body className="space-y-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-text-muted">
-                    <span>Địa điểm:</span>
-                    <span className="font-semibold text-gray-900 text-right truncate max-w-[150px]">
-                      {venue?.venue_name}
-                    </span>
-                  </div>
+  //             <Card.Body className="space-y-4 text-sm">
+  //               <div className="space-y-2">
+  //                 <div className="flex justify-between text-text-muted">
+  //                   <span>Địa điểm:</span>
+  //                   <span className="font-semibold text-gray-900 text-right truncate max-w-[150px]">
+  //                     {venue?.venue_name}
+  //                   </span>
+  //                 </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Sân con:</span>
-                    <span className="font-semibold text-gray-900">
-                      {selectedCourt ? (selectedCourt.court_name || selectedCourt.name || 'Sân tiêu chuẩn') : 'Chưa chọn'}
-                    </span>
-                  </div>
+  //                 <div className="flex justify-between text-text-muted">
+  //                   <span>Sân con:</span>
+  //                   <span className="font-semibold text-gray-900">
+  //                     {selectedCourt ? (selectedCourt.court_name || selectedCourt.name || 'Sân tiêu chuẩn') : 'Chưa chọn'}
+  //                   </span>
+  //                 </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Ngày đặt:</span>
-                    <span className="font-semibold text-gray-900">
-                      {selectedDate || 'Chưa chọn'}
-                    </span>
-                  </div>
+  //                 <div className="flex justify-between text-text-muted">
+  //                   <span>Ngày đặt:</span>
+  //                   <span className="font-semibold text-gray-900">
+  //                     {selectedDate || 'Chưa chọn'}
+  //                   </span>
+  //                 </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Khung giờ:</span>
-                    <span className="font-semibold text-gray-900">
-                      {selectedTimeSlot ? selectedTimeSlot.label : 'Chưa chọn'}
-                    </span>
-                  </div>
+  //                 <div className="flex justify-between text-text-muted">
+  //                   <span>Khung giờ:</span>
+  //                   <span className="font-semibold text-gray-900">
+  //                     {selectedTimeSlot ? selectedTimeSlot.label : 'Chưa chọn'}
+  //                   </span>
+  //                 </div>
 
-                  <div className="flex justify-between text-text-muted">
-                    <span>Thời lượng:</span>
-                    <span className="font-semibold text-gray-900">1 giờ</span>
-                  </div>
-                </div>
+  //                 <div className="flex justify-between text-text-muted">
+  //                   <span>Thời lượng:</span>
+  //                   <span className="font-semibold text-gray-900">1 giờ</span>
+  //                 </div>
+  //               </div>
 
-                <div className="pt-4 border-t border-border-subtle-medium flex justify-between items-center">
-                  <span className="font-bold text-gray-900">Tạm tính:</span>
-                  <span className="text-xl font-bold text-brand-orange">
-                    {selectedTimeSlot && currentPrice ? `${currentPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân'}
-                  </span>
-                </div>
+  //               <div className="pt-4 border-t border-border-subtle-medium flex justify-between items-center">
+  //                 <span className="font-bold text-gray-900">Tạm tính:</span>
+  //                 <span className="text-xl font-bold text-brand-orange">
+  //                   {selectedTimeSlot && currentPrice ? `${currentPrice.toLocaleString('vi-VN')}đ` : 'Theo báo giá sân'}
+  //                 </span>
+  //               </div>
 
-                {validationError && (
-                  <div role="alert" className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex items-center gap-2">
-                    <AlertCircle size={16} className="flex-shrink-0 text-status-error" />
-                    <span>{validationError}</span>
-                  </div>
-                )}
-              </Card.Body>
+  //               {validationError && (
+  //                 <div role="alert" className="p-3 bg-status-error-bg text-status-error-text text-xs rounded-lg flex items-center gap-2">
+  //                   <AlertCircle size={16} className="flex-shrink-0 text-status-error" />
+  //                   <span>{validationError}</span>
+  //                 </div>
+  //               )}
+  //             </Card.Body>
 
-              <Card.Footer className="pt-4">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  fullWidth
-                  loading={revalidating}
-                  rightIcon={<ArrowRight size={18} />}
-                  onClick={handleProceedToCheckout}
-                >
-                  Tiếp tục thanh toán
-                </Button>
-              </Card.Footer>
-            </Card>
-          </div>
+  //             <Card.Footer className="pt-4">
+  //               <Button
+  //                 variant="primary"
+  //                 size="lg"
+  //                 fullWidth
+  //                 loading={revalidating}
+  //                 rightIcon={<ArrowRight size={18} />}
+  //                 onClick={handleProceedToCheckout}
+  //               >
+  //                 Tiếp tục thanh toán
+  //               </Button>
+  //             </Card.Footer>
+  //           </Card>
+  //         </div>
 
-        </div>
-      </div>
-    </div>
-  );
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 }

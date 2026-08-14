@@ -1,23 +1,22 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  Calendar as CalendarIcon, 
-  Clock, 
-  MapPin, 
-  Check, 
-  RefreshCw, 
-  Info, 
-  ShieldCheck, 
-  AlertCircle,
-  ChevronRight,
-  Filter,
-  CheckCircle2,
+import {
+  Calendar as CalendarIcon,
+  Clock,
+  MapPin,
+  Phone,
+  Star,
+  Heart,
+  Calendar,
+  Check,
+  RefreshCw,
+  Info,
   Lock,
-  XCircle
+  ArrowRight
 } from 'lucide-react';
 import { getVenueById } from '../../api/venues';
 import { getVenueDailyAvailability } from '../../api/availability';
+import { addFavorite } from '../../api/favorites';
 
 // Design System Imports
 import Button from '../../components/ui/Button';
@@ -37,47 +36,43 @@ export default function VisualBooking() {
   const [loadingVenue, setLoadingVenue] = useState(true);
   const [loadingGrid, setLoadingGrid] = useState(true);
   const [error, setError] = useState(false);
+  const [favPending, setFavPending] = useState(false);
 
-  // Filters State
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedSport, setSelectedSport] = useState('ALL');
+  // Date Filter State (Default to today ISO format YYYY-MM-DD)
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  });
 
-  // Selected Slots State: Map of key `${court_id}___${start_time}` -> slot detail
+  // Selected Slots State: Map of `${court_id}___${start_time}` -> slot detail
   const [selectedSlotsMap, setSelectedSlotsMap] = useState({});
 
-  // 1. Generate Next 10 Days List
+  // 1. Generate Next 14 Days List for quick bar
   const availableDates = useMemo(() => {
     const days = [];
     const today = new Date();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 14; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       const isoDate = date.toISOString().split('T')[0];
-      
+
       const dayOfWeek = date.getDay();
-      const dayName = i === 0 
-        ? 'Hôm nay' 
-        : i === 1 
-        ? 'Ngày mai' 
-        : dayOfWeek === 0 
-        ? 'Chủ Nhật' 
-        : `Thứ ${dayOfWeek + 1}`;
-      
+      const dayName = i === 0
+        ? 'Hôm nay'
+        : i === 1
+          ? 'Ngày mai'
+          : dayOfWeek === 0
+            ? 'Chủ Nhật'
+            : `Thứ ${dayOfWeek + 1}`;
+
       const dayFormatted = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}`;
-      
+
       days.push({ isoDate, dayName, dayFormatted });
     }
     return days;
   }, []);
 
-  // Set default date on load
-  useEffect(() => {
-    if (availableDates.length > 0 && !selectedDate) {
-      setSelectedDate(availableDates[0].isoDate);
-    }
-  }, [availableDates, selectedDate]);
-
-  // 2. Fetch Venue Basic Info
+  // 2. Fetch Venue Basic Details
   const fetchVenueInfo = useCallback(async () => {
     if (!venueId) return;
     try {
@@ -97,7 +92,7 @@ export default function VisualBooking() {
     fetchVenueInfo();
   }, [fetchVenueInfo]);
 
-  // 3. Fetch Daily Matrix Availability when venueId or selectedDate changes
+  // 3. Fetch Daily Schedule Matrix Availability
   const fetchGridAvailability = useCallback(async () => {
     if (!venueId || !selectedDate) return;
     try {
@@ -109,7 +104,7 @@ export default function VisualBooking() {
         setAvailabilityData(null);
       }
     } catch (err) {
-      console.error("Failed to fetch daily venue availability grid", err);
+      console.error("Failed to fetch daily venue availability matrix", err);
     } finally {
       setLoadingGrid(false);
     }
@@ -119,18 +114,15 @@ export default function VisualBooking() {
     fetchGridAvailability();
   }, [fetchGridAvailability]);
 
-  // Handle Sport Category Switch
-  const sportsList = useMemo(() => {
-    if (!availabilityData || !availabilityData.sports) return [];
-    return availabilityData.sports;
+  // Time Slots list from Availability API (NO FAKE FALLBACK GENERATION)
+  const timeSlots = useMemo(() => {
+    return availabilityData?.time_slots ?? [];
   }, [availabilityData]);
 
-  // Filtered Courts based on selectedSport
-  const filteredCourts = useMemo(() => {
+  const courtsList = useMemo(() => {
     if (!availabilityData || !availabilityData.courts) return [];
-    if (selectedSport === 'ALL') return availabilityData.courts;
-    return availabilityData.courts.filter(c => c.sport_category === selectedSport);
-  }, [availabilityData, selectedSport]);
+    return availabilityData.courts;
+  }, [availabilityData]);
 
   // Handle Slot Click Toggle Selection
   const toggleSlotSelection = (court, slot) => {
@@ -157,35 +149,34 @@ export default function VisualBooking() {
     });
   };
 
-  // Calculate Selected Summary Totals
+  // Calculate Selected Totals
   const selectedSlotsList = useMemo(() => Object.values(selectedSlotsMap), [selectedSlotsMap]);
   const totalSelectedCount = selectedSlotsList.length;
-  const totalHours = totalSelectedCount * 1; // Assuming 1-hour slots
+  const totalHours = totalSelectedCount * 1; // Each slot is 30 minutes (0.5 hour)
+
   const totalAmount = useMemo(() => {
     return selectedSlotsList.reduce((sum, slot) => sum + (slot.price || 0), 0);
   }, [selectedSlotsList]);
 
-  // Summary labels calculation
-  const selectedCourtsNames = useMemo(() => {
-    const names = Array.from(new Set(selectedSlotsList.map(s => s.court_name)));
-    return names.join(', ');
+  // Format Selected Time Interval for Footer
+  const formattedTimeInterval = useMemo(() => {
+    if (selectedSlotsList.length === 0) return '';
+    const sorted = [...selectedSlotsList].sort((a, b) => a.start_time.localeCompare(b.start_time));
+    const earliest = sorted[0].start_time.substring(0, 5);
+    const latest = sorted[sorted.length - 1].end_time.substring(0, 5);
+    return `${earliest} - ${latest}`;
   }, [selectedSlotsList]);
 
-  const selectedTimeLabels = useMemo(() => {
-    return selectedSlotsList.map(s => s.label).join(', ');
-  }, [selectedSlotsList]);
-
-  // Handle Next Step -> Navigate to Checkout
+  // Navigate to Checkout
   const handleProceedToCheckout = () => {
     if (totalSelectedCount === 0) return;
 
-    // Navigate to checkout with trusted structured state payload
     navigate('/checkout', {
       state: {
         venueId,
         venueName: venue?.venue_name,
         date: selectedDate,
-        sportCategory: selectedSport !== 'ALL' ? selectedSport : (selectedSlotsList[0]?.sport_category || 'Thể thao'),
+        sportCategory: selectedSlotsList[0]?.sport_category || 'Thể thao',
         selectedSlots: selectedSlotsList,
         totalAmount,
         totalHours
@@ -193,23 +184,24 @@ export default function VisualBooking() {
     });
   };
 
-  // Location string extraction
+  // Extract Address
   const locationStr = venue?.branches && venue.branches.length > 0
     ? `${venue.branches[0].street_address || ''}, ${venue.branches[0].ward_district_city || ''}`
-    : "Chưa cập nhật địa chỉ";
+    : "Địa chỉ đang cập nhật";
+
+  // Operating Hours display string
+  const operatingHoursStr = venue?.operating_hours
+    || (availabilityData?.time_slots && availabilityData.time_slots.length > 0
+      ? `${availabilityData.time_slots[0].start_time.substring(0, 5)} - ${availabilityData.time_slots[availabilityData.time_slots.length - 1].end_time.substring(0, 5)}`
+      : 'Theo lịch hoạt động sân');
 
   // Render Loading State
   if (loadingVenue) {
     return (
       <div className="w-full bg-surface-subtle min-h-screen pb-32">
-        <div className="bg-surface border-b border-border-subtle-medium py-6 px-4">
-          <div className="container mx-auto max-w-6xl space-y-3">
-            <Skeleton variant="text" width="200px" height="24px" />
-            <Skeleton variant="text" width="350px" height="32px" />
-          </div>
-        </div>
-        <div className="container mx-auto max-w-6xl px-4 mt-8 space-y-6">
-          <Skeleton variant="rounded" height="64px" />
+        <Skeleton variant="rectangular" height="300px" />
+        <div className="container mx-auto max-w-6xl px-4 -mt-20 relative z-10 space-y-6">
+          <Skeleton variant="rounded" height="140px" />
           <Skeleton variant="rectangular" height="400px" />
         </div>
       </div>
@@ -222,15 +214,15 @@ export default function VisualBooking() {
       <div className="container mx-auto px-4 py-20 max-w-3xl">
         <ErrorState
           title="Không thể tải lịch sân thể thao"
-          description="Đã có lỗi xảy ra khi tải thông tin câu lạc bộ hoặc kết nối bị gián đoạn."
+          description="Đã có lỗi xảy ra khi truy xuất thông tin câu lạc bộ. Vui lòng kiểm tra lại đường truyền."
           action={
             <Button variant="primary" leftIcon={<RefreshCw size={16} />} onClick={fetchVenueInfo}>
               Thử lại
             </Button>
           }
           secondaryAction={
-            <Button variant="outline" onClick={() => navigate(`/venues/${venueId}`)}>
-              Về chi tiết sân
+            <Button variant="outline" onClick={() => navigate('/search')}>
+              Khám phá sân khác
             </Button>
           }
         />
@@ -239,314 +231,356 @@ export default function VisualBooking() {
   }
 
   return (
-    <div className="w-full bg-surface-subtle min-h-screen pb-36">
-      
-      {/* 1. HEADER BAR */}
-      <section className="bg-surface border-b border-border-subtle-medium shadow-sm sticky top-0 z-30">
-        <div className="container mx-auto max-w-6xl px-4 py-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => navigate(`/venues/${venueId}`)}
-                className="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-surface-subtle transition-colors border border-border-subtle-medium"
-                aria-label="Quay lại chi tiết sân"
-              >
-                <ArrowLeft size={20} />
-              </button>
+    <div className="w-full bg-[#f8fafc] min-h-screen pb-16 font-sans">
 
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">Đặt Lịch Trực Quan</span>
-                  <Badge variant="primary" size="sm">Alobo Standard Logic</Badge>
+      {/* 1. HERO BANNER */}
+      <section className="w-full h-[220px] md:h-[280px] relative bg-dark">
+        <img
+          src="/venue_hero.png"
+          alt={`${venue.venue_name} Hero`}
+          className="w-full h-full object-cover opacity-85"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent"></div>
+      </section>
+
+      {/* 2. OVERLAPPING VENUE CARD (MATCHING UX REFERENCE) */}
+      <section className="container mx-auto px-4 max-w-6xl -mt-24 md:-mt-28 relative z-10">
+        <Card radius="2xl" padding="lg" className="shadow-xl border border-border-subtle-medium bg-surface">
+          <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
+
+            {/* Left: Venue Logo & Info */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 w-full md:w-auto">
+              {/* Venue Logo Thumbnail */}
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl border-2 border-border-subtle-medium bg-white shadow-sm flex items-center justify-center p-3 flex-shrink-0 overflow-hidden">
+                <div className="w-full h-full border-2 border-primary/20 rounded-xl flex flex-col items-center justify-center bg-surface-subtle">
+                  <span className="font-extrabold text-2xl text-primary tracking-tight">
+                    {venue.venue_name ? venue.venue_name.substring(0, 3).toUpperCase() : 'ACE'}
+                  </span>
+                  <span className="text-[9px] font-bold text-brand-orange uppercase tracking-wider mt-0.5">BADMINTON</span>
                 </div>
-                <h1 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
-                  {venue.venue_name}
-                </h1>
-                <p className="text-xs text-text-muted flex items-center mt-0.5">
-                  <MapPin size={14} className="mr-1 text-brand-orange flex-shrink-0" />
-                  <span>{locationStr}</span>
-                </p>
               </div>
-            </div>
 
-            {/* Quick Status Legend */}
-            <div className="flex items-center gap-4 text-xs font-medium text-gray-700 bg-surface-subtle px-3 py-2 rounded-xl border border-border-subtle-medium">
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded bg-emerald-500 border border-emerald-600"></span>
-                <span>Còn trống</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded bg-brand-orange"></span>
-                <span>Đã chọn</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded bg-gray-300"></span>
-                <span>Đã đặt</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded bg-red-200"></span>
-                <span>Khóa/Bảo trì</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 2. DATE SELECTOR BAR */}
-      <section className="bg-surface border-b border-border-subtle-medium py-3 sticky top-[73px] z-20 shadow-xs">
-        <div className="container mx-auto max-w-6xl px-4">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-            {availableDates.map((day) => {
-              const isSelected = selectedDate === day.isoDate;
-              return (
-                <button
-                  key={day.isoDate}
-                  onClick={() => {
-                    setSelectedDate(day.isoDate);
-                    setSelectedSlotsMap({}); // Reset selection when date changes
-                  }}
-                  className={`flex flex-col items-center justify-center px-4 py-2 rounded-xl min-w-[90px] border transition-all duration-200 ${
-                    isSelected
-                      ? 'bg-brand-orange text-white border-brand-orange font-bold shadow-md scale-105'
-                      : 'bg-surface hover:bg-surface-subtle text-gray-700 border-border-subtle-medium hover:border-gray-300'
-                  }`}
-                >
-                  <span className="text-[11px] opacity-85 font-medium">{day.dayName}</span>
-                  <span className="text-sm font-bold mt-0.5">{day.dayFormatted}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. SPORT CATEGORY FILTER TABS */}
-      <section className="container mx-auto max-w-6xl px-4 mt-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-gray-900 flex items-center">
-            <Filter size={18} className="mr-2 text-brand-orange" />
-            Chọn Đối Tượng Thể Thao
-          </h2>
-          <span className="text-xs text-text-muted">
-            Hiển thị các sân tương ứng với bộ môn
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
-          <button
-            onClick={() => setSelectedSport('ALL')}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${
-              selectedSport === 'ALL'
-                ? 'bg-dark text-white border-dark shadow-sm'
-                : 'bg-surface text-gray-700 border-border-subtle-medium hover:bg-surface-subtle'
-            }`}
-          >
-            Tất cả bộ môn ({availabilityData?.courts?.length || 0})
-          </button>
-
-          {sportsList.map((sport) => {
-            const count = availabilityData?.courts?.filter(c => c.sport_category === sport).length || 0;
-            const isSelected = selectedSport === sport;
-            return (
-              <button
-                key={sport}
-                onClick={() => setSelectedSport(sport)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border flex items-center gap-1.5 ${
-                  isSelected
-                    ? 'bg-brand-orange text-white border-brand-orange shadow-sm'
-                    : 'bg-surface text-gray-700 border-border-subtle-medium hover:bg-surface-subtle'
-                }`}
-              >
-                <span>{sport}</span>
-                <span className={`text-xs px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'}`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 4. VISUAL MATRIX / TIME SLOT GRID */}
-      <section className="container mx-auto max-w-6xl px-4 mt-6">
-        {loadingGrid ? (
-          <Card radius="xl" className="p-8 space-y-6 border border-border-subtle-medium">
-            <div className="flex justify-between items-center">
-              <Skeleton variant="text" width="180px" height="24px" />
-              <Skeleton variant="text" width="120px" height="20px" />
-            </div>
-            <Skeleton variant="rectangular" height="250px" />
-          </Card>
-        ) : filteredCourts.length === 0 ? (
-          <Card radius="xl" className="p-8 border border-border-subtle-medium">
-            <EmptyState
-              title="Không có sân cho bộ môn này"
-              description="Vui lòng chọn môn thể thao khác hoặc chọn ngày khác để tiếp tục đặt lịch."
-            />
-          </Card>
-        ) : (
-          <div className="space-y-6">
-            {filteredCourts.map((court) => (
-              <Card
-                key={court.court_id}
-                radius="2xl"
-                padding="md"
-                className="border border-border-subtle-medium shadow-sm bg-surface overflow-hidden"
-              >
-                {/* Court Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-border-subtle-medium gap-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/10 text-brand-orange font-bold text-sm flex items-center justify-center border border-brand-orange/20">
-                      {court.sport_category ? court.sport_category.substring(0, 2).toUpperCase() : 'ST'}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-base">
-                        {court.court_name}
-                      </h3>
-                      <span className="text-xs text-text-muted">
-                        Môn: <strong className="text-gray-700 font-semibold">{court.sport_category}</strong>
-                      </span>
-                    </div>
-                  </div>
-
-                  <Badge
-                    variant={court.court_status === 'ACTIVE' ? 'success' : 'danger'}
-                    size="sm"
-                  >
-                    {court.court_status === 'ACTIVE' ? 'Đang hoạt động' : `Trạng thái: ${court.court_status}`}
+              {/* Details */}
+              <div className="space-y-1.5 flex-1">
+                <div className="flex items-center gap-2">
+                  <Badge variant="rating" size="sm" leftIcon={<Star size={12} className="fill-current text-amber-500" />}>
+                    4.8
                   </Badge>
                 </div>
 
-                {/* Time Slots Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2.5">
-                  {court.slots.map((slot) => {
-                    const slotKey = `${court.court_id}___${slot.start_time}`;
-                    const isSelected = Boolean(selectedSlotsMap[slotKey]);
+                <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug">
+                  {venue.venue_name}
+                </h1>
 
-                    // Render Available Slot
-                    if (slot.status === 'AVAILABLE') {
-                      return (
-                        <button
-                          key={slot.start_time}
-                          onClick={() => toggleSlotSelection(court, slot)}
-                          className={`p-2.5 rounded-xl border text-center transition-all duration-200 flex flex-col items-center justify-between relative group ${
-                            isSelected
-                              ? 'bg-brand-orange text-white border-brand-orange ring-2 ring-brand-orange/30 shadow-md scale-105 z-10'
-                              : 'bg-emerald-50/60 hover:bg-emerald-100/80 border-emerald-300/80 text-gray-800 hover:shadow-sm'
-                          }`}
-                        >
-                          <span className={`text-xs font-bold ${isSelected ? 'text-white' : 'text-gray-900'}`}>
-                            {slot.label}
-                          </span>
-                          
-                          <span className={`text-[11px] font-semibold mt-1 ${isSelected ? 'text-white/90' : 'text-emerald-700'}`}>
-                            {slot.price ? `${(slot.price).toLocaleString('vi-VN')}đ` : 'Miễn phí'}
-                          </span>
-
-                          {isSelected && (
-                            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white text-brand-orange rounded-full flex items-center justify-center shadow-md">
-                              <Check size={12} strokeWidth={3} />
-                            </span>
-                          )}
-                        </button>
-                      );
-                    }
-
-                    // Render Booked Slot
-                    if (slot.status === 'BOOKED') {
-                      return (
-                        <div
-                          key={slot.start_time}
-                          className="p-2.5 rounded-xl border border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed flex flex-col items-center justify-between select-none opacity-80"
-                          title="Khung giờ này đã được người khác đặt"
-                        >
-                          <span className="text-xs font-semibold line-through">{slot.label}</span>
-                          <span className="text-[10px] font-medium text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded mt-1">
-                            Đã đặt
-                          </span>
-                        </div>
-                      );
-                    }
-
-                    // Render Blocked / Maintenance Slot
-                    return (
-                      <div
-                        key={slot.start_time}
-                        className="p-2.5 rounded-xl border border-red-200 bg-red-50/60 text-red-400 cursor-not-allowed flex flex-col items-center justify-between select-none"
-                        title={slot.reason || 'Tạm khóa'}
-                      >
-                        <span className="text-xs font-medium">{slot.label}</span>
-                        <span className="text-[10px] font-semibold text-red-500 flex items-center gap-0.5 mt-1">
-                          <Lock size={10} />
-                          {slot.status === 'BLOCKED' ? 'Tạm khóa' : 'Không dụng'}
-                        </span>
-                      </div>
-                    );
-                  })}
+                <div className="space-y-1 text-xs md:text-sm text-text-muted">
+                  <div className="flex items-center gap-2">
+                    <MapPin size={15} className="text-gray-400 shrink-0" />
+                    <span>{locationStr}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock size={15} className="text-gray-400 shrink-0" />
+                    <span>{operatingHoursStr}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone size={15} className="text-gray-400 shrink-0" />
+                    <span>{venue.contact_phone || 'Chưa cập nhật SĐT'}</span>
+                  </div>
                 </div>
-              </Card>
-            ))}
+              </div>
+            </div>
+
+            {/* Right: Action Buttons */}
+            <div className="flex flex-col gap-3 w-full md:w-48 shrink-0 pt-2 md:pt-0">
+              <Button
+                variant="primary"
+                size="lg"
+                fullWidth
+                leftIcon={<Calendar size={18} />}
+                className="bg-brand-orange hover:bg-brand-orange-hover text-white shadow-md font-bold"
+              >
+                Đặt lịch
+              </Button>
+              <Button
+                variant="outline"
+                size="md"
+                fullWidth
+                disabled={favPending}
+                leftIcon={<Heart size={18} className="text-accent-primary" />}
+                onClick={async () => {
+                  if (favPending) return;
+                  try {
+                    setFavPending(true);
+                    await addFavorite(venueId);
+                    alert("Đã thêm sân vào danh sách yêu thích thành công.");
+                  } catch (err) {
+                    alert("Sân này đã có trong danh sách yêu thích của bạn.");
+                  } finally {
+                    setFavPending(false);
+                  }
+                }}
+                className="border-accent-primary text-accent-primary hover:bg-accent-primary-light font-semibold"
+              >
+                Yêu thích
+              </Button>
+            </div>
+
           </div>
-        )}
+        </Card>
       </section>
 
-      {/* 5. STICKY BOOKING SUMMARY FOOTER */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-border-subtle-medium shadow-2xl py-4">
-        <div className="container mx-auto max-w-6xl px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          
-          {/* Left: Summary Details */}
-          <div className="w-full md:w-auto flex-1 space-y-1">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-              <span className="text-text-muted">
-                Ngày đặt: <strong className="text-gray-900">{selectedDate.split('-').reverse().join('/')}</strong>
-              </span>
-              <span className="text-text-muted">
-                Môn: <strong className="text-gray-900">{selectedSport === 'ALL' ? 'Nhiều môn' : selectedSport}</strong>
-              </span>
-              <span className="text-text-muted">
-                Tổng giờ: <strong className="text-brand-orange font-bold text-sm">{totalHours}h</strong> ({totalSelectedCount} khung giờ)
-              </span>
-            </div>
+      {/* 3. CALENDAR CONTROLS, LEGEND & DATE SELECTOR */}
+      <section className="container mx-auto px-4 max-w-6xl mt-6 space-y-4">
 
-            {totalSelectedCount > 0 ? (
-              <div className="text-xs text-gray-700 truncate max-w-2xl">
-                <span className="font-semibold text-gray-900">Sân đã chọn: </span>
-                <span className="text-brand-orange font-medium">{selectedCourtsNames}</span>
-                <span className="mx-2 text-gray-300">|</span>
-                <span className="text-text-muted">{selectedTimeLabels}</span>
-              </div>
-            ) : (
-              <p className="text-xs text-text-muted italic">
-                Vui lòng nhấp chọn các khung giờ còn trống (ô màu xanh) trên bảng trạng thái sân để tiếp tục.
-              </p>
-            )}
+        {/* Status Legend Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 bg-surface p-4 rounded-xl border border-border-subtle-medium shadow-xs">
+
+          {/* Status Color Badges */}
+          <div className="flex flex-wrap items-center gap-5 text-xs font-semibold text-gray-700">
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 rounded border border-gray-300 bg-white shadow-xs"></span>
+              <span>Trống</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 rounded bg-[#ef4444]"></span>
+              <span>Đã đặt</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 rounded bg-[#6b7280]"></span>
+              <span>Khoá</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 rounded bg-[#70385c]"></span>
+              <span>Sự kiện</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 rounded bg-accent-primary"></span>
+              <span>Đang chọn</span>
+            </div>
           </div>
 
-          {/* Right: Total Amount & Action Button */}
-          <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-3 md:pt-0 border-border-subtle-medium">
-            <div className="text-left md:text-right">
-              <span className="text-xs text-text-muted block">Tổng tiền tạm tính</span>
-              <span className="text-xl md:text-2xl font-bold text-brand-orange">
-                {totalAmount.toLocaleString('vi-VN')} <span className="text-sm font-semibold">đ</span>
-              </span>
+          {/* Price List Link & Date Picker Input */}
+          <div className="flex items-center gap-4 text-xs font-medium">
+            <button
+              onClick={() => alert("Bảng giá cơ bản: 60.000đ - 120.000đ / 30 phút tuỳ khung giờ.")}
+              className="text-brand-orange font-bold hover:underline"
+            >
+              Xem sân & bảng giá
+            </button>
+
+            <div className="flex items-center gap-2 bg-surface-subtle px-3 py-1.5 rounded-lg border border-border-subtle-medium text-gray-800 font-bold">
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setSelectedDate(e.target.value);
+                    setSelectedSlotsMap({});
+                  }
+                }}
+                className="bg-transparent border-none text-xs font-bold text-gray-900 focus:outline-none cursor-pointer"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* Quick Date Chips Bar */}
+        {/* <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          {availableDates.map((day) => {
+            const isSelected = selectedDate === day.isoDate;
+            return (
+              <button
+                key={day.isoDate}
+                onClick={() => {
+                  setSelectedDate(day.isoDate);
+                  setSelectedSlotsMap({});
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border ${
+                  isSelected
+                    ? 'bg-accent-primary text-white border-accent-primary shadow-xs'
+                    : 'bg-surface hover:bg-surface-subtle text-gray-700 border-border-subtle-medium'
+                }`}
+              >
+                {day.dayName} ({day.dayFormatted})
+              </button>
+            );
+          })}
+        </div> */}
+
+        {/* Notice Banner */}
+        <div className="p-3 bg-amber-50 border border-amber-200/80 rounded-xl text-xs text-amber-800 flex items-center gap-2 shadow-xs">
+          <Info size={16} className="text-amber-600 shrink-0" />
+          <span>
+            <strong>Lưu ý:</strong> Mọi yêu cầu đặt lịch cố định vui lòng liên hệ hotline: <strong className="text-amber-900">{venue.contact_phone || 'Chưa cập nhật SĐT'}</strong> để được hỗ trợ tốt nhất.
+          </span>
+        </div>
+
+      </section>
+
+      {/* 4. TIMELINE MATRIX GRID TABLE (MATCHING UX REFERENCE) */}
+      <section className="container mx-auto px-4 max-w-6xl mt-6 space-y-4">
+        <Card radius="2xl" padding="none" className="border border-border-subtle-medium shadow-md bg-surface overflow-hidden">
+
+          {loadingGrid ? (
+            <div className="p-12 space-y-4 text-center">
+              <Skeleton variant="text" width="200px" className="mx-auto" />
+              <Skeleton variant="rectangular" height="300px" />
+            </div>
+          ) : (courtsList.length === 0 || timeSlots.length === 0) ? (
+            <div className="p-12">
+              <EmptyState
+                title="Hiện chưa có sân hoặc khung giờ khả dụng"
+                description="Hệ thống chưa tìm thấy sân hoặc khung giờ phục vụ cho ngày đã chọn. Vui lòng chọn ngày khác."
+              />
+            </div>
+          ) : (
+            <div className="overflow-x-auto w-full relative max-h-[600px] overflow-y-auto">
+
+              <table className="w-full text-left border-collapse min-w-[1200px]">
+                {/* Table Header: Time Slots */}
+                <thead className="bg-[#e0f2fe]/60 sticky top-0 z-20 shadow-xs border-b border-border-subtle-medium">
+                  <tr>
+                    {/* Fixed Court Header Cell */}
+                    <th className="p-3 text-xs font-bold text-gray-800 w-36 min-w-[140px] bg-[#dbeafe] sticky left-0 z-30 border-r border-border-subtle-medium shadow-xs">
+                      Sân / Giờ
+                    </th>
+
+                    {/* Time Slot Columns */}
+                    {timeSlots.map((slot) => (
+                      <th
+                        key={slot.start_time}
+                        className="p-2 text-[11px] font-bold text-gray-700 text-center border-r border-border-subtle-medium min-w-[70px] select-none"
+                      >
+                        <div>{slot.start_time.substring(0, 5)}</div>
+                        <div className="text-[10px] text-gray-500 font-normal">{slot.end_time.substring(0, 5)}</div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+
+                {/* Table Body: Court Rows */}
+                <tbody className="divide-y divide-border-subtle">
+                  {courtsList.map((court) => (
+                    <tr key={court.court_id} className="hover:bg-surface-subtle/50 transition-colors">
+
+                      {/* Court Name Left Cell (Sticky Left) */}
+                      <td className="p-3 text-xs font-bold text-gray-900 bg-surface sticky left-0 z-10 border-r border-border-subtle-medium shadow-xs truncate">
+                        {court.court_name}
+                      </td>
+
+                      {/* Timeline Slots Cells */}
+                      {court.slots.map((slot) => {
+                        const slotKey = `${court.court_id}___${slot.start_time}`;
+                        const isSelected = Boolean(selectedSlotsMap[slotKey]);
+
+                        // Cell Base Style
+                        let cellClass = "p-2 border-r border-b border-border-subtle transition-all duration-150 relative h-12 text-center text-[10px] select-none ";
+                        let titleText = `${court.court_name} | ${slot.label}`;
+
+                        // 1. AVAILABLE (Trống - Trắng)
+                        if (slot.status === 'AVAILABLE') {
+                          if (isSelected) {
+                            // 2. SELECTED (Đang chọn - Cam)
+                            cellClass += "bg-accent-primary text-white cursor-pointer shadow-inner font-bold";
+                            titleText += ` | Đang chọn (${slot.price ? slot.price.toLocaleString('vi-VN') + 'đ' : '0đ'})`;
+                          } else {
+                            cellClass += "bg-white hover:bg-emerald-100/70 text-transparent hover:text-emerald-900 cursor-pointer";
+                            titleText += ` | Còn trống (${slot.price ? slot.price.toLocaleString('vi-VN') + 'đ' : '0đ'})`;
+                          }
+                        }
+                        // 3. BOOKED (Đã đặt - Đỏ)
+                        else if (slot.status === 'BOOKED') {
+                          cellClass += "bg-[#ef4444] text-white cursor-not-allowed opacity-90";
+                          titleText += " | Đã được đặt";
+                        }
+                        // 4. LOCKED (Khoá - Xám)
+                        else if (slot.status === 'BLOCKED') {
+                          cellClass += "bg-[#6b7280] text-white cursor-not-allowed opacity-90";
+                          titleText += ` | Khoá: ${slot.reason || 'Bảo trì'}`;
+                        }
+                        // 5. EVENT (Sự kiện - Tím / Plum)
+                        else if (slot.status === 'EVENT') {
+                          cellClass += "bg-[#70385c] text-white cursor-not-allowed opacity-95";
+                          titleText += ` | Sự kiện: ${slot.reason || 'Đặc biệt'}`;
+                        }
+                        // 6. DISABLED / UNAVAILABLE (Xám tối)
+                        else {
+                          cellClass += "bg-gray-200 text-gray-400 cursor-not-allowed opacity-60";
+                          titleText += ` | ${slot.reason || 'Ngoài giờ'}`;
+                        }
+
+                        return (
+                          <td
+                            key={slot.start_time}
+                            onClick={() => toggleSlotSelection(court, slot)}
+                            className={cellClass}
+                            title={titleText}
+                          >
+                            {/* Render Checkmark if Selected */}
+                            {isSelected && (
+                              <div className="flex items-center justify-center h-full">
+                                <Check size={14} strokeWidth={3} className="text-white drop-shadow-xs" />
+                              </div>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+            </div>
+          )}
+
+        </Card>
+
+        {/* 5. BOOKING SUMMARY BAR (PLACED DIRECTLY BELOW THE MATRIX TABLE) */}
+        <div className="bg-accent-primary text-white rounded-2xl p-4 md:p-5 shadow-lg border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-4 mt-4">
+
+          {/* Left Details */}
+          <div className="space-y-0.5 w-full md:w-auto">
+            <div className="text-[11px] text-cyan-100 font-medium tracking-wide">
+              Thời gian chọn
             </div>
 
+            <div className="text-xl md:text-2xl font-extrabold text-white flex items-center gap-4">
+              <span>Tổng giờ: <strong className="text-amber-300 font-extrabold">{totalHours}h</strong></span>
+              {formattedTimeInterval && (
+                <span className="text-xs font-normal text-cyan-100 hidden sm:inline">
+                  ({formattedTimeInterval})
+                </span>
+              )}
+            </div>
+
+            <div className="text-xs text-cyan-100">
+              Tạm tính
+            </div>
+
+            <div className="text-xl md:text-2xl font-extrabold text-white leading-none">
+              Tổng tiền: <strong className="text-amber-300 font-extrabold">{totalAmount.toLocaleString('vi-VN')}đ</strong>
+            </div>
+          </div>
+
+          {/* Right CTA Button */}
+          <div className="w-full md:w-auto flex justify-end">
             <Button
               variant="primary"
               size="lg"
               disabled={totalSelectedCount === 0}
               onClick={handleProceedToCheckout}
-              rightIcon={<ChevronRight size={18} />}
-              className="shadow-md min-w-[160px]"
+              rightIcon={<ArrowRight size={18} />}
+              className={`w-full md:w-auto px-8 py-3.5 rounded-xl font-extrabold text-base shadow-md transition-all ${totalSelectedCount > 0
+                  ? 'bg-brand-orange hover:bg-brand-orange-hover text-white scale-105'
+                  : 'bg-gray-400 text-gray-200 cursor-not-allowed opacity-70'
+                }`}
             >
               TIẾP THEO
             </Button>
           </div>
 
         </div>
-      </div>
+      </section>
 
     </div>
   );
